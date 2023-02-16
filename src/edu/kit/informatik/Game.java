@@ -224,7 +224,7 @@ public class Game {
         try {
             this.getCurrentPlayer().addGold(price * -1);
         } catch (IllegalArgumentException e) {
-            return Config.ERROR_LAND_TO_EXPENSIVE;
+            return Config.ERROR_NOT_ENOUGH_GOLD;
         }
 
         PlantableTileType tileType = this.tileStack.drawTile();

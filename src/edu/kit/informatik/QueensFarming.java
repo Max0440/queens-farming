@@ -63,7 +63,7 @@ public class QueensFarming {
                 playerCount = Integer.parseInt(playerCountString);
 
                 if (playerCount <= 0) {
-                    System.err.println(Config.ERROR_PLAYER_COUNT_TO_SMALL);
+                    System.err.println(Config.ERROR_INPUT_SMALLER_ONE);
                     playerCount = null;
                 }
             } catch (NumberFormatException e) {

@@ -8,8 +8,8 @@ public enum PlantableTileType {
     GARDEN(2, "G", "Garden", Config.GARDEN_PLANTABLE_VEGETABLES),
     FIELD(4, "Fi", "Field", Config.FIELD_PLANTABLE_VEGETABLES),
     LARGE_FIELD(8, "LFi", "Large Field", Config.FIELD_PLANTABLE_VEGETABLES),
-    FOREST(4, "Fo", "Forest", Config.FORREST_PLANTABLE_VEGETABLES),
-    LARGE_FOREST(8, "LFo", "Large Forest", Config.FORREST_PLANTABLE_VEGETABLES);
+    FOREST(4, "Fo", "Forest", Config.FOREST_PLANTABLE_VEGETABLES),
+    LARGE_FOREST(8, "LFo", "Large Forest", Config.FOREST_PLANTABLE_VEGETABLES);
 
     private int maxCapacity;
     private String abbreviation;

@@ -1,40 +1,77 @@
 package edu.kit.informatik;
 
 public class Config {
+    /**
+     * The start of every error output
+     */
     public static final String ERROR = "Error: ";
 
+    /**
+     * Error message in case the program is started with arguments
+     */
     public static final String ERROR_ILLEGAL_ARGS_COUNT = ERROR + "Expected no arguments!";
+    /**
+     * Error message when trying to initialize a utility class
+     */
     public static final String ERROR_UTILITY_CLASS_INSTANTIATION = ERROR + "Utility class may not be instantiated!";
 
-    public static final String ERROR_PLAYER_COUNT_TO_SMALL = ERROR + "Player count must be bigger then 0!";
+    /**
+     * Error message in case a input is expected to be a number
+     */
+    public static final String ERROR_INPUT_NOT_NUMBER = ERROR + "Input must be a number!";
+    /**
+     * Error message in case a number has to be bigger the zero
+     */
+    public static final String ERROR_INPUT_SMALLER_ONE = ERROR + "Input must be bigger then zero!";
+    /**
+     * Error message in case a number has to be bigger or equal to zero
+     */
+    public static final String ERROR_INPUT_SMALLER_ZERO = ERROR + "Input must be bigger or equal to zero!";
+    /**
+     * Error message in case a command is not known
+     */
+    public static final String ERROR_COMMAND_NOT_FOUND = ERROR + "Command not found!";
+    /**
+     * Error message in case a entered player name is not valid
+     */
     public static final String ERROR_PLAYER_NAME_NOT_VALID = ERROR
             + "Player name must contain at least one uppercase or lowercase letter!";
-    public static final String ERROR_INPUT_NOT_NUMBER = ERROR + "Input must be a number!";
-    public static final String ERROR_INPUT_SMALLER_ONE = ERROR + "Input must be bigger then zero!";
-    public static final String ERROR_INPUT_SMALLER_ZERO = ERROR + "Input must be bigger or equal to zero!";
+    /**
+     * Error message in case a player doesn't have enough
+     */
+    public static final String ERROR_NOT_ENOUGH_GOLD = ERROR + "You don't have enough gold!";
+    /**
+     * Error message in case of tying to buy land at a position where it can't be
+     * bought
+     */
     public static final String ERROR_LAND_NOT_PLACABLE = ERROR + "You can't buy land at this location!";
-    public static final String ERROR_LAND_TO_EXPENSIVE = ERROR + "You don't have enough gold to buy the land!";
 
-    public static final String ERROR_COMMAND_NOT_FOUND = ERROR + "Command not found!";
-    public static final String ERROR_NOT_ENOUGH_GOLD = ERROR + "Not enough gold!";
-
+    /**
+     * Allowed vegetable types to plant in a garden
+     */
     public static final VegetableType[] GARDEN_PLANTABLE_VEGETABLES = {
             VegetableType.CARROT,
             VegetableType.MUSHROOM,
             VegetableType.SALAD,
             VegetableType.TOMATO
     };
+    /**
+     * Allowed vegetable types to plant on a (large) field
+     */
     public static final VegetableType[] FIELD_PLANTABLE_VEGETABLES = {
             VegetableType.CARROT,
             VegetableType.SALAD,
             VegetableType.TOMATO
     };
-    public static final VegetableType[] FORREST_PLANTABLE_VEGETABLES = {
+    /**
+     * Allowed vegetable types to plant in a (large) forest
+     */
+    public static final VegetableType[] FOREST_PLANTABLE_VEGETABLES = {
             VegetableType.CARROT,
             VegetableType.MUSHROOM
     };
 
     private Config() {
-        throw new AssertionError(Config.ERROR_UTILITY_CLASS_INSTANTIATION);
+        throw new AssertionError(ERROR_UTILITY_CLASS_INSTANTIATION);
     }
 }

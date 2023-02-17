@@ -29,11 +29,11 @@ public class QueensFarming {
             System.out.println(Config.ERROR_ILLEGAL_ARGS_COUNT);
         }
 
-        // initializeSequence();
+        initializeSequence();
         // String[] players = { "Mira", "Milan", "Vincent" };
         // String[] players = { "Max", "Jean" };
-        String[] players = { "Mira" };
-        game = new Game(players, 20, 30, 6);
+        // String[] players = { "Mira" };
+        // game = new Game(players, 20, 30, 6);
 
         while (game.isActive()) {
             System.out.println(game.startNextTurn());
@@ -71,18 +71,18 @@ public class QueensFarming {
             }
         }
 
-        int i = 1;
         String[] playerNames = new String[playerCount];
-        while (i <= playerCount) {
-            // TODO Don't print out again on error
-            System.out.println(String.format("Enter the name of player %d:", i));
-            String name = inputScanner.nextLine();
+        for (int i = 0; i < playerCount; i++) {
+            System.out.println(String.format("Enter the name of player %d:", i + 1));
 
-            if (name.matches(VALID_PLAYER_NAME_REGEX)) {
-                playerNames[i - 1] = name;
-                i++;
-            } else {
-                System.err.println(Config.ERROR_PLAYER_NAME_NOT_VALID);
+            while (playerNames[i] == null) {
+                String name = inputScanner.nextLine();
+
+                if (name.matches(VALID_PLAYER_NAME_REGEX)) {
+                    playerNames[i] = name;
+                } else {
+                    System.err.println(Config.ERROR_PLAYER_NAME_NOT_VALID);
+                }
             }
         }
 
@@ -120,14 +120,13 @@ public class QueensFarming {
             }
         }
 
-        // TODO check if is in interval
         System.out.println("Please enter the seed used to shuffle the tiles:");
-        Long seed = null;
+        Integer seed = null;
         while (seed == null) {
             String seedString = inputScanner.nextLine();
 
             try {
-                seed = Long.parseLong(seedString);
+                seed = Integer.parseInt(seedString);
             } catch (NumberFormatException e) {
                 System.err.println(Config.ERROR_INPUT_NOT_NUMBER);
             }

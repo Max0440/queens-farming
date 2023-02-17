@@ -28,6 +28,10 @@ public class Config {
      */
     public static final String ERROR_INPUT_SMALLER_ZERO = ERROR + "Input must be bigger or equal to zero!";
     /**
+     * Error message in case the seed is not in the interval [-2147483648,2147483647]
+     */
+    public static final String ERROR_SEED_NOT_IN_INTERVAL = ERROR + "Seed must be in the interval [-2147483648,2147483647]!";
+    /**
      * Error message in case a command is not known
      */
     public static final String ERROR_COMMAND_NOT_FOUND = ERROR + "Command not found!";

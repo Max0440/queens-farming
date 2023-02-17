@@ -21,8 +21,9 @@ public class Barn extends Tile {
      * @param row    on board
      */
     // TODO warum nicht gleich null?
-    public Barn(final int column, final int row) {
-        super(column, row);
+    public Barn() {
+        // TODO remove magic number
+        super(0,0);
 
         this.vegetables = new EnumMap<>(VegetableType.class);
         setVegetableListToValue(1);

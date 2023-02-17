@@ -15,7 +15,7 @@ public class Board {
     public Board() {
         // TODO as map
         this.tiles = new ArrayList<>();
-        this.tiles.add(new Barn(0, 0));
+        this.tiles.add(new Barn());
         this.tiles.add(new PlantableTile(-1, 0, PlantableTileType.GARDEN));
         this.tiles.add(new PlantableTile(1, 0, PlantableTileType.GARDEN));
         this.tiles.add(new PlantableTile(0, 1, PlantableTileType.FIELD));
@@ -94,7 +94,6 @@ public class Board {
     }
 
     public void addTile(final int xCoordinate, final int yCoordinate, final PlantableTileType tileType) {
-        // TODO test
         final Tile newTile = new PlantableTile(xCoordinate, yCoordinate, tileType);
         this.tiles.add(newTile);
     }

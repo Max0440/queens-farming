@@ -19,25 +19,26 @@ public class PlantableTile extends Tile {
         this.plantedVegetableCount = 0;
     }
 
-    public String startNextTurn() {
+    @Override
+    public int grow() {
         if (!this.growCountdown.isActive()) {
-            return null;
+            return 0;
         }
 
         if (!this.growCountdown.nextStep(-1)) {
-            return null;
+            return 0;
         }
-        this.growCountdown.setValue(this.tileType.getMaxCapacity());
+        this.growCountdown.setValue(this.plantedVegetable.getTimeToGrow());
 
-        int newGrownVegetables = this.plantedVegetableCount *= 2;
-        if (newGrownVegetables >= this.tileType.getMaxCapacity()) {
-            newGrownVegetables = this.tileType.getMaxCapacity();
+        int newVegetableCount = this.plantedVegetableCount * 2;
+        if (newVegetableCount >= this.tileType.getMaxCapacity()) {
+            newVegetableCount = this.tileType.getMaxCapacity();
             this.growCountdown.setActive(false);
         }
 
-        this.plantedVegetableCount = newGrownVegetables;
-        // TODO return newGrownVegetables
-        return null;
+        final int newlyGrownVegetable = newVegetableCount- this.plantedVegetableCount ;
+        this.plantedVegetableCount = newVegetableCount;
+        return newlyGrownVegetable;
     }
 
     public void plant(final VegetableType vegetable) {

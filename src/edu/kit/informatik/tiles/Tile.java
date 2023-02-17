@@ -25,4 +25,8 @@ public class Tile {
     public String startNextTurn() {
         return null;
     }
+
+    public int grow() {
+        return 0;
+    }
 }

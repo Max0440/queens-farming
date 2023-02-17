@@ -29,11 +29,11 @@ public class QueensFarming {
             System.out.println(Config.ERROR_ILLEGAL_ARGS_COUNT);
         }
 
-        initializeSequence();
+        // initializeSequence();
         // String[] players = { "Mira", "Milan", "Vincent" };
         // String[] players = { "Max", "Jean" };
-        // String[] players = { "Mira" };
-        // game = new Game(players, 20, 30, 6);
+        String[] players = { "Mira" };
+        game = new Game(players, 20, 30, 6);
 
         while (game.isActive()) {
             System.out.println(game.startNextTurn());

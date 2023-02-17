@@ -37,16 +37,27 @@ public class Board {
     }
 
     public String startNextTurn() {
+        // TODO var names & nicer
+        int totalGrown = 0;
         for (int i = 0; i < this.tiles.size(); i++) {
-            if (this.tiles.get(i) instanceof Barn) {
-                continue;
-            }
-            this.tiles.get(i).startNextTurn();
+            // if (this.tiles.get(i) instanceof Barn) {
+            // continue;
+            // }
+            // this.tiles.get(i).startNextTurn();
+            totalGrown += this.tiles.get(i).grow();
+        }
+        String s = "";
+        if (totalGrown == 1) {
+            s = "1 vegetable has grown since your last turn.";
+        } else if (totalGrown > 1) {
+            s = String.format("%s vegetables have grown since your last turn. ", totalGrown);
         }
 
-        // TODO GANZ WICHTIG
-        return "";
-        // return "The vegetables in your barn are spoiled.";
+        String asd = this.getBarn().startNextTurn();
+        if (asd != null) {
+            return s + System.lineSeparator() + asd;
+        }
+        return s;
     }
 
     public String plant(final int xCoordinate, final int yCoordinate, final VegetableType vegetable)

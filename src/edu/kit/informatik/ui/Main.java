@@ -2,9 +2,9 @@ package edu.kit.informatik.ui;
 
 import java.util.Scanner;
 
-import edu.kit.informatik.Game;
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.config.GeneralConfig;
+import edu.kit.informatik.game.QueensFarming;
 
 /**
  * The entry point of the game.
@@ -12,14 +12,14 @@ import edu.kit.informatik.config.GeneralConfig;
  * @author uiljo
  * @version 1.0
  */
-public class QueensFarming {
+public class Main {
 
     private static final String VALID_PLAYER_NAME_REGEX = "[A-Za-z]+";
 
     private static Scanner inputScanner = new Scanner(System.in);
-    private static Game game;
+    private static QueensFarming game;
 
-    private QueensFarming() {
+    private Main() {
         throw new AssertionError(ErrorMessages.UTILITY_CLASS_INSTANTIATION);
     }
 
@@ -137,7 +137,7 @@ public class QueensFarming {
             }
         }
 
-        game = new Game(playerNames, goldAtStart, goldToWin, seed);
+        game = new QueensFarming(playerNames, goldAtStart, goldToWin, seed);
     }
 
     private static void printPixelArt() {

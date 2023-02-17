@@ -1,14 +1,18 @@
-package edu.kit.informatik;
+package edu.kit.informatik.game;
 
 import java.util.List;
 
+import edu.kit.informatik.Board;
+import edu.kit.informatik.GameException;
+import edu.kit.informatik.Market;
+import edu.kit.informatik.VegetableType;
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.player.Player;
 import edu.kit.informatik.player.PlayerList;
 import edu.kit.informatik.tiles.PlantableTileType;
 import edu.kit.informatik.tiles.TileStack;
 
-public class Game {
+public class QueensFarming {
 
     private static final int MAX_ACTION_COUNT = 2;
 
@@ -22,14 +26,14 @@ public class Game {
     private final TileStack tileStack;
 
     /**
-     * Instantiates a new {@link Game}.
+     * Instantiates a new {@link QueensFarming}.
      * 
      * @param playerNames array with names of all players
      * @param goldAtStart gold at the start of the game
      * @param goldToWin   gold which is needed to win
      * @param seed        seed for shuffling tile stack
      */
-    public Game(final String[] playerNames, final int goldAtStart, final int goldToWin, final long seed) {
+    public QueensFarming(final String[] playerNames, final int goldAtStart, final int goldToWin, final long seed) {
         this.isActive = true;
         this.currentTurn = -1;
 

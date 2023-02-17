@@ -5,37 +5,37 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import edu.kit.informatik.Game;
 import edu.kit.informatik.GameException;
 import edu.kit.informatik.VegetableType;
 import edu.kit.informatik.config.ErrorMessages;
+import edu.kit.informatik.game.QueensFarming;
 
 public enum CommandHandler {
 
     END_TURN("end turn") {
         @Override
-        public String execute(Matcher input, Game game) {
+        public String execute(Matcher input, QueensFarming game) {
             return game.endTurn();
         }
     },
 
     SHOW_BARN("show barn") {
         @Override
-        public String execute(Matcher input, Game game) {
+        public String execute(Matcher input, QueensFarming game) {
             return game.showBarn();
         }
     },
 
     SHOW_BOARD("show board") {
         @Override
-        public String execute(Matcher input, Game game) {
+        public String execute(Matcher input, QueensFarming game) {
             return game.showBoard();
         }
     },
 
     SHOW_MARKET("show market") {
         @Override
-        public String execute(Matcher input, Game game) {
+        public String execute(Matcher input, QueensFarming game) {
             return game.showMarket();
         }
     },
@@ -43,7 +43,7 @@ public enum CommandHandler {
     // TODO? auch zulassen, dass man nur "sell" schreiben darf
     SELL("sell( ((carrot)|(mushroom)|(tomato)|(salad)))*") {
         @Override
-        public String execute(Matcher input, Game game) {
+        public String execute(Matcher input, QueensFarming game) {
             // TODO somehow with token stream
             String[] parameters = input.group().split(" ");
             List<VegetableType> vegetableList = new ArrayList<>();
@@ -59,7 +59,7 @@ public enum CommandHandler {
 
     BUY_VEGETABLE("buy vegetable ((carrot)|(mushroom)|(tomato)|(salad))") {
         @Override
-        public String execute(Matcher input, Game game) throws GameException {
+        public String execute(Matcher input, QueensFarming game) throws GameException {
             // TODO somehow with token stream & remove duplicate code
             String[] parameters = input.group().split(" ");
 
@@ -74,7 +74,7 @@ public enum CommandHandler {
 
     BUY_LAND("buy land( -?[0-9]+){2}") {
         @Override
-        public String execute(Matcher input, Game game) throws GameException {
+        public String execute(Matcher input, QueensFarming game) throws GameException {
             String[] parameters = input.group().split(" ");
 
             if (parameters.length != 4) {
@@ -88,7 +88,7 @@ public enum CommandHandler {
     // TODO implement
     HARVEST("harvest( -?[0-9]+){2}( [1-9][0-9]*)") {
         @Override
-        public String execute(Matcher input, Game game) {
+        public String execute(Matcher input, QueensFarming game) {
             System.out.println(input);
             return null;
         }
@@ -97,7 +97,7 @@ public enum CommandHandler {
     // TODO implement
     PLANT("plant( -?[0-9]+){2} ((carrot)|(mushroom)|(tomato)|(salad))") {
         @Override
-        public String execute(Matcher input, Game game) throws GameException {
+        public String execute(Matcher input, QueensFarming game) throws GameException {
             String[] parameters = input.group().split(" ");
 
             if (parameters.length != 4) {
@@ -111,7 +111,7 @@ public enum CommandHandler {
 
     QUIT("quit") {
         @Override
-        public String execute(Matcher input, Game game) {
+        public String execute(Matcher input, QueensFarming game) {
             game.quit();
             return null;
         }
@@ -133,10 +133,10 @@ public enum CommandHandler {
      * message
      * 
      * @param input command string
-     * @param game  {@link Game} object
+     * @param game  {@link QueensFarming} object
      * @return the response to print to the user or an error message
      */
-    public static String executeCommand(String input, Game game) {
+    public static String executeCommand(String input, QueensFarming game) {
         for (CommandHandler command : CommandHandler.values()) {
             Matcher matcher = command.pattern.matcher(input);
             if (matcher.matches()) {
@@ -150,5 +150,5 @@ public enum CommandHandler {
         return ErrorMessages.COMMAND_NOT_FOUND;
     }
 
-    abstract String execute(Matcher input, Game game);
+    abstract String execute(Matcher input, QueensFarming game);
 }

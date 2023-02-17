@@ -44,7 +44,5 @@ public class Countdown {
         this.value += delta;
 
         return this.value <= this.minValue;
-
-        // TODO reset?
     }
 }

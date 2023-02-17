@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import edu.kit.informatik.config.ErrorMessages;
+
 public enum Command {
 
     END_TURN("end turn") {
@@ -142,7 +144,7 @@ public enum Command {
                 }
             }
         }
-        return Config.ERROR_COMMAND_NOT_FOUND;
+        return ErrorMessages.COMMAND_NOT_FOUND;
     }
 
     abstract String execute(Matcher input, Game game);

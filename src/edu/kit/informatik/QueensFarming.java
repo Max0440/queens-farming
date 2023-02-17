@@ -2,6 +2,8 @@ package edu.kit.informatik;
 
 import java.util.Scanner;
 
+import edu.kit.informatik.config.ErrorMessages;
+
 /**
  * The entry point of the game.
  * 
@@ -16,7 +18,7 @@ public class QueensFarming {
     private static Game game;
 
     private QueensFarming() {
-        throw new AssertionError(Config.ERROR_UTILITY_CLASS_INSTANTIATION);
+        throw new AssertionError(ErrorMessages.UTILITY_CLASS_INSTANTIATION);
     }
 
     /**
@@ -26,14 +28,14 @@ public class QueensFarming {
      */
     public static void main(String[] args) {
         if (args.length > 0) {
-            System.out.println(Config.ERROR_ILLEGAL_ARGS_COUNT);
+            System.out.println(ErrorMessages.ILLEGAL_ARGS_COUNT);
         }
 
         // initializeSequence();
         // String[] players = { "Mira", "Milan", "Vincent" };
         // String[] players = { "Max", "Jean" };
         String[] players = { "Mira" };
-        game = new Game(players, 20, 30, 6);
+        game = new Game(players, 20, 60, 6);
 
         while (game.isActive()) {
             System.out.println(game.startNextTurn());
@@ -63,11 +65,11 @@ public class QueensFarming {
                 playerCount = Integer.parseInt(playerCountString);
 
                 if (playerCount <= 0) {
-                    System.err.println(Config.ERROR_INPUT_SMALLER_ONE);
+                    System.err.println(ErrorMessages.INPUT_SMALLER_ONE);
                     playerCount = null;
                 }
             } catch (NumberFormatException e) {
-                System.err.println(Config.ERROR_INPUT_NOT_NUMBER);
+                System.err.println(ErrorMessages.INPUT_NOT_NUMBER);
             }
         }
 
@@ -81,7 +83,7 @@ public class QueensFarming {
                 if (name.matches(VALID_PLAYER_NAME_REGEX)) {
                     playerNames[i] = name;
                 } else {
-                    System.err.println(Config.ERROR_PLAYER_NAME_NOT_VALID);
+                    System.err.println(ErrorMessages.PLAYER_NAME_NOT_VALID);
                 }
             }
         }
@@ -95,11 +97,11 @@ public class QueensFarming {
                 goldAtStart = Integer.parseInt(goldAtStartString);
 
                 if (goldAtStart < 0) {
-                    System.err.println(Config.ERROR_INPUT_SMALLER_ZERO);
+                    System.err.println(ErrorMessages.INPUT_SMALLER_ZERO);
                     goldAtStart = null;
                 }
             } catch (NumberFormatException e) {
-                System.err.println(Config.ERROR_INPUT_NOT_NUMBER);
+                System.err.println(ErrorMessages.INPUT_NOT_NUMBER);
             }
         }
 
@@ -112,11 +114,11 @@ public class QueensFarming {
                 goldToWin = Integer.parseInt(goldToWinString);
 
                 if (goldToWin < 1) {
-                    System.err.println(Config.ERROR_INPUT_SMALLER_ONE);
+                    System.err.println(ErrorMessages.INPUT_SMALLER_ONE);
                     goldToWin = null;
                 }
             } catch (NumberFormatException e) {
-                System.err.println(Config.ERROR_INPUT_NOT_NUMBER);
+                System.err.println(ErrorMessages.INPUT_NOT_NUMBER);
             }
         }
 
@@ -128,7 +130,7 @@ public class QueensFarming {
             try {
                 seed = Integer.parseInt(seedString);
             } catch (NumberFormatException e) {
-                System.err.println(Config.ERROR_INPUT_NOT_NUMBER);
+                System.err.println(ErrorMessages.INPUT_NOT_NUMBER);
             }
         }
 

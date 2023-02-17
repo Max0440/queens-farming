@@ -3,6 +3,7 @@ package edu.kit.informatik;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.tiles.Barn;
 import edu.kit.informatik.tiles.PlantableTile;
 import edu.kit.informatik.tiles.PlantableTileType;
@@ -67,7 +68,7 @@ public class Board {
 
         if (tile == null) {
             // Error tile not found
-            throw new GameException(Config.ERROR_LAND_NOT_OWNED);
+            throw new GameException(ErrorMessages.LAND_NOT_OWNED);
         }
 
         tile.plant(vegetable);

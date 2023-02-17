@@ -3,10 +3,10 @@ package edu.kit.informatik.tiles;
 import java.util.EnumMap;
 import java.util.Map;
 
-import edu.kit.informatik.Config;
 import edu.kit.informatik.Countdown;
 import edu.kit.informatik.GameException;
 import edu.kit.informatik.VegetableType;
+import edu.kit.informatik.config.ErrorMessages;
 
 public class Barn extends Tile {
 
@@ -54,7 +54,7 @@ public class Barn extends Tile {
     public void removeVegetable(final VegetableType vegetable) throws GameException {
         int currentCount = this.vegetables.get(vegetable);
         if (currentCount == 0) {
-            throw new GameException(Config.ERROR_VEGETABLE_NOT_OWNED);
+            throw new GameException(ErrorMessages.VEGETABLE_NOT_OWNED);
         }
         this.vegetables.put(vegetable, currentCount - 1);
 

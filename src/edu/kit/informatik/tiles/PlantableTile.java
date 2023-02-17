@@ -1,9 +1,9 @@
 package edu.kit.informatik.tiles;
 
-import edu.kit.informatik.Config;
 import edu.kit.informatik.Countdown;
 import edu.kit.informatik.GameException;
 import edu.kit.informatik.VegetableType;
+import edu.kit.informatik.config.ErrorMessages;
 
 public class PlantableTile extends Tile {
 
@@ -44,11 +44,11 @@ public class PlantableTile extends Tile {
 
     public void plant(final VegetableType vegetable) throws GameException {
         if (this.plantedVegetableCount > 0) {
-            throw new GameException(Config.ERROR_ALREADY_PLANTED);
+            throw new GameException(ErrorMessages.ALREADY_PLANTED);
         }
 
         if (!this.tileType.isPlantableVegetable(vegetable)) {
-            throw new GameException(Config.ERROR_WRONG_VEGETABLE_TYPE);
+            throw new GameException(ErrorMessages.WRONG_VEGETABLE_TYPE);
         }
 
         this.plantedVegetable = vegetable;

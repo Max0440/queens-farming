@@ -2,6 +2,7 @@ package edu.kit.informatik;
 
 import java.util.List;
 
+import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.player.Player;
 import edu.kit.informatik.player.PlayerList;
 import edu.kit.informatik.tiles.PlantableTileType;
@@ -222,10 +223,10 @@ public class Game {
         final int price = playerBoard.calculatePrice(xCoordinate, yCoordinate);
 
         if (this.tileStack.isEmpty()) {
-            throw new GameException(Config.ERROR_TILE_STACK_EMPTY);
+            throw new GameException(ErrorMessages.TILE_STACK_EMPTY);
         }
         if (!playerBoard.isPlacableSpace(xCoordinate, yCoordinate)) {
-            throw new GameException(Config.ERROR_LAND_NOT_PLACABLE);
+            throw new GameException(ErrorMessages.LAND_NOT_PLACABLE);
         }
 
         this.getCurrentPlayer().addGold(price * -1);
@@ -238,7 +239,7 @@ public class Game {
 
     public String plant(int xCoordinate, int yCoordinate, VegetableType vegetable) throws GameException {
         if (!this.getCurrentPlayer().getBarn().hasInBarn(vegetable)) {
-            throw new GameException(Config.ERROR_VEGETABLE_NOT_OWNED);
+            throw new GameException(ErrorMessages.VEGETABLE_NOT_OWNED);
         }
         this.getCurrentPlayer().getBoard().plant(xCoordinate, yCoordinate, vegetable);
         this.getCurrentPlayer().getBarn().removeVegetable(vegetable);

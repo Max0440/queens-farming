@@ -1,9 +1,9 @@
 package edu.kit.informatik.player;
 
 import edu.kit.informatik.Board;
-import edu.kit.informatik.Config;
 import edu.kit.informatik.GameException;
 import edu.kit.informatik.VegetableType;
+import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.tiles.Barn;
 
 /**
@@ -96,7 +96,7 @@ public class Player {
      */
     public void addGold(int amount) throws GameException {
         if (this.gold + amount < 0) {
-            throw new GameException(Config.ERROR_NOT_ENOUGH_GOLD);
+            throw new GameException(ErrorMessages.NOT_ENOUGH_GOLD);
         }
         this.gold += amount;
     }

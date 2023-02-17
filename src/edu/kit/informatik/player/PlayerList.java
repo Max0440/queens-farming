@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class PlayerList {
 
-    private List<Player> players = new ArrayList<>();
+    private List<Player> players;
 
     /**
      * Instantiates a new {@link PlayerList}
@@ -20,6 +20,8 @@ public class PlayerList {
      * @param goldAtStart the amount of gold, the players have at the beginning
      */
     public PlayerList(String[] playerNames, int goldAtStart) {
+        this.players = new ArrayList<>();
+
         for (String playerName : playerNames) {
             this.players.add(new Player(playerName, goldAtStart));
         }

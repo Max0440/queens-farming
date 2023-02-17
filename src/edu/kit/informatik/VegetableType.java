@@ -32,16 +32,15 @@ public enum VegetableType {
      * 
      * @param s string to convert to {@link VegetableType}
      * @return vegetable type
-     * @throws IllegalArgumentException
      */
-    public static VegetableType fromString(final String s) throws IllegalArgumentException {
+    public static VegetableType fromString(final String s) {
         for (final VegetableType type : VegetableType.values()) {
             if (type.name.equals(s)) {
                 return type;
             }
         }
 
-        throw new IllegalArgumentException();
+        return null;
     }
 
     /**

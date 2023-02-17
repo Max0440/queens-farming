@@ -54,12 +54,12 @@ public enum Command {
 
     BUY_VEGETABLE("buy vegetable ((carrot)|(mushroom)|(tomato)|(salad))") {
         @Override
-        public String execute(Matcher input, Game game) {
+        public String execute(Matcher input, Game game) throws GameException {
             // TODO somehow with token stream & remove duplicate code
             String[] parameters = input.group().split(" ");
 
             if (parameters.length != 3) {
-                throw new IllegalArgumentException();
+                throw new GameException("TODO ERROR");
             }
             VegetableType vegetable = VegetableType.fromString(parameters[2]);
 
@@ -69,11 +69,11 @@ public enum Command {
 
     BUY_LAND("buy land( -?[0-9]+){2}") {
         @Override
-        public String execute(Matcher input, Game game) {
+        public String execute(Matcher input, Game game) throws GameException {
             String[] parameters = input.group().split(" ");
 
             if (parameters.length != 4) {
-                throw new IllegalArgumentException();
+                throw new GameException("TODO ERROR");
             }
 
             return game.buyLand(Integer.parseInt(parameters[2]), Integer.parseInt(parameters[3]));
@@ -92,14 +92,15 @@ public enum Command {
     // TODO implement
     PLANT("plant( -?[0-9]+){2} ((carrot)|(mushroom)|(tomato)|(salad))") {
         @Override
-        public String execute(Matcher input, Game game) {
+        public String execute(Matcher input, Game game) throws GameException {
             String[] parameters = input.group().split(" ");
 
             if (parameters.length != 4) {
-                throw new IllegalArgumentException();
+                throw new GameException("TODO ERROR");
             }
 
-            return game.plant(Integer.parseInt(parameters[1]), Integer.parseInt(parameters[2]), VegetableType.fromString(parameters[3]));
+            return game.plant(Integer.parseInt(parameters[1]), Integer.parseInt(parameters[2]),
+                    VegetableType.fromString(parameters[3]));
         }
     },
 
@@ -136,9 +137,8 @@ public enum Command {
             if (matcher.matches()) {
                 try {
                     return command.execute(matcher, game);
-                } catch (IllegalArgumentException e) {
-                    // TODO handle error
-                    return "INVALID ARGUMENT DINS BUMS";
+                } catch (GameException e) {
+                    return e.getMessage();
                 }
             }
         }

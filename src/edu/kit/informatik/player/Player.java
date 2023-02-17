@@ -1,6 +1,8 @@
 package edu.kit.informatik.player;
 
 import edu.kit.informatik.Board;
+import edu.kit.informatik.Config;
+import edu.kit.informatik.GameException;
 import edu.kit.informatik.VegetableType;
 import edu.kit.informatik.tiles.Barn;
 
@@ -76,26 +78,25 @@ public class Player {
 
     /**
      * Handle sell action. Reduces the amount of the given vegetable in the barn. If
-     * the player doesn't have the given vegetable it throws an
-     * IllegalArgumentException
+     * the player doesn't have the given vegetable it throws an GameException
      * 
      * @param vegetable to sell
-     * @throws IllegalArgumentException when user doesn't have the vegetable in barn
+     * @throws GameException when user doesn't have the vegetable in barn
      */
-    public void sell(VegetableType vegetable) throws IllegalArgumentException {
+    public void sell(VegetableType vegetable) throws GameException {
         this.getBarn().removeVegetable(vegetable);
     }
 
     /**
      * Adds the given amount of gold to the balance of the player. If the resulting
-     * amount is negative it throws an IllegalArgumentException
+     * amount is negative it throws an GameException
      * 
      * @param amount of gold to add (remove)
-     * @throws IllegalArgumentException when balance is below zero
+     * @throws GameException when balance is below zero
      */
-    public void addGold(int amount) throws IllegalArgumentException {
+    public void addGold(int amount) throws GameException {
         if (this.gold + amount < 0) {
-            throw new IllegalArgumentException();
+            throw new GameException(Config.ERROR_NOT_ENOUGH_GOLD);
         }
         this.gold += amount;
     }

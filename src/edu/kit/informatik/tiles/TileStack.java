@@ -52,6 +52,7 @@ public class TileStack {
      * @return first tile from stack
      */
     public PlantableTileType drawTile() {
+        // Todo stack empty
         final PlantableTileType tile = this.stack.get(0);
         this.stack.remove(0);
 

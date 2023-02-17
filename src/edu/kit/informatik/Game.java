@@ -174,8 +174,8 @@ public class Game {
         for (int i = 0; i < vegetables.size(); i++) {
             try {
                 this.getCurrentPlayer().sell(vegetables.get(i));
-            } catch (IllegalArgumentException e) {
-                return null;
+            } catch (GameException e) {
+                // return null;
                 // TODO? Was machen, wenn ein Gemüse nicht im Besitz ist
             }
             totalPrice += this.market.sell(vegetables.get(i));
@@ -199,15 +199,10 @@ public class Game {
      * @param vegetable to buy
      * @return a message containing the name of the vegetable and the price
      */
-    public String buyVegetable(VegetableType vegetable) {
+    public String buyVegetable(VegetableType vegetable) throws GameException {
         final int price = this.market.getPrice(vegetable);
 
-        try {
-            this.getCurrentPlayer().addGold(price * -1);
-        } catch (IllegalArgumentException e) {
-            return Config.ERROR_NOT_ENOUGH_GOLD;
-        }
-
+        this.getCurrentPlayer().addGold(price * -1);
         this.getCurrentPlayer().buy(vegetable);
         this.remainingActions -= 1;
 
@@ -222,19 +217,15 @@ public class Game {
      * @param yCoordinate
      * @return
      */
-    public String buyLand(int xCoordinate, int yCoordinate) {
+    public String buyLand(int xCoordinate, int yCoordinate) throws GameException {
         final Board playerBoard = this.getCurrentPlayer().getBoard();
         final int price = playerBoard.calculatePrice(xCoordinate, yCoordinate);
 
         if (!playerBoard.isPlacableSpace(xCoordinate, yCoordinate)) {
-            return Config.ERROR_LAND_NOT_PLACABLE;
+            throw new GameException(Config.ERROR_LAND_NOT_PLACABLE);
         }
 
-        try {
-            this.getCurrentPlayer().addGold(price * -1);
-        } catch (IllegalArgumentException e) {
-            return Config.ERROR_NOT_ENOUGH_GOLD;
-        }
+        this.getCurrentPlayer().addGold(price * -1);
 
         // TODO tile stack is empty
         final PlantableTileType tileType = this.tileStack.drawTile();
@@ -244,16 +235,13 @@ public class Game {
     }
 
     public String plant(int xCoordinate, int yCoordinate, VegetableType vegetable) {
-        // TODO: handle exception
         if (!this.getCurrentPlayer().getBarn().hasInBarn(vegetable)) {
-            return "Error: not in barn";
+            // return "Error: not in barn";
+            throw new GameException("TODO ERROR");
         }
 
-        try {
-            this.getCurrentPlayer().getBoard().plant(xCoordinate, yCoordinate, vegetable);
-        } catch (IllegalArgumentException e) {
-            return "Error: not plantable";
-        }
+        this.getCurrentPlayer().getBoard().plant(xCoordinate, yCoordinate, vegetable);
+        // TODO ich glaube einfach nichts?
         return "You have palnted";
     }
 

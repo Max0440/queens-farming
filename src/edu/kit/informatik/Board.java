@@ -44,15 +44,18 @@ public class Board {
             this.tiles.get(i).startNextTurn();
         }
 
-        return "The vegetables in your barn are spoiled.";
+        // TODO GANZ WICHTIG
+        return "";
+        // return "The vegetables in your barn are spoiled.";
     }
 
-    public String plant(final int xCoordinate, final int yCoordinate, final VegetableType vegetable) throws IllegalArgumentException {
+    public String plant(final int xCoordinate, final int yCoordinate, final VegetableType vegetable) throws GameException {
         // TODO type cast
         final PlantableTile tile = (PlantableTile) this.getTile(xCoordinate, yCoordinate);
 
         if (tile == null) {
-            throw new IllegalArgumentException();
+            // Error tile not found
+            throw new GameException("TODO ERROR");
         }
 
         tile.plant(vegetable);
@@ -85,7 +88,6 @@ public class Board {
         return !isOccupied(xCoordinate, yCoordinate) && hasNeighbor(xCoordinate, yCoordinate);
     }
 
-    // TODO
     public int calculatePrice(final int xCoordinate, final int yCoordinate) {
         return 10 * ((Math.abs(xCoordinate) + Math.abs(yCoordinate)) - 1);
     }

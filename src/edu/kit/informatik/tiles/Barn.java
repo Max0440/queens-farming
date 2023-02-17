@@ -3,6 +3,7 @@ package edu.kit.informatik.tiles;
 import java.util.EnumMap;
 import java.util.Map;
 
+import edu.kit.informatik.GameException;
 import edu.kit.informatik.VegetableType;
 
 public class Barn extends Tile {
@@ -45,12 +46,13 @@ public class Barn extends Tile {
      * Removes a given vegetable from the barn
      * 
      * @param vegetable to remove
-     * @throws IllegalArgumentException when vegetable is not in barn
+     * @throws GameException when vegetable is not in barn
      */
-    public void removeVegetable(final VegetableType vegetable) throws IllegalArgumentException {
+    public void removeVegetable(final VegetableType vegetable) throws GameException {
         int currentCount = this.vegetables.get(vegetable);
         if (currentCount == 0) {
-            throw new IllegalArgumentException();
+            // ERROR: Vegetable not in barn
+            throw new GameException("TODO ERROR");
         }
         this.vegetables.put(vegetable, currentCount - 1);
         // TODO reset countdown when empty

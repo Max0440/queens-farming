@@ -17,7 +17,7 @@ public class Player {
     private Board board;
 
     /**
-     * Instantiates a new {@link Player}.
+     * Instantiates a new {@link Player}
      * 
      * @param name name of the player
      * @param gold the amount of gold, the player has at the beginning

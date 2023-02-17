@@ -14,7 +14,7 @@ public class PlayerList {
     private List<Player> players = new ArrayList<>();
 
     /**
-     * Instantiates a new {@link PlayerList}.
+     * Instantiates a new {@link PlayerList}
      * 
      * @param playerNames array with all player names
      * @param goldAtStart the amount of gold, the players have at the beginning

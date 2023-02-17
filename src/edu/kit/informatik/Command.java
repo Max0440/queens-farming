@@ -114,7 +114,7 @@ public enum Command {
     private Pattern pattern;
 
     /**
-     * Instantiates a new {@link Command} enum.
+     * Instantiates a new {@link Command} enum
      * 
      * @param pattern regex pattern the command should listen to
      */

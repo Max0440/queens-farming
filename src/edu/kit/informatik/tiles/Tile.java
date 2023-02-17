@@ -2,10 +2,10 @@ package edu.kit.informatik.tiles;
 
 public class Tile {
 
-    private int xCoordinate;
-    private int yCoordinate;
+    private final int xCoordinate;
+    private final int yCoordinate;
 
-    public Tile(int xCoordinate, int yCoordinate) {
+    public Tile(final int xCoordinate, final int yCoordinate) {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
     }

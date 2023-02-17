@@ -4,12 +4,12 @@ import edu.kit.informatik.VegetableType;
 
 public class PlantableTile extends Tile {
 
-    private PlantableTileType tileType;
+    private final PlantableTileType tileType;
     private VegetableType plantedVegetable;
     private int plantedVegetableCount;
     private int growCountdown;
 
-    public PlantableTile(int xCoordinate, int yCoordinate, PlantableTileType tileType) {
+    public PlantableTile(final int xCoordinate, final int yCoordinate, final PlantableTileType tileType) {
         super(xCoordinate, yCoordinate);
 
         this.tileType = tileType;
@@ -28,13 +28,38 @@ public class PlantableTile extends Tile {
         }
 
         // TODO reset countdown
-        // TODO duplicate vegtables if enough space  
+        // TODO duplicate vegtables if enough space
         System.out.println(growCountdown);
 
         return "The vegetables in your barn are spoiled.";
     }
 
-    public void plant(VegetableType vegetable) {
+    // public int startNextRound() {
+    //     if (this.plantedVegetableCount == this.tileType.getMaxCapacity()) {
+    //         return 0;
+    //     }
+
+    //     this.growCountdown -= 1;
+
+    //     // TODO Check if 0 is the right value
+    //     if (this.growCountdown != 0) {
+    //         return 0;
+    //     }
+
+    //     // TODO reset grow countdown when not full
+
+    //     int grownVegetableCount = 0;
+    //     if (this.plantedVegetableCount * 2 > this.tileType.getMaxCapacity()) {
+    //         grownVegetableCount = this.tileType.getMaxCapacity() - this.plantedVegetableCount;
+    //         this.plantedVegetableCount = this.tileType.getMaxCapacity();
+    //     } else {
+    //         grownVegetableCount = this.plantedVegetableCount;
+    //         this.plantedVegetableCount *= 2;
+    //     }
+    //     return grownVegetableCount;
+    // }
+
+    public void plant(final VegetableType vegetable) {
         if (this.plantedVegetableCount > 0) {
             // TODO Error
             return;
@@ -46,7 +71,7 @@ public class PlantableTile extends Tile {
         this.growCountdown = vegetable.getTimeToGrow();
     }
 
-    public VegetableType harvest(int amountToHarvest) {
+    public VegetableType harvest(final int amountToHarvest) {
         if (this.plantedVegetableCount < amountToHarvest) {
             // TODO Error
             return null;
@@ -55,31 +80,6 @@ public class PlantableTile extends Tile {
         this.plantedVegetableCount -= amountToHarvest;
 
         return plantedVegetable;
-    }
-
-    public int startNextRound() {
-        if (this.plantedVegetableCount == this.tileType.getMaxCapacity()) {
-            return 0;
-        }
-
-        this.growCountdown -= 1;
-
-        // TODO Check if 0 is the right value
-        if (this.growCountdown != 0) {
-            return 0;
-        }
-
-        // TODO reset grow countdown when not full
-
-        int grownVegetableCount = 0;
-        if (this.plantedVegetableCount * 2 > this.tileType.getMaxCapacity()) {
-            grownVegetableCount = this.tileType.getMaxCapacity() - this.plantedVegetableCount;
-            this.plantedVegetableCount = this.tileType.getMaxCapacity();
-        } else {
-            grownVegetableCount = this.plantedVegetableCount;
-            this.plantedVegetableCount *= 2;
-        }
-        return grownVegetableCount;
     }
 
     @Override

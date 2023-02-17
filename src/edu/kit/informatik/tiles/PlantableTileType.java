@@ -5,21 +5,21 @@ import edu.kit.informatik.VegetableType;
 
 public enum PlantableTileType {
 
-    GARDEN(2, "G", "Garden", Config.GARDEN_PLANTABLE_VEGETABLES),
-    FIELD(4, "Fi", "Field", Config.FIELD_PLANTABLE_VEGETABLES),
-    LARGE_FIELD(8, "LFi", "Large Field", Config.FIELD_PLANTABLE_VEGETABLES),
-    FOREST(4, "Fo", "Forest", Config.FOREST_PLANTABLE_VEGETABLES),
-    LARGE_FOREST(8, "LFo", "Large Forest", Config.FOREST_PLANTABLE_VEGETABLES);
+    GARDEN("Garden", "G", 2, Config.GARDEN_PLANTABLE_VEGETABLES),
+    FIELD("Field", "Fi", 4, Config.FIELD_PLANTABLE_VEGETABLES),
+    LARGE_FIELD("Large Field", "LFi", 8, Config.FIELD_PLANTABLE_VEGETABLES),
+    FOREST("Forest", "Fo", 4, Config.FOREST_PLANTABLE_VEGETABLES),
+    LARGE_FOREST("Large Forest", "LFo", 8, Config.FOREST_PLANTABLE_VEGETABLES);
 
-    private int maxCapacity;
-    private String abbreviation;
-    private String name;
-    private VegetableType[] plantableVegetables;
+    private final int maxCapacity;
+    private final String abbreviation;
+    private final String name;
+    private final VegetableType[] plantableVegetables;
 
-    private PlantableTileType(int maxCapacity, String abbreviation, String name, VegetableType[] plantableVegetables) {
+    private PlantableTileType(final String name, final String abbreviation, final int maxCapacity, final VegetableType[] plantableVegetables) {
+        this.name = name;
         this.maxCapacity = maxCapacity;
         this.abbreviation = abbreviation;
-        this.name = name;
         this.plantableVegetables = plantableVegetables;
     }
 
@@ -39,8 +39,8 @@ public enum PlantableTileType {
         return this.plantableVegetables;
     }
 
-    public boolean isPlantableVegetable(VegetableType vegetable) {
-        for (VegetableType plantableVegetable : this.plantableVegetables) {
+    public boolean isPlantableVegetable(final VegetableType vegetable) {
+        for (final VegetableType plantableVegetable : this.plantableVegetables) {
             if (plantableVegetable.equals(vegetable)) {
                 return true;
             }

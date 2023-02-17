@@ -10,16 +10,16 @@ public class Barn extends Tile {
     private static final int ROUNDS_UNTIL_ROTTEN = 6;
 
     private int countdown = ROUNDS_UNTIL_ROTTEN;
-    private Map<VegetableType, Integer> vegetables;
+    private final Map<VegetableType, Integer> vegetables;
 
     /**
-     * Instantiates a new {@link Barn}.
+     * Instantiates a new {@link Barn}
      * 
      * @param column on board
      * @param row    on board
      */
     // TODO warum nicht gleich null?
-    public Barn(int column, int row) {
+    public Barn(final int column, final int row) {
         super(column, row);
 
         this.vegetables = new EnumMap<>(VegetableType.class);
@@ -34,7 +34,7 @@ public class Barn extends Tile {
         return count;
     }
 
-    private void setVegetableListToValue(int value) {
+    private void setVegetableListToValue(final int value) {
         this.vegetables.put(VegetableType.CARROT, value);
         this.vegetables.put(VegetableType.MUSHROOM, value);
         this.vegetables.put(VegetableType.SALAD, value);
@@ -47,7 +47,7 @@ public class Barn extends Tile {
      * @param vegetable to remove
      * @throws IllegalArgumentException when vegetable is not in barn
      */
-    public void removeVegetable(VegetableType vegetable) throws IllegalArgumentException {
+    public void removeVegetable(final VegetableType vegetable) throws IllegalArgumentException {
         int currentCount = this.vegetables.get(vegetable);
         if (currentCount == 0) {
             throw new IllegalArgumentException();
@@ -61,8 +61,8 @@ public class Barn extends Tile {
      * 
      * @param vegetable to add
      */
-    public void addVegetable(VegetableType vegetable) {
-        int currentCount = this.vegetables.get(vegetable);
+    public void addVegetable(final VegetableType vegetable) {
+        final int currentCount = this.vegetables.get(vegetable);
         this.vegetables.put(vegetable, currentCount + 1);
     }
 

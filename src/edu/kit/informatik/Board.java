@@ -10,9 +10,11 @@ import edu.kit.informatik.tiles.Tile;
 
 public class Board {
 
-    private List<Tile> tiles = new ArrayList<>();
+    private final List<Tile> tiles;
 
     public Board() {
+        // TODO as map
+        this.tiles = new ArrayList<>();
         this.tiles.add(new Barn(0, 0));
         this.tiles.add(new PlantableTile(-1, 0, PlantableTileType.GARDEN));
         this.tiles.add(new PlantableTile(1, 0, PlantableTileType.GARDEN));
@@ -24,7 +26,7 @@ public class Board {
         return (Barn) this.tiles.get(0);
     }
 
-    private Tile getTile(int xCoordinate, int yCoordinate) {
+    private Tile getTile(final int xCoordinate, final int yCoordinate) {
         for (int i = 0; i < this.tiles.size(); i++) {
             if (this.tiles.get(i).getXCoordinate() == xCoordinate
                     && this.tiles.get(i).getYCoordinate() == yCoordinate) {
@@ -45,9 +47,9 @@ public class Board {
         return "The vegetables in your barn are spoiled.";
     }
 
-    public String plant(int xCoordinate, int yCoordinate, VegetableType vegetable) throws IllegalArgumentException {
+    public String plant(final int xCoordinate, final int yCoordinate, final VegetableType vegetable) throws IllegalArgumentException {
         // TODO type cast
-        PlantableTile tile = (PlantableTile) this.getTile(xCoordinate, yCoordinate);
+        final PlantableTile tile = (PlantableTile) this.getTile(xCoordinate, yCoordinate);
 
         if (tile == null) {
             throw new IllegalArgumentException();
@@ -58,39 +60,39 @@ public class Board {
         return null;
     }
 
-    private boolean isOccupied(int xCoordinate, int yCoordinate) {
+    private boolean isOccupied(final int xCoordinate, final int yCoordinate) {
         return this.getTile(xCoordinate, yCoordinate) != null;
     }
 
-    private boolean hasNeighborBelow(int xCoordinate, int yCoordinate) {
+    private boolean hasNeighborBelow(final int xCoordinate, final int yCoordinate) {
         return this.isOccupied(xCoordinate, yCoordinate - 1);
     }
 
-    private boolean hasNeighborRight(int xCoordinate, int yCoordinate) {
+    private boolean hasNeighborRight(final int xCoordinate, final int yCoordinate) {
         return this.isOccupied(xCoordinate + 1, yCoordinate);
     }
 
-    private boolean hasNeighborLeft(int xCoordinate, int yCoordinate) {
+    private boolean hasNeighborLeft(final int xCoordinate, final int yCoordinate) {
         return this.isOccupied(xCoordinate - 1, yCoordinate);
     }
 
-    private boolean hasNeighbor(int xCoordinate, int yCoordinate) {
+    private boolean hasNeighbor(final int xCoordinate, final int yCoordinate) {
         return hasNeighborBelow(xCoordinate, yCoordinate) || hasNeighborLeft(xCoordinate, yCoordinate)
                 || hasNeighborRight(xCoordinate, yCoordinate);
     }
 
-    public boolean isPlacableSpace(int xCoordinate, int yCoordinate) {
+    public boolean isPlacableSpace(final int xCoordinate, final int yCoordinate) {
         return !isOccupied(xCoordinate, yCoordinate) && hasNeighbor(xCoordinate, yCoordinate);
     }
 
     // TODO
-    public int calculatePrice(int xCoordinate, int yCoordinate) {
+    public int calculatePrice(final int xCoordinate, final int yCoordinate) {
         return 10 * ((Math.abs(xCoordinate) + Math.abs(yCoordinate)) - 1);
     }
 
-    public void addTile(int xCoordinate, int yCoordinate, PlantableTileType tileType) {
+    public void addTile(final int xCoordinate, final int yCoordinate, final PlantableTileType tileType) {
         // TODO test
-        Tile newTile = new PlantableTile(xCoordinate, yCoordinate, tileType);
+        final Tile newTile = new PlantableTile(xCoordinate, yCoordinate, tileType);
         this.tiles.add(newTile);
     }
 
@@ -135,7 +137,7 @@ public class Board {
         return currentIndex;
     }
 
-    private void fillIn(char[][] board, char[][] content, int xOffset, int yOffset) {
+    private void fillIn(final char[][] board, final char[][] content, final int xOffset, final int yOffset) {
         for (int yCoordinate = 0; yCoordinate < content.length; yCoordinate++) {
             for (int xCoordinate = 0; xCoordinate < content[yCoordinate].length; xCoordinate++) {
                 board[yCoordinate + yOffset][xCoordinate + xOffset] = content[yCoordinate][xCoordinate];
@@ -165,8 +167,8 @@ public class Board {
     public String toString() {
         // TODO Rename variables
         // TODO remove last line
-        int boardWidth = this.getBoardWidth();
-        int boardHeight = this.getBoardHeight();
+        final int boardWidth = this.getBoardWidth();
+        final int boardHeight = this.getBoardHeight();
 
         char[][] boardRepresentation = new char[boardHeight][boardWidth];
         for (int yCoordinate = 0; yCoordinate < boardHeight; yCoordinate++) {

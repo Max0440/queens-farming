@@ -13,12 +13,12 @@ public class Market {
     private static final int MIN_INDEX = 0;
     private static final int DEFAULT_START_INDEX = 2;
 
+    private final Map<VegetableType, Integer> soldVegetables;
     private int mushroomCarrotIndex;
     private int tomatoSaladIndex;
-    private Map<VegetableType, Integer> soldVegetables;
 
     /**
-     * Instantiates a new {@link Market}.
+     * Instantiates a new {@link Market}
      */
     public Market() {
         this.mushroomCarrotIndex = DEFAULT_START_INDEX;
@@ -32,9 +32,9 @@ public class Market {
      * @param vegetable to sell
      * @return current price of vegetable
      */
-    public int sell(VegetableType vegetable) {
+    public int sell(final VegetableType vegetable) {
         this.soldVegetables.putIfAbsent(vegetable, 0);
-        int currentCount = this.soldVegetables.get(vegetable);
+        final int currentCount = this.soldVegetables.get(vegetable);
         this.soldVegetables.put(vegetable, currentCount + 1);
 
         return getPrice(vegetable);
@@ -45,14 +45,14 @@ public class Market {
      * Automatically changes prices depending on sold vegetables
      */
     public void startNextTurn() {
-        for (VegetableType vegetable : VegetableType.values()) {
+        for (final VegetableType vegetable : VegetableType.values()) {
             this.soldVegetables.putIfAbsent(vegetable, 0);
         }
 
-        int mushroomCount = this.soldVegetables.get(VegetableType.MUSHROOM);
-        int carrotCount = this.soldVegetables.get(VegetableType.CARROT);
-        int tomatoCount = this.soldVegetables.get(VegetableType.TOMATO);
-        int saladCount = this.soldVegetables.get(VegetableType.SALAD);
+        final int mushroomCount = this.soldVegetables.get(VegetableType.MUSHROOM);
+        final int carrotCount = this.soldVegetables.get(VegetableType.CARROT);
+        final int tomatoCount = this.soldVegetables.get(VegetableType.TOMATO);
+        final int saladCount = this.soldVegetables.get(VegetableType.SALAD);
 
         if (mushroomCount - carrotCount >= 2) {
             int pairs = (mushroomCount - carrotCount) / 2;
@@ -87,7 +87,7 @@ public class Market {
      * @param vegetable to get price from
      * @return the current price or 0 if price isn't known
      */
-    public int getPrice(VegetableType vegetable) {
+    public int getPrice(final VegetableType vegetable) {
         switch (vegetable) {
             case MUSHROOM:
                 return MUSHROOM_PRICES[this.mushroomCarrotIndex];

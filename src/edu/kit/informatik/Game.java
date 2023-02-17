@@ -11,42 +11,54 @@ public class Game {
 
     private static final int MAX_ACTION_COUNT = 2;
 
+    private boolean isActive;
     private int currentTurn;
     private int remainingActions;
 
-    private int goldToWin;
-    private boolean isActive;
-    private Market market;
-    private PlayerList playerList;
-    private TileStack tileStack;
+    private final int goldToWin;
+    private final Market market;
+    private final PlayerList playerList;
+    private final TileStack tileStack;
 
-    public Game(String[] playerNames, int goldAtStart, int goldToWin, long seed) {
-        this.goldToWin = goldToWin;
+    /**
+     * Instantiates a new {@link Game}.
+     * 
+     * @param playerNames array with names of all players
+     * @param goldAtStart gold at the start of the game
+     * @param goldToWin   gold which is needed to win
+     * @param seed        seed for shuffling tile stack
+     */
+    public Game(final String[] playerNames, final int goldAtStart, final int goldToWin, final long seed) {
         this.isActive = true;
-        this.market = new Market();
-        this.tileStack = new TileStack(playerNames.length, seed);
-
         this.currentTurn = -1;
 
+        this.goldToWin = goldToWin;
+        this.market = new Market();
+        this.tileStack = new TileStack(playerNames.length, seed);
         this.playerList = new PlayerList(playerNames, goldAtStart);
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public boolean isTurnRunning() {
-        return this.remainingActions != 0;
+    private Player getCurrentPlayer() {
+        return this.playerList.getCurrentPlayer(currentTurn);
     }
 
     /**
-     * Checks which players have won and returns them in a list
+     * Returns whether or not the game is active
      * 
-     * @return players that won
+     * @return whether or not the game is active
      */
-    // public List<Player> getPlayerThatWon() {
-    // return this.playerList.getPlayerThatWon(this.goldToWin);
-    // }
+    public boolean isActive() {
+        return this.isActive;
+    }
+
+    /**
+     * Returns whether or not the current turn is running
+     * 
+     * @return whether or not the current turn is running
+     */
+    public boolean isTurnRunning() {
+        return this.remainingActions != 0;
+    }
 
     /**
      * Starts a new turn and return all information of the player in a string
@@ -67,6 +79,7 @@ public class Game {
             this.currentTurn = 0;
 
             // check if someone won
+            // TODO
             String yeet = this.playerList.getPlayerThatWon(this.goldToWin);
             if (yeet != null) {
                 this.isActive = false;
@@ -98,10 +111,6 @@ public class Game {
         }
 
         return sb.toString();
-    }
-
-    private Player getCurrentPlayer() {
-        return this.playerList.getCurrentPlayer(currentTurn);
     }
 
     /**
@@ -191,7 +200,7 @@ public class Game {
      * @return a message containing the name of the vegetable and the price
      */
     public String buyVegetable(VegetableType vegetable) {
-        int price = this.market.getPrice(vegetable);
+        final int price = this.market.getPrice(vegetable);
 
         try {
             this.getCurrentPlayer().addGold(price * -1);
@@ -214,8 +223,8 @@ public class Game {
      * @return
      */
     public String buyLand(int xCoordinate, int yCoordinate) {
-        Board playerBoard = this.getCurrentPlayer().getBoard();
-        int price = playerBoard.calculatePrice(xCoordinate, yCoordinate);
+        final Board playerBoard = this.getCurrentPlayer().getBoard();
+        final int price = playerBoard.calculatePrice(xCoordinate, yCoordinate);
 
         if (!playerBoard.isPlacableSpace(xCoordinate, yCoordinate)) {
             return Config.ERROR_LAND_NOT_PLACABLE;
@@ -227,7 +236,8 @@ public class Game {
             return Config.ERROR_NOT_ENOUGH_GOLD;
         }
 
-        PlantableTileType tileType = this.tileStack.drawTile();
+        // TODO tile stack is empty
+        final PlantableTileType tileType = this.tileStack.drawTile();
         playerBoard.addTile(xCoordinate, yCoordinate, tileType);
 
         return String.format("You have bought a %s for %d gold.", tileType.getName(), price);

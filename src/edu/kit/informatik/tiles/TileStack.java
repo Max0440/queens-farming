@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Random;
 
 public class TileStack {
-    private List<PlantableTileType> stack;
+    private final List<PlantableTileType> stack;
 
     /**
-     * Instantiates a new {@link TileStack}.
+     * Instantiates a new {@link TileStack}
      * 
      * @param playerCount number of players in the game
      * @param seed        seed for shuffling tile stack
@@ -52,7 +52,7 @@ public class TileStack {
      * @return first tile from stack
      */
     public PlantableTileType drawTile() {
-        PlantableTileType tile = this.stack.get(0);
+        final PlantableTileType tile = this.stack.get(0);
         this.stack.remove(0);
 
         return tile;

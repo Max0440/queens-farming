@@ -74,7 +74,7 @@ public class QueensFarming {
         int i = 1;
         String[] playerNames = new String[playerCount];
         while (i <= playerCount) {
-            // TODO? Print out again on error
+            // TODO Don't print out again on error
             System.out.println(String.format("Enter the name of player %d:", i));
             String name = inputScanner.nextLine();
 
@@ -120,6 +120,7 @@ public class QueensFarming {
             }
         }
 
+        // TODO check if is in interval
         System.out.println("Please enter the seed used to shuffle the tiles:");
         Long seed = null;
         while (seed == null) {

@@ -1,26 +1,27 @@
 package edu.kit.informatik;
 
 public enum VegetableType {
+
     CARROT("carrot", "carrots", "C", 1),
     SALAD("salad", "salads", "S", 2),
     TOMATO("tomato", "tomatoes", "T", 3),
     MUSHROOM("mushroom", "mushrooms", "M", 4);
 
-    private String lowerCase;
-    private String plural;
-    private String abbreviation;
-    private int timeToGrow;
+    private final String name;
+    private final String plural;
+    private final String abbreviation;
+    private final int timeToGrow;
 
     /**
-     * Instantiates a new {@link VegetableType}.
+     * Instantiates a new {@link VegetableType}
      * 
-     * @param lowerCase    lower case representation of enum
+     * @param name         lower case representation of enum
      * @param plural       plural case representation of enum
      * @param abbreviation abbreviation of enum
      * @param timeToGrow   time in rounds the plant needs to grow
      */
-    private VegetableType(String lowerCase, String plural, String abbreviation, int timeToGrow) {
-        this.lowerCase = lowerCase;
+    private VegetableType(final String name, final String plural, final String abbreviation, final int timeToGrow) {
+        this.name = name;
         this.plural = plural;
         this.abbreviation = abbreviation;
         this.timeToGrow = timeToGrow;
@@ -33,9 +34,9 @@ public enum VegetableType {
      * @return vegetable type
      * @throws IllegalArgumentException
      */
-    public static VegetableType fromString(String s) throws IllegalArgumentException {
-        for (VegetableType type : VegetableType.values()) {
-            if (type.lowerCase.equals(s)) {
+    public static VegetableType fromString(final String s) throws IllegalArgumentException {
+        for (final VegetableType type : VegetableType.values()) {
+            if (type.name.equals(s)) {
                 return type;
             }
         }
@@ -77,6 +78,6 @@ public enum VegetableType {
      */
     @Override
     public String toString() {
-        return this.lowerCase;
+        return this.name;
     }
 }

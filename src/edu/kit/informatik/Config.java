@@ -60,6 +60,10 @@ public class Config {
      * Error message in case a player tries to plant a vegetable they doesn't have
      */
     public static final String ERROR_VEGETABLE_NOT_OWNED = ERROR + "You don't own the vegetable!";
+    /**
+     * Error message in case a player tries to plant a vegetable they doesn't have
+     */
+    public static final String TILE_STACK_EMPTY = ERROR + "There is no more land to buy!";
 
     /**
      * Allowed vegetable types to plant in a garden

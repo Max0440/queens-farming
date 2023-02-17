@@ -221,13 +221,15 @@ public class Game {
         final Board playerBoard = this.getCurrentPlayer().getBoard();
         final int price = playerBoard.calculatePrice(xCoordinate, yCoordinate);
 
+        if (this.tileStack.isEmpty()) {
+            throw new GameException(Config.TILE_STACK_EMPTY);
+        }
         if (!playerBoard.isPlacableSpace(xCoordinate, yCoordinate)) {
             throw new GameException(Config.ERROR_LAND_NOT_PLACABLE);
         }
 
         this.getCurrentPlayer().addGold(price * -1);
 
-        // TODO tile stack is empty
         final PlantableTileType tileType = this.tileStack.drawTile();
         playerBoard.addTile(xCoordinate, yCoordinate, tileType);
 

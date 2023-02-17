@@ -47,12 +47,20 @@ public class TileStack {
     }
 
     /**
+     * Returns if the tile stack is empty
+     * 
+     * @return if the tile stack is empty
+     */
+    public boolean isEmpty() {
+        return this.stack.isEmpty();
+    }
+
+    /**
      * Returns the first tile from the stack and deletes it
      * 
      * @return first tile from stack
      */
     public PlantableTileType drawTile() {
-        // Todo stack empty
         final PlantableTileType tile = this.stack.get(0);
         this.stack.remove(0);
 

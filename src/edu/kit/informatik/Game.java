@@ -222,7 +222,7 @@ public class Game {
         final int price = playerBoard.calculatePrice(xCoordinate, yCoordinate);
 
         if (this.tileStack.isEmpty()) {
-            throw new GameException(Config.TILE_STACK_EMPTY);
+            throw new GameException(Config.ERROR_TILE_STACK_EMPTY);
         }
         if (!playerBoard.isPlacableSpace(xCoordinate, yCoordinate)) {
             throw new GameException(Config.ERROR_LAND_NOT_PLACABLE);

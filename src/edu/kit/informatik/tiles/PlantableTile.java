@@ -1,6 +1,8 @@
 package edu.kit.informatik.tiles;
 
+import edu.kit.informatik.Config;
 import edu.kit.informatik.Countdown;
+import edu.kit.informatik.GameException;
 import edu.kit.informatik.VegetableType;
 
 public class PlantableTile extends Tile {
@@ -10,7 +12,6 @@ public class PlantableTile extends Tile {
     private int plantedVegetableCount;
     private Countdown growCountdown;
 
-    // TODO richtig registrieren ob etwas wächst
     public PlantableTile(final int xCoordinate, final int yCoordinate, final PlantableTileType tileType) {
         super(xCoordinate, yCoordinate);
 
@@ -36,22 +37,18 @@ public class PlantableTile extends Tile {
             this.growCountdown.setActive(false);
         }
 
-        final int newlyGrownVegetable = newVegetableCount- this.plantedVegetableCount ;
+        final int newlyGrownVegetable = newVegetableCount - this.plantedVegetableCount;
         this.plantedVegetableCount = newVegetableCount;
         return newlyGrownVegetable;
     }
 
-    public void plant(final VegetableType vegetable) {
+    public void plant(final VegetableType vegetable) throws GameException {
         if (this.plantedVegetableCount > 0) {
-            // TODO Error
-            System.out.println("ERROR FIELD NOT EMPTY");
-            return;
+            throw new GameException(Config.ERROR_ALREADY_PLANTED);
         }
 
         if (!this.tileType.isPlantableVegetable(vegetable)) {
-            // TODO Error
-            System.out.println("ERROR NOT PLANTABLE");
-            return;
+            throw new GameException(Config.ERROR_WRONG_VEGETABLE_TYPE);
         }
 
         this.plantedVegetable = vegetable;

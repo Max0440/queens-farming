@@ -1,8 +1,10 @@
-package edu.kit.informatik;
+package edu.kit.informatik.ui;
 
 import java.util.Scanner;
 
+import edu.kit.informatik.Game;
 import edu.kit.informatik.config.ErrorMessages;
+import edu.kit.informatik.config.GeneralConfig;
 
 /**
  * The entry point of the game.
@@ -31,11 +33,12 @@ public class QueensFarming {
             System.out.println(ErrorMessages.ILLEGAL_ARGS_COUNT);
         }
 
-        // initializeSequence();
+        initializeSequence();
+        
         // String[] players = { "Mira", "Milan", "Vincent" };
         // String[] players = { "Max", "Jean" };
-        String[] players = { "Mira" };
-        game = new Game(players, 20, 60, 6);
+        // String[] players = { "Mira" };
+        // game = new Game(players, 20, 60, 6);
 
         while (game.isActive()) {
             System.out.println(game.startNextTurn());
@@ -43,7 +46,7 @@ public class QueensFarming {
             while (game.isTurnRunning()) {
                 String input = inputScanner.nextLine();
 
-                String output = Command.executeCommand(input, game);
+                String output = CommandHandler.executeCommand(input, game);
                 if (output != null) {
                     System.out.println(output);
                 }
@@ -138,16 +141,17 @@ public class QueensFarming {
     }
 
     private static void printPixelArt() {
-        System.out.println("                           _.-^-._    .--.");
-        System.out.println("                        .-'   _   '-. |__|");
-        System.out.println("                       /     |_|     \\|  |");
-        System.out.println("                      /               \\  |");
-        System.out.println("                     /|     _____     |\\ |");
-        System.out.println("                      |    |==|==|    |  |");
-        System.out.println("  |---|---|---|---|---|    |--|--|    |  |");
-        System.out.println("  |---|---|---|---|---|    |==|==|    |  |");
-        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-        System.out.println("^^^^^^^^^^^^^^^ QUEENS FARMING ^^^^^^^^^^^^^^^");
-        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        System.out.println(GeneralConfig.PIXEL_ART);
+        // System.out.println("                           _.-^-._    .--.");
+        // System.out.println("                        .-'   _   '-. |__|");
+        // System.out.println("                       /     |_|     \\|  |");
+        // System.out.println("                      /               \\  |");
+        // System.out.println("                     /|     _____     |\\ |");
+        // System.out.println("                      |    |==|==|    |  |");
+        // System.out.println("  |---|---|---|---|---|    |--|--|    |  |");
+        // System.out.println("  |---|---|---|---|---|    |==|==|    |  |");
+        // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        // System.out.println("^^^^^^^^^^^^^^^ QUEENS FARMING ^^^^^^^^^^^^^^^");
+        // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
     }
 }

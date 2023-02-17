@@ -34,6 +34,19 @@ public class GeneralConfig {
             VegetableType.MUSHROOM
     };
 
+    public static final String PIXEL_ART = """
+                                       _.-^-._    .--.
+                                    .-'   _   '-. |__|
+                                   /     |_|     \\|  |
+                                  /               \\  |
+                                 /|     _____     |\\ |
+                                  |    |==|==|    |  |
+              |---|---|---|---|---|    |--|--|    |  |
+              |---|---|---|---|---|    |==|==|    |  |
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            ^^^^^^^^^^^^^^^ QUEENS FARMING ^^^^^^^^^^^^^^^
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^""";
+
     private GeneralConfig() {
         throw new AssertionError(ErrorMessages.UTILITY_CLASS_INSTANTIATION);
     }

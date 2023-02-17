@@ -1,13 +1,16 @@
-package edu.kit.informatik;
+package edu.kit.informatik.ui;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import edu.kit.informatik.Game;
+import edu.kit.informatik.GameException;
+import edu.kit.informatik.VegetableType;
 import edu.kit.informatik.config.ErrorMessages;
 
-public enum Command {
+public enum CommandHandler {
 
     END_TURN("end turn") {
         @Override
@@ -117,11 +120,11 @@ public enum Command {
     private Pattern pattern;
 
     /**
-     * Instantiates a new {@link Command} enum
+     * Instantiates a new {@link CommandHandler} enum
      * 
      * @param pattern regex pattern the command should listen to
      */
-    Command(String pattern) {
+    CommandHandler(String pattern) {
         this.pattern = Pattern.compile(pattern);
     }
 
@@ -134,7 +137,7 @@ public enum Command {
      * @return the response to print to the user or an error message
      */
     public static String executeCommand(String input, Game game) {
-        for (Command command : Command.values()) {
+        for (CommandHandler command : CommandHandler.values()) {
             Matcher matcher = command.pattern.matcher(input);
             if (matcher.matches()) {
                 try {

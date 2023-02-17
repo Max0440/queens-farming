@@ -1,7 +1,7 @@
-package edu.kit.informatik.tiles;
+package edu.kit.informatik.game.tiles;
 
-import edu.kit.informatik.VegetableType;
 import edu.kit.informatik.config.GeneralConfig;
+import edu.kit.informatik.game.VegetableType;
 
 public enum PlantableTileType {
 

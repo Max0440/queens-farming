@@ -1,4 +1,4 @@
-package edu.kit.informatik;
+package edu.kit.informatik.game;
 
 import java.util.EnumMap;
 import java.util.Map;

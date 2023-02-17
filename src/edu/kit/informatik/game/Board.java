@@ -1,13 +1,13 @@
-package edu.kit.informatik;
+package edu.kit.informatik.game;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.kit.informatik.config.ErrorMessages;
-import edu.kit.informatik.tiles.Barn;
-import edu.kit.informatik.tiles.PlantableTile;
-import edu.kit.informatik.tiles.PlantableTileType;
-import edu.kit.informatik.tiles.Tile;
+import edu.kit.informatik.game.tiles.Barn;
+import edu.kit.informatik.game.tiles.PlantableTile;
+import edu.kit.informatik.game.tiles.PlantableTileType;
+import edu.kit.informatik.game.tiles.Tile;
 
 public class Board {
 

@@ -1,9 +1,9 @@
-package edu.kit.informatik.tiles;
+package edu.kit.informatik.game.tiles;
 
-import edu.kit.informatik.Countdown;
-import edu.kit.informatik.GameException;
-import edu.kit.informatik.VegetableType;
 import edu.kit.informatik.config.ErrorMessages;
+import edu.kit.informatik.game.Countdown;
+import edu.kit.informatik.game.GameException;
+import edu.kit.informatik.game.VegetableType;
 
 public class PlantableTile extends Tile {
 

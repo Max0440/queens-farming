@@ -1,4 +1,4 @@
-package edu.kit.informatik.tiles;
+package edu.kit.informatik.game.tiles;
 
 import java.util.ArrayList;
 import java.util.Collections;

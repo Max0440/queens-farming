@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import edu.kit.informatik.GameException;
-import edu.kit.informatik.VegetableType;
 import edu.kit.informatik.config.ErrorMessages;
+import edu.kit.informatik.game.GameException;
 import edu.kit.informatik.game.QueensFarming;
+import edu.kit.informatik.game.VegetableType;
 
 public enum CommandHandler {
 

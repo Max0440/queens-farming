@@ -1,4 +1,4 @@
-package edu.kit.informatik.player;
+package edu.kit.informatik.game.player;
 
 import java.util.List;
 import java.util.ArrayList;

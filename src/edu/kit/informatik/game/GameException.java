@@ -1,4 +1,4 @@
-package edu.kit.informatik;
+package edu.kit.informatik.game;
 
 // TODO Plagiat kennzeichen
 public class GameException extends IllegalArgumentException {

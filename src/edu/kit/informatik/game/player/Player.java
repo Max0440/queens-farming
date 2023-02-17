@@ -1,10 +1,10 @@
-package edu.kit.informatik.player;
+package edu.kit.informatik.game.player;
 
-import edu.kit.informatik.Board;
-import edu.kit.informatik.GameException;
-import edu.kit.informatik.VegetableType;
 import edu.kit.informatik.config.ErrorMessages;
-import edu.kit.informatik.tiles.Barn;
+import edu.kit.informatik.game.Board;
+import edu.kit.informatik.game.GameException;
+import edu.kit.informatik.game.VegetableType;
+import edu.kit.informatik.game.tiles.Barn;
 
 /**
  * Represents a player in queens farming.

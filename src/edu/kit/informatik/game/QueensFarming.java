@@ -2,15 +2,11 @@ package edu.kit.informatik.game;
 
 import java.util.List;
 
-import edu.kit.informatik.Board;
-import edu.kit.informatik.GameException;
-import edu.kit.informatik.Market;
-import edu.kit.informatik.VegetableType;
 import edu.kit.informatik.config.ErrorMessages;
-import edu.kit.informatik.player.Player;
-import edu.kit.informatik.player.PlayerList;
-import edu.kit.informatik.tiles.PlantableTileType;
-import edu.kit.informatik.tiles.TileStack;
+import edu.kit.informatik.game.player.Player;
+import edu.kit.informatik.game.player.PlayerList;
+import edu.kit.informatik.game.tiles.PlantableTileType;
+import edu.kit.informatik.game.tiles.TileStack;
 
 public class QueensFarming {
 

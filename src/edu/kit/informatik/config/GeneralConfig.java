@@ -1,6 +1,6 @@
 package edu.kit.informatik.config;
 
-import edu.kit.informatik.VegetableType;
+import edu.kit.informatik.game.VegetableType;
 
 public class GeneralConfig {
 

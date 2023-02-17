@@ -31,8 +31,8 @@ public class QueensFarming {
 
         // initializeSequence();
         // String[] players = { "Mira", "Milan", "Vincent" };
-        String[] players = { "Max", "Jean" };
-        // String[] players = { "Mira" };
+        // String[] players = { "Max", "Jean" };
+        String[] players = { "Mira" };
         game = new Game(players, 20, 30, 6);
 
         while (game.isActive()) {

@@ -14,7 +14,6 @@ public class PlantableTile extends Tile {
     public PlantableTile(final int xCoordinate, final int yCoordinate, final PlantableTileType tileType) {
         super(xCoordinate, yCoordinate);
 
-        // this.growCountdown = -1;
         this.growCountdown = new Countdown();
         this.tileType = tileType;
         this.plantedVegetableCount = 0;
@@ -37,53 +36,9 @@ public class PlantableTile extends Tile {
         }
 
         this.plantedVegetableCount = newGrownVegetables;
-        System.out.println(newGrownVegetables);
-
-        // TODO set new value
-
-        // this.growCountdown--;
-        // if (growCountdown > 0) {
-        // return null;
-        // }
-
-        // this.plantedVegetableCount *= 2;
-        // if (this.plantedVegetableCount > this.tileType.getMaxCapacity()) {
-        // this.plantedVegetableCount = this.tileType.getMaxCapacity();
-        // }
-
-        // // TODO reset countdown
-        // // TODO duplicate vegtables if enough space
-        // System.out.println(growCountdown);
-
-        // return "The vegetables in your barn are spoiled.";
+        // TODO return newGrownVegetables
         return null;
     }
-
-    // public int startNextRound() {
-    // if (this.plantedVegetableCount == this.tileType.getMaxCapacity()) {
-    // return 0;
-    // }
-
-    // this.growCountdown -= 1;
-
-    // // TODO Check if 0 is the right value
-    // if (this.growCountdown != 0) {
-    // return 0;
-    // }
-
-    // // TODO reset grow countdown when not full
-
-    // int grownVegetableCount = 0;
-    // if (this.plantedVegetableCount * 2 > this.tileType.getMaxCapacity()) {
-    // grownVegetableCount = this.tileType.getMaxCapacity() -
-    // this.plantedVegetableCount;
-    // this.plantedVegetableCount = this.tileType.getMaxCapacity();
-    // } else {
-    // grownVegetableCount = this.plantedVegetableCount;
-    // this.plantedVegetableCount *= 2;
-    // }
-    // return grownVegetableCount;
-    // }
 
     public void plant(final VegetableType vegetable) {
         if (this.plantedVegetableCount > 0) {

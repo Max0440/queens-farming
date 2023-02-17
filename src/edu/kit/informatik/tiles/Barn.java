@@ -4,6 +4,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import edu.kit.informatik.Config;
+import edu.kit.informatik.Countdown;
 import edu.kit.informatik.GameException;
 import edu.kit.informatik.VegetableType;
 
@@ -11,7 +12,7 @@ public class Barn extends Tile {
 
     private static final int ROUNDS_UNTIL_ROTTEN = 6;
 
-    private int countdown = ROUNDS_UNTIL_ROTTEN;
+    private Countdown countdown;
     private final Map<VegetableType, Integer> vegetables;
 
     /**
@@ -20,11 +21,11 @@ public class Barn extends Tile {
      * @param column on board
      * @param row    on board
      */
-    // TODO warum nicht gleich null?
     public Barn() {
         // TODO remove magic number
-        super(0,0);
+        super(0, 0);
 
+        this.countdown = new Countdown(ROUNDS_UNTIL_ROTTEN + 1, 0, true);
         this.vegetables = new EnumMap<>(VegetableType.class);
         setVegetableListToValue(1);
     }
@@ -56,7 +57,11 @@ public class Barn extends Tile {
             throw new GameException(Config.ERROR_VEGETABLE_NOT_OWNED);
         }
         this.vegetables.put(vegetable, currentCount - 1);
-        // TODO reset countdown when empty
+
+        if (this.getTotalVegetableCount() == 0) {
+            this.countdown.setActive(false);
+            this.countdown.setValue(ROUNDS_UNTIL_ROTTEN);
+        }
     }
 
     /**
@@ -67,6 +72,7 @@ public class Barn extends Tile {
     public void addVegetable(final VegetableType vegetable) {
         final int currentCount = this.vegetables.get(vegetable);
         this.vegetables.put(vegetable, currentCount + 1);
+        this.countdown.setActive(true);
     }
 
     /**
@@ -76,17 +82,16 @@ public class Barn extends Tile {
      * @return a message if vegetables are spoiled or null if not
      */
     public String startNextTurn() {
-        if (this.getTotalVegetableCount() == 0) {
+        if (!this.countdown.isActive()) {
             return null;
         }
 
-        this.countdown--;
-
-        if (this.countdown != 0) {
+        if (!this.countdown.nextStep(-1)) {
             return null;
         }
 
-        this.countdown = ROUNDS_UNTIL_ROTTEN;
+        this.countdown.setValue(ROUNDS_UNTIL_ROTTEN);
+        this.countdown.setActive(false);
         setVegetableListToValue(0);
         return "The vegetables in your barn are spoiled.";
     }
@@ -104,7 +109,7 @@ public class Barn extends Tile {
         if (this.getTotalVegetableCount() == 0) {
             charArray[1] = "| B * |".toCharArray();
         } else {
-            charArray[1] = String.format("| B %d |", this.countdown).toCharArray();
+            charArray[1] = String.format("| B %d |", this.countdown.getValue()).toCharArray();
         }
 
         return charArray;
@@ -119,7 +124,7 @@ public class Barn extends Tile {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(String.format("Barn (spoils in %d turns)", this.countdown));
+        sb.append(String.format("Barn (spoils in %d turns)", this.countdown.getValue()));
         sb.append(System.lineSeparator());
 
         // sort

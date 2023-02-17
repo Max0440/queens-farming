@@ -234,15 +234,14 @@ public class Game {
         return String.format("You have bought a %s for %d gold.", tileType.getName(), price);
     }
 
-    public String plant(int xCoordinate, int yCoordinate, VegetableType vegetable) {
+    public String plant(int xCoordinate, int yCoordinate, VegetableType vegetable) throws GameException {
         if (!this.getCurrentPlayer().getBarn().hasInBarn(vegetable)) {
-            // return "Error: not in barn";
-            throw new GameException("TODO ERROR");
+            throw new GameException(Config.ERROR_VEGETABLE_NOT_OWNED);
         }
-
         this.getCurrentPlayer().getBoard().plant(xCoordinate, yCoordinate, vegetable);
-        // TODO ich glaube einfach nichts?
-        return "You have palnted";
+        this.getCurrentPlayer().getBarn().removeVegetable(vegetable);
+
+        return null;
     }
 
     // TODO GANZ WICHTIG ACTIONS ÜBERALL RUNTER ZÄHLEN

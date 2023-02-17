@@ -49,13 +49,14 @@ public class Board {
         // return "The vegetables in your barn are spoiled.";
     }
 
-    public String plant(final int xCoordinate, final int yCoordinate, final VegetableType vegetable) throws GameException {
+    public String plant(final int xCoordinate, final int yCoordinate, final VegetableType vegetable)
+            throws GameException {
         // TODO type cast
         final PlantableTile tile = (PlantableTile) this.getTile(xCoordinate, yCoordinate);
 
         if (tile == null) {
             // Error tile not found
-            throw new GameException("TODO ERROR");
+            throw new GameException(Config.ERROR_LAND_NOT_OWNED);
         }
 
         tile.plant(vegetable);

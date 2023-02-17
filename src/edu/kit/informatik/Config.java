@@ -40,11 +40,22 @@ public class Config {
      * Error message in case a player doesn't have enough
      */
     public static final String ERROR_NOT_ENOUGH_GOLD = ERROR + "You don't have enough gold!";
+
     /**
      * Error message in case of tying to buy land at a position where it can't be
      * bought
      */
     public static final String ERROR_LAND_NOT_PLACABLE = ERROR + "You can't buy land at this location!";
+    /**
+     * Error message in case of tying to plant or harvest something at a location
+     * where the players doesn't have land
+     */
+    public static final String ERROR_LAND_NOT_OWNED = ERROR + "You don't own land at this location!";
+
+    /**
+     * Error message in case a player tries to plant a vegetable they doesn't have
+     */
+    public static final String ERROR_VEGETABLE_NOT_OWNED = ERROR + "You don't own the vegetable!";
 
     /**
      * Allowed vegetable types to plant in a garden

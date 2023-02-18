@@ -80,25 +80,15 @@ public class QueensFarming {
             this.currentTurn = 0;
 
             // check if someone won
-            // TODO
-            String yeet = this.playerList.getPlayerThatWon(this.goldToWin);
-            if (yeet != null) {
+            String playerThatWon = this.playerList.getPlayerThatWon(this.goldToWin);
+            if (playerThatWon != null) {
                 this.isActive = false;
 
                 sb.append(this.playerList.toString());
                 sb.append(System.lineSeparator());
-                sb.append(yeet);
+                sb.append(playerThatWon);
                 return sb.toString();
             }
-            // if (!this.getPlayerThatWon().isEmpty()) {
-            // this.isActive = false;
-
-            // StringBuilder sb = new StringBuilder();
-            // sb.append(this.playerList.toString());
-            // sb.append(System.lineSeparator());
-            // sb.append("TODO who has won");
-            // return sb.toString();
-            // }
         }
         this.remainingActions = MAX_ACTION_COUNT;
 
@@ -199,14 +189,15 @@ public class QueensFarming {
      * 
      * @param vegetable to buy
      * @return a message containing the name of the vegetable and the price
+     * @throws GameException if the player hasn't enough gold
      */
     public String buyVegetable(VegetableType vegetable) throws GameException {
         final int price = this.market.getPrice(vegetable);
 
         this.getCurrentPlayer().addGold(price * -1);
-        this.getCurrentPlayer().buy(vegetable);
-        this.remainingActions -= 1;
+        this.getCurrentPlayer().addVegetable(vegetable);
 
+        this.remainingActions -= 1;
         return String.format("You have bought a %s for %d gold.", vegetable.toString(), price);
     }
 
@@ -214,9 +205,12 @@ public class QueensFarming {
      * Buys a random plantable tile at a given position on the board.
      * Returns an error message if the player has not enough money to buy the tile.
      * 
-     * @param xCoordinate
-     * @param yCoordinate
-     * @return
+     * @param xCoordinate x-coordinate of new land
+     * @param yCoordinate y-coordinate of new land
+     * @return a message containing the tile type bought and the price
+     * @throws GameException if there are no more tiles on the tile stack, if the
+     *                       tile is not placable on the given location or if the
+     *                       player hasn't enough gold
      */
     public String buyLand(int xCoordinate, int yCoordinate) throws GameException {
         final Board playerBoard = this.getCurrentPlayer().getBoard();
@@ -234,15 +228,33 @@ public class QueensFarming {
         final PlantableTileType tileType = this.tileStack.drawTile();
         playerBoard.addTile(xCoordinate, yCoordinate, tileType);
 
+        this.remainingActions -= 1;
         return String.format("You have bought a %s for %d gold.", tileType.getName(), price);
     }
 
+    public String harvest(int xCoordinate, int yCoordinate, int count) throws GameException {
+
+        final VegetableType harvestedVegetable = this.getCurrentPlayer().getBoard().harvest(xCoordinate, yCoordinate,
+                count);
+        if (harvestedVegetable == null) {
+            // TODO
+            throw new GameException("Error: no vegetable on field");
+        }
+
+        // TODO add right count
+        this.getCurrentPlayer().addVegetable(harvestedVegetable);
+
+        this.remainingActions -= 1;
+        // TODO message
+        return "harvested" + harvestedVegetable.name();
+    }
+
     public String plant(int xCoordinate, int yCoordinate, VegetableType vegetable) throws GameException {
-        if (!this.getCurrentPlayer().getBarn().hasInBarn(vegetable)) {
+        if (!this.getCurrentPlayer().hasInBarn(vegetable)) {
             throw new GameException(ErrorMessages.VEGETABLE_NOT_OWNED);
         }
         this.getCurrentPlayer().getBoard().plant(xCoordinate, yCoordinate, vegetable);
-        this.getCurrentPlayer().getBarn().removeVegetable(vegetable);
+        this.getCurrentPlayer().removeVegetable(vegetable);
 
         return null;
     }

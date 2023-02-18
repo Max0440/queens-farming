@@ -41,12 +41,9 @@ public class Board {
         // TODO var names & nicer
         int totalGrown = 0;
         for (int i = 0; i < this.tiles.size(); i++) {
-            // if (this.tiles.get(i) instanceof Barn) {
-            // continue;
-            // }
-            // this.tiles.get(i).startNextTurn();
             totalGrown += this.tiles.get(i).grow();
         }
+
         String s = "";
         if (totalGrown == 1) {
             s = "1 vegetable has grown since your last turn.";
@@ -74,6 +71,13 @@ public class Board {
         tile.plant(vegetable);
 
         return null;
+    }
+
+    public VegetableType harvest(final int xCoordinate, final int yCoordinate, final int count)
+            throws GameException {
+        // TODO tile exists
+        final PlantableTile tile = (PlantableTile) this.getTile(xCoordinate, yCoordinate);
+        return tile.harvest(count);
     }
 
     private boolean isOccupied(final int xCoordinate, final int yCoordinate) {

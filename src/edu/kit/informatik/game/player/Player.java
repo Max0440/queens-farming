@@ -72,8 +72,16 @@ public class Player {
      * 
      * @param vegetable to add to barn
      */
-    public void buy(VegetableType vegetable) {
+    public void addVegetable(VegetableType vegetable) {
         this.getBarn().addVegetable(vegetable);
+    }
+
+    public void removeVegetable(VegetableType vegetable) throws GameException {
+        this.getBarn().removeVegetable(vegetable);
+    }
+
+    public boolean hasInBarn(VegetableType vegetable) {
+        return this.getBarn().hasInBarn(vegetable);
     }
 
     /**

@@ -85,16 +85,20 @@ public enum CommandHandler {
         }
     },
 
-    // TODO implement
-    HARVEST("harvest( -?[0-9]+){2}( [1-9][0-9]*)") {
+    HARVEST("harvest( -?[0-9]+){2}( [0-9]+)") {
         @Override
-        public String execute(Matcher input, QueensFarming game) {
-            System.out.println(input);
-            return null;
+        public String execute(Matcher input, QueensFarming game) throws GameException {
+            String[] parameters = input.group().split(" ");
+
+            if (parameters.length != 4) {
+                throw new GameException("TODO ERROR");
+            }
+
+            return game.harvest(Integer.parseInt(parameters[1]), Integer.parseInt(parameters[2]),
+                    Integer.parseInt(parameters[3]));
         }
     },
 
-    // TODO implement
     PLANT("plant( -?[0-9]+){2} ((carrot)|(mushroom)|(tomato)|(salad))") {
         @Override
         public String execute(Matcher input, QueensFarming game) throws GameException {

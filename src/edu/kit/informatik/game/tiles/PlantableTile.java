@@ -60,13 +60,22 @@ public class PlantableTile extends Tile {
     }
 
     // TODO deactivate countdown
-    public VegetableType harvest(final int amountToHarvest) {
+    public VegetableType harvest(final int amountToHarvest) throws GameException {
+        if (amountToHarvest < 1) {
+            // TODO Error
+            throw new GameException("Error: count bigger 0");
+        }
         if (this.plantedVegetableCount < amountToHarvest) {
             // TODO Error
-            return null;
+            throw new GameException("Error: amount to harvest can't be smaller than plant count");
         }
 
+        // TODO reduce amount & check if new amount is 0
+        // TODO if countdown not running, start countdown again
         this.plantedVegetableCount -= amountToHarvest;
+        if (this.plantedVegetableCount == 0) {
+
+        }
 
         return plantedVegetable;
     }

@@ -33,12 +33,12 @@ public class Main {
             System.out.println(ErrorMessages.ILLEGAL_ARGS_COUNT);
         }
 
-        initializeSequence();
+        // initializeSequence();
         
         // String[] players = { "Mira", "Milan", "Vincent" };
         // String[] players = { "Max", "Jean" };
-        // String[] players = { "Mira" };
-        // game = new Game(players, 20, 60, 6);
+        String[] players = { "Mira" };
+        game = new QueensFarming(players, 20, 60, 6);
 
         while (game.isActive()) {
             System.out.println(game.startNextTurn());

@@ -97,6 +97,12 @@ public class Player {
         this.getBarn().removeVegetable(vegetable);
     }
 
+    public VegetableType harvest(int xCoordinate, int yCoordinate, int count) throws GameException {
+        final VegetableType harvestedVegetable = this.getBoard().harvest(xCoordinate, yCoordinate, count);
+        this.addVegetable(harvestedVegetable, count);
+        return harvestedVegetable;
+    }
+
     /**
      * Adds the given amount of gold to the balance of the player. If the resulting
      * amount is negative it throws an GameException

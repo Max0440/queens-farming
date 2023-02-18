@@ -174,7 +174,6 @@ public class QueensFarming {
         this.getCurrentPlayer().addGold(totalPrice);
 
         this.remainingActions -= 1;
-
         if (vegetables.size() == 1) {
             return String.format("You have sold 1 vegetable for %d gold.", totalPrice);
         } else {
@@ -233,24 +232,26 @@ public class QueensFarming {
     }
 
     public String harvest(int xCoordinate, int yCoordinate, int count) throws GameException {
-
-        final VegetableType harvestedVegetable = this.getCurrentPlayer().getBoard().harvest(xCoordinate, yCoordinate,
-                count);
-        if (harvestedVegetable == null) {
-            // TODO
-            throw new GameException("Error: no vegetable on field");
-        }
-
-        this.getCurrentPlayer().addVegetable(harvestedVegetable, count);
+        final VegetableType harvestedVegetable = this.getCurrentPlayer().harvest(xCoordinate, yCoordinate, count);
 
         this.remainingActions -= 1;
-
         if (count > 1) {
             return String.format("You have harvested %d %s", count, harvestedVegetable.getPlural());
         }
         return String.format("You have harvested %d %s", count, harvestedVegetable.getSingular());
     }
 
+    /**
+     * Plants a given vegetable on a field if there is nothing planted yet
+     * 
+     * @param xCoordinate x-coordinate of the field
+     * @param yCoordinate y-coordinate of the field
+     * @param vegetable   vegetable to plant
+     * @return {@code null}
+     * @throws GameException when the vegetable is not in the barn, the field
+     *                       doesn't exists or the vegetable can't be planted on the
+     *                       field type
+     */
     public String plant(int xCoordinate, int yCoordinate, VegetableType vegetable) throws GameException {
         if (!this.getCurrentPlayer().hasInBarn(vegetable)) {
             throw new GameException(ErrorMessages.VEGETABLE_NOT_OWNED);
@@ -258,10 +259,9 @@ public class QueensFarming {
         this.getCurrentPlayer().getBoard().plant(xCoordinate, yCoordinate, vegetable);
         this.getCurrentPlayer().removeVegetable(vegetable);
 
+        this.remainingActions -= 1;
         return null;
     }
-
-    // TODO GANZ WICHTIG ACTIONS ÜBERALL RUNTER ZÄHLEN
 
     /**
      * quits the game

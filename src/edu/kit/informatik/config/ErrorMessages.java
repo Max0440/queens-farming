@@ -74,9 +74,14 @@ public class ErrorMessages {
         public static final String WRONG_VEGETABLE_TYPE = GeneralConfig.ERROR
                         + "You can't plant this vegetable on this field type!";
         /**
-         * Error message in case a player tries to plant a vegetable they doesn't have
+         * Error message in case all tiles are taken
          */
         public static final String TILE_STACK_EMPTY = GeneralConfig.ERROR + "There is no more land to buy!";
+        /**
+         * Error message in case all tiles are taken
+         */
+        public static final String HARVEST_MORE_THEN_PLANTED = GeneralConfig.ERROR + "Amount to harvest can't be bigger than amount of planted vegetables!";
+
 
         private ErrorMessages() {
                 throw new AssertionError(UTILITY_CLASS_INSTANTIATION);

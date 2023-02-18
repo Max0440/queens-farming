@@ -68,12 +68,10 @@ public class PlantableTile extends Tile {
 
     public VegetableType harvest(final int amountToHarvest) throws GameException {
         if (amountToHarvest < 1) {
-            // TODO Error
-            throw new GameException("Error: count bigger 0");
+            throw new GameException(ErrorMessages.INPUT_SMALLER_ONE);
         }
         if (this.plantedVegetableCount < amountToHarvest) {
-            // TODO Error
-            throw new GameException("Error: amount to harvest can't be smaller than plant count");
+            throw new GameException(ErrorMessages.HARVEST_MORE_THEN_PLANTED);
         }
 
         this.plantedVegetableCount -= amountToHarvest;

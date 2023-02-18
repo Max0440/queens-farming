@@ -84,7 +84,7 @@ public class Board {
 
     public VegetableType harvest(final int xCoordinate, final int yCoordinate, final int count)
             throws GameException {
-        // TODO tile exists
+        // TODO tile exists (LAND_NOT_OWNED)
         final PlantableTile tile = (PlantableTile) this.getTile(xCoordinate, yCoordinate);
         return tile.harvest(count);
     }

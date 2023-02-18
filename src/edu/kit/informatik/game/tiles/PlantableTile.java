@@ -66,7 +66,6 @@ public class PlantableTile extends Tile {
         this.startCountdown();
     }
 
-    // TODO deactivate countdown
     public VegetableType harvest(final int amountToHarvest) throws GameException {
         if (amountToHarvest < 1) {
             // TODO Error

@@ -7,7 +7,7 @@ public enum VegetableType {
     TOMATO("tomato", "tomatoes", "T", 3),
     MUSHROOM("mushroom", "mushrooms", "M", 4);
 
-    private final String name;
+    private final String singular;
     private final String plural;
     private final String abbreviation;
     private final int timeToGrow;
@@ -15,13 +15,13 @@ public enum VegetableType {
     /**
      * Instantiates a new {@link VegetableType}
      * 
-     * @param name         lower case representation of enum
+     * @param singular     lower case representation of enum
      * @param plural       plural case representation of enum
      * @param abbreviation abbreviation of enum
      * @param timeToGrow   time in rounds the plant needs to grow
      */
-    private VegetableType(final String name, final String plural, final String abbreviation, final int timeToGrow) {
-        this.name = name;
+    private VegetableType(final String singular, final String plural, final String abbreviation, final int timeToGrow) {
+        this.singular = singular;
         this.plural = plural;
         this.abbreviation = abbreviation;
         this.timeToGrow = timeToGrow;
@@ -35,7 +35,7 @@ public enum VegetableType {
      */
     public static VegetableType fromString(final String s) {
         for (final VegetableType type : VegetableType.values()) {
-            if (type.name.equals(s)) {
+            if (type.getSingular().equals(s)) {
                 return type;
             }
         }
@@ -50,6 +50,15 @@ public enum VegetableType {
      */
     public String getPlural() {
         return this.plural;
+    }
+
+    /**
+     * Returns the singular representation of the enum value
+     * 
+     * @return the singular representation
+     */
+    public String getSingular() {
+        return this.singular;
     }
 
     /**
@@ -77,6 +86,6 @@ public enum VegetableType {
      */
     @Override
     public String toString() {
-        return this.name;
+        return this.singular;
     }
 }

@@ -72,8 +72,10 @@ public class Player {
      * 
      * @param vegetable to add to barn
      */
-    public void addVegetable(VegetableType vegetable) {
-        this.getBarn().addVegetable(vegetable);
+    public void addVegetable(VegetableType vegetable, int amount) {
+        for (int i = 0; i < amount; i++) {
+            this.getBarn().addVegetable(vegetable);
+        }
     }
 
     public void removeVegetable(VegetableType vegetable) throws GameException {
@@ -110,8 +112,6 @@ public class Player {
     }
 
     public String startNextTurn() {
-        // TODO what has grown
-        // return this.getBarn().startNextTurn();
         return this.getBoard().startNextTurn();
     }
 

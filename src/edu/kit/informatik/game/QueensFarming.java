@@ -195,10 +195,10 @@ public class QueensFarming {
         final int price = this.market.getPrice(vegetable);
 
         this.getCurrentPlayer().addGold(price * -1);
-        this.getCurrentPlayer().addVegetable(vegetable);
+        this.getCurrentPlayer().addVegetable(vegetable, 1);
 
         this.remainingActions -= 1;
-        return String.format("You have bought a %s for %d gold.", vegetable.toString(), price);
+        return String.format("You have bought a %s for %d gold.", vegetable.getSingular(), price);
     }
 
     /**
@@ -241,12 +241,14 @@ public class QueensFarming {
             throw new GameException("Error: no vegetable on field");
         }
 
-        // TODO add right count
-        this.getCurrentPlayer().addVegetable(harvestedVegetable);
+        this.getCurrentPlayer().addVegetable(harvestedVegetable, count);
 
         this.remainingActions -= 1;
-        // TODO message
-        return "harvested" + harvestedVegetable.name();
+
+        if (count > 1) {
+            return String.format("You have harvested %d %s", count, harvestedVegetable.getPlural());
+        }
+        return String.format("You have harvested %d %s", count, harvestedVegetable.getSingular());
     }
 
     public String plant(int xCoordinate, int yCoordinate, VegetableType vegetable) throws GameException {

@@ -44,8 +44,7 @@ public enum CommandHandler {
     SELL("sell( ((carrot)|(mushroom)|(tomato)|(salad)))*") {
         @Override
         public String execute(Matcher input, QueensFarming game) {
-            // TODO somehow with token stream
-            String[] parameters = input.group().split(" ");
+            String[] parameters = input.group().split("\s");
             List<VegetableType> vegetableList = new ArrayList<>();
 
             for (int i = 1; i < parameters.length; i++) {
@@ -60,12 +59,7 @@ public enum CommandHandler {
     BUY_VEGETABLE("buy vegetable ((carrot)|(mushroom)|(tomato)|(salad))") {
         @Override
         public String execute(Matcher input, QueensFarming game) throws GameException {
-            // TODO somehow with token stream & remove duplicate code
-            String[] parameters = input.group().split(" ");
-
-            if (parameters.length != 3) {
-                throw new GameException("TODO ERROR");
-            }
+            String[] parameters = input.group().split("\s");
             VegetableType vegetable = VegetableType.fromString(parameters[2]);
 
             return game.buyVegetable(vegetable);
@@ -75,41 +69,35 @@ public enum CommandHandler {
     BUY_LAND("buy land( -?[0-9]+){2}") {
         @Override
         public String execute(Matcher input, QueensFarming game) throws GameException {
-            String[] parameters = input.group().split(" ");
+            String[] parameters = input.group().split("\s");
+            int xCoordinate = Integer.parseInt(parameters[2]);
+            int yCoordinate = Integer.parseInt(parameters[3]);
 
-            if (parameters.length != 4) {
-                throw new GameException("TODO ERROR");
-            }
-
-            return game.buyLand(Integer.parseInt(parameters[2]), Integer.parseInt(parameters[3]));
+            return game.buyLand(xCoordinate, yCoordinate);
         }
     },
 
     HARVEST("harvest( -?[0-9]+){2}( [0-9]+)") {
         @Override
         public String execute(Matcher input, QueensFarming game) throws GameException {
-            String[] parameters = input.group().split(" ");
+            String[] parameters = input.group().split("\s");
+            int xCoordinate = Integer.parseInt(parameters[1]);
+            int yCoordinate = Integer.parseInt(parameters[2]);
+            int amountToHarvest = Integer.parseInt(parameters[3]);
 
-            if (parameters.length != 4) {
-                throw new GameException("TODO ERROR");
-            }
-
-            return game.harvest(Integer.parseInt(parameters[1]), Integer.parseInt(parameters[2]),
-                    Integer.parseInt(parameters[3]));
+            return game.harvest(xCoordinate, yCoordinate, amountToHarvest);
         }
     },
 
     PLANT("plant( -?[0-9]+){2} ((carrot)|(mushroom)|(tomato)|(salad))") {
         @Override
         public String execute(Matcher input, QueensFarming game) throws GameException {
-            String[] parameters = input.group().split(" ");
+            String[] parameters = input.group().split("\s");
+            int xCoordinate = Integer.parseInt(parameters[1]);
+            int yCoordinate = Integer.parseInt(parameters[2]);
+            VegetableType vegetable = VegetableType.fromString(parameters[3]);
 
-            if (parameters.length != 4) {
-                throw new GameException("TODO ERROR");
-            }
-
-            return game.plant(Integer.parseInt(parameters[1]), Integer.parseInt(parameters[2]),
-                    VegetableType.fromString(parameters[3]));
+            return game.plant(xCoordinate, yCoordinate, vegetable);
         }
     },
 

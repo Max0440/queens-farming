@@ -45,6 +45,15 @@ public class Barn extends Tile {
         this.vegetables.put(VegetableType.TOMATO, value);
     }
 
+    private void startCountdown() {
+        this.countdown.setValue(ROUNDS_UNTIL_ROTTEN);
+        this.countdown.setActive(true);
+    }
+
+    private void stopCountdown() {
+        this.countdown.setActive(false);
+    }
+
     /**
      * Removes a given vegetable from the barn
      * 
@@ -59,8 +68,7 @@ public class Barn extends Tile {
         this.vegetables.put(vegetable, currentCount - 1);
 
         if (this.getTotalVegetableCount() == 0) {
-            this.countdown.setActive(false);
-            this.countdown.setValue(ROUNDS_UNTIL_ROTTEN);
+            this.stopCountdown();
         }
     }
 
@@ -72,7 +80,7 @@ public class Barn extends Tile {
     public void addVegetable(final VegetableType vegetable) {
         final int currentCount = this.vegetables.get(vegetable);
         this.vegetables.put(vegetable, currentCount + 1);
-        this.countdown.setActive(true);
+        this.startCountdown();
     }
 
     /**
@@ -90,8 +98,7 @@ public class Barn extends Tile {
             return null;
         }
 
-        this.countdown.setValue(ROUNDS_UNTIL_ROTTEN);
-        this.countdown.setActive(false);
+        this.stopCountdown();
         setVegetableListToValue(0);
         return "The vegetables in your barn are spoiled.";
     }

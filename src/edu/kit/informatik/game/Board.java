@@ -38,24 +38,33 @@ public class Board {
     }
 
     public String startNextTurn() {
+        StringBuilder sb = new StringBuilder();
+
         // TODO var names & nicer
         int totalGrown = 0;
         for (int i = 0; i < this.tiles.size(); i++) {
             totalGrown += this.tiles.get(i).grow();
         }
 
-        String s = "";
         if (totalGrown == 1) {
-            s = "1 vegetable has grown since your last turn.";
+            sb.append("1 vegetable has grown since your last turn.");
         } else if (totalGrown > 1) {
-            s = String.format("%s vegetables have grown since your last turn. ", totalGrown);
+            sb.append(String.format("%s vegetables have grown since your last turn.", totalGrown));
         }
 
-        String asd = this.getBarn().startNextTurn();
-        if (asd != null) {
-            return s + System.lineSeparator() + asd;
+        String barn = this.getBarn().startNextTurn();
+        if (barn != null) {
+            if (sb.length() > 0) {
+                sb.append(System.lineSeparator());
+            }
+            sb.append(barn);
         }
-        return s;
+
+        if (sb.length() == 0) {
+            return null;
+        }
+
+        return sb.toString();
     }
 
     public String plant(final int xCoordinate, final int yCoordinate, final VegetableType vegetable)

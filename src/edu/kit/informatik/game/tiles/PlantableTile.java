@@ -20,6 +20,16 @@ public class PlantableTile extends Tile {
         this.plantedVegetableCount = 0;
     }
 
+    private void startCountdown() {
+        this.growCountdown.setValue(this.plantedVegetable.getTimeToGrow());
+        this.growCountdown.setMinValue(0);
+        this.growCountdown.setActive(true);
+    }
+
+    private void stopCountdown() {
+        this.growCountdown.setActive(false);
+    }
+
     @Override
     public int grow() {
         if (!this.growCountdown.isActive()) {
@@ -34,7 +44,7 @@ public class PlantableTile extends Tile {
         int newVegetableCount = this.plantedVegetableCount * 2;
         if (newVegetableCount >= this.tileType.getMaxCapacity()) {
             newVegetableCount = this.tileType.getMaxCapacity();
-            this.growCountdown.setActive(false);
+            this.stopCountdown();
         }
 
         final int newlyGrownVegetable = newVegetableCount - this.plantedVegetableCount;
@@ -53,10 +63,7 @@ public class PlantableTile extends Tile {
 
         this.plantedVegetable = vegetable;
         this.plantedVegetableCount = 1;
-
-        this.growCountdown.setValue(vegetable.getTimeToGrow());
-        this.growCountdown.setMinValue(0);
-        this.growCountdown.setActive(true);
+        this.startCountdown();
     }
 
     // TODO deactivate countdown
@@ -70,11 +77,11 @@ public class PlantableTile extends Tile {
             throw new GameException("Error: amount to harvest can't be smaller than plant count");
         }
 
-        // TODO reduce amount & check if new amount is 0
-        // TODO if countdown not running, start countdown again
         this.plantedVegetableCount -= amountToHarvest;
         if (this.plantedVegetableCount == 0) {
-
+            this.stopCountdown();
+        } else if (this.plantedVegetableCount > 0 && !this.growCountdown.isActive()) {
+            this.startCountdown();
         }
 
         return plantedVegetable;

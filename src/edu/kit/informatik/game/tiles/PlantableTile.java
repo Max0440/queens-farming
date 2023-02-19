@@ -87,10 +87,10 @@ public class PlantableTile extends Tile {
         char[][] c = new char[3][7];
 
         if (this.growCountdown.isActive()) {
-            c[0] = String.format("| %s %s |", this.tileType.getAbbreviation(), this.growCountdown.getValue())
-                    .toCharArray();
+            c[0] = String.format(this.tileType.getBoardRepresentation(), this.growCountdown.getValue()).toCharArray();
         } else {
-            c[0] = String.format("| %s * |", this.tileType.getAbbreviation()).toCharArray();
+            // TODO remove magic
+            c[0] = String.format(this.tileType.getBoardRepresentation(), "*").toCharArray();
         }
 
         if (this.plantedVegetableCount > 0) {

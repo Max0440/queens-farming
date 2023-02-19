@@ -5,21 +5,22 @@ import edu.kit.informatik.game.VegetableType;
 
 public enum PlantableTileType {
 
-    GARDEN("Garden", "G", 2, GeneralConfig.GARDEN_PLANTABLE_VEGETABLES),
-    FIELD("Field", "Fi", 4, GeneralConfig.FIELD_PLANTABLE_VEGETABLES),
-    LARGE_FIELD("Large Field", "LFi", 8, GeneralConfig.FIELD_PLANTABLE_VEGETABLES),
-    FOREST("Forest", "Fo", 4, GeneralConfig.FOREST_PLANTABLE_VEGETABLES),
-    LARGE_FOREST("Large Forest", "LFo", 8, GeneralConfig.FOREST_PLANTABLE_VEGETABLES);
+    GARDEN("Garden", "| G %s |", 2, GeneralConfig.GARDEN_PLANTABLE_VEGETABLES),
+    FIELD("Field", "| Fi %s|", 4, GeneralConfig.FIELD_PLANTABLE_VEGETABLES),
+    LARGE_FIELD("Large Field", "|LFi %s|", 8, GeneralConfig.FIELD_PLANTABLE_VEGETABLES),
+    FOREST("Forest", "| Fo %s|", 4, GeneralConfig.FOREST_PLANTABLE_VEGETABLES),
+    LARGE_FOREST("Large Forest", "|LFo %s|", 8, GeneralConfig.FOREST_PLANTABLE_VEGETABLES);
 
     private final int maxCapacity;
-    private final String abbreviation;
+    private final String boardRepresentation;
     private final String name;
     private final VegetableType[] plantableVegetables;
 
-    private PlantableTileType(final String name, final String abbreviation, final int maxCapacity, final VegetableType[] plantableVegetables) {
+    private PlantableTileType(final String name, final String boardRepresentation, final int maxCapacity,
+            final VegetableType[] plantableVegetables) {
         this.name = name;
         this.maxCapacity = maxCapacity;
-        this.abbreviation = abbreviation;
+        this.boardRepresentation = boardRepresentation;
         this.plantableVegetables = plantableVegetables;
     }
 
@@ -27,8 +28,8 @@ public enum PlantableTileType {
         return this.maxCapacity;
     }
 
-    public String getAbbreviation() {
-        return this.abbreviation;
+    public String getBoardRepresentation() {
+        return this.boardRepresentation;
     }
 
     public String getName() {

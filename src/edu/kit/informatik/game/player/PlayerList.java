@@ -63,7 +63,7 @@ public class PlayerList {
             return String.format("%s has won! ", playerThatWon.get(0).toString());
         }
 
-        // TODO? Reigenfolge wichtig? Gleich wie bei playerList.toString() oder egal
+        // TODO?(#504) Reigenfolge wichtig? Gleich wie bei playerList.toString() oder egal
         StringBuilder sb = new StringBuilder();
         for (int i = playerThatWon.size() - 1; i > 1; i--) {
             sb.append(String.format("%s, ", playerThatWon.get(i).toString()));

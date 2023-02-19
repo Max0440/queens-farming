@@ -5,16 +5,14 @@ import edu.kit.informatik.game.Countdown;
 import edu.kit.informatik.game.GameException;
 import edu.kit.informatik.game.VegetableType;
 
-public class PlantableTile extends Tile {
+public class PlantableTile {
 
     private final PlantableTileType tileType;
     private VegetableType plantedVegetable;
     private int plantedVegetableCount;
     private Countdown growCountdown;
 
-    public PlantableTile(final int xCoordinate, final int yCoordinate, final PlantableTileType tileType) {
-        super(xCoordinate, yCoordinate);
-
+    public PlantableTile(final PlantableTileType tileType) {
         this.growCountdown = new Countdown();
         this.tileType = tileType;
         this.plantedVegetableCount = 0;

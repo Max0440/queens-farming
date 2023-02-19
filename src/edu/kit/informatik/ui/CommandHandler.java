@@ -40,7 +40,7 @@ public enum CommandHandler {
         }
     },
 
-    // TODO? auch zulassen, dass man nur "sell" schreiben darf
+    // TODO?(#499) auch zulassen, dass man nur "sell" schreiben darf
     SELL("sell( ((carrot)|(mushroom)|(tomato)|(salad)))*") {
         @Override
         public String execute(Matcher input, QueensFarming game) {

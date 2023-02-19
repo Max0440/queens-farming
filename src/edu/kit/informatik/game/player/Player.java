@@ -141,6 +141,17 @@ public class Player {
         return this.getBoard().startNextTurn();
     }
 
+    public String showBarn() {
+        // TODO print
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.getBarn().toString());
+        sb.append(System.lineSeparator());
+        sb.append(this.getGold());
+        // sb.append("TODO");
+        return sb.toString();
+    }
+
     /**
      * Returns the string representation of the player which simply is the name of
      * the player

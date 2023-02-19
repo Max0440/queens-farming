@@ -120,14 +120,7 @@ public class QueensFarming {
      * @return barn string representation
      */
     public String showBarn() {
-        // TODO print
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(this.getCurrentPlayer().getBarn().toString());
-        sb.append(System.lineSeparator());
-        sb.append(this.getCurrentPlayer().getGold());
-
-        return sb.toString();
+        return this.getCurrentPlayer().showBarn();
     }
 
     /**

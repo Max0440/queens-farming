@@ -1,25 +1,25 @@
 package edu.kit.informatik.game;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.tiles.Barn;
 import edu.kit.informatik.game.tiles.PlantableTile;
 import edu.kit.informatik.game.tiles.PlantableTileType;
+import edu.kit.informatik.game.tiles.Position;
 
 public class Board {
 
     private final Barn barn;
-    private final List<PlantableTile> plantableTiles;
+    private final Map<Position, PlantableTile> plantableTiles;
 
     public Board() {
-        // TODO as map
         this.barn = new Barn();
-        this.plantableTiles = new ArrayList<>();
-        this.plantableTiles.add(new PlantableTile(-1, 0, PlantableTileType.GARDEN));
-        this.plantableTiles.add(new PlantableTile(1, 0, PlantableTileType.GARDEN));
-        this.plantableTiles.add(new PlantableTile(0, 1, PlantableTileType.FIELD));
+        this.plantableTiles = new HashMap<>();
+        this.plantableTiles.put(new Position(-1, 0), new PlantableTile(PlantableTileType.GARDEN));
+        this.plantableTiles.put(new Position(1, 0), new PlantableTile(PlantableTileType.GARDEN));
+        this.plantableTiles.put(new Position(0, 1), new PlantableTile(PlantableTileType.FIELD));
     }
 
     public Barn getBarn() {
@@ -29,10 +29,9 @@ public class Board {
     public String startNextTurn() {
         StringBuilder sb = new StringBuilder();
 
-        // TODO var names & nicer
         int totalGrown = 0;
-        for (int i = 0; i < this.plantableTiles.size(); i++) {
-            totalGrown += this.plantableTiles.get(i).grow();
+        for (PlantableTile tile : this.plantableTiles.values()) {
+            totalGrown += tile.grow();
         }
 
         if (totalGrown == 1) {
@@ -41,12 +40,12 @@ public class Board {
             sb.append(String.format("%s vegetables have grown since your last turn.", totalGrown));
         }
 
-        String barn = this.getBarn().startNextTurn();
-        if (barn != null) {
+        String spoiledVegetables = this.getBarn().startNextTurn();
+        if (spoiledVegetables != null) {
             if (sb.length() > 0) {
                 sb.append(System.lineSeparator());
             }
-            sb.append(barn);
+            sb.append(spoiledVegetables);
         }
 
         if (sb.length() == 0) {
@@ -57,13 +56,7 @@ public class Board {
     }
 
     private PlantableTile getPlantableTile(final int xCoordinate, final int yCoordinate) {
-        for (int i = 0; i < this.plantableTiles.size(); i++) {
-            if (this.plantableTiles.get(i).getXCoordinate() == xCoordinate
-                    && this.plantableTiles.get(i).getYCoordinate() == yCoordinate) {
-                return this.plantableTiles.get(i);
-            }
-        }
-        return null;
+        return this.plantableTiles.get(new Position(xCoordinate, yCoordinate));
     }
 
     public void plant(final int xCoordinate, final int yCoordinate, final VegetableType vegetable)
@@ -110,37 +103,42 @@ public class Board {
     }
 
     public void addTile(final int xCoordinate, final int yCoordinate, final PlantableTileType tileType) {
-        final PlantableTile newTile = new PlantableTile(xCoordinate, yCoordinate, tileType);
-        this.plantableTiles.add(newTile);
+        this.plantableTiles.put(new Position(xCoordinate, yCoordinate), new PlantableTile(tileType));
     }
 
     private int getMinXValue() {
         int currentIndex = 0;
-        for (int i = 0; i < this.plantableTiles.size(); i++) {
-            if (this.plantableTiles.get(i).getXCoordinate() < currentIndex) {
-                currentIndex = this.plantableTiles.get(i).getXCoordinate();
+
+        for (Position position : this.plantableTiles.keySet()) {
+            if (position.getXCoordinate() < currentIndex) {
+                currentIndex = position.getXCoordinate();
             }
         }
+
         return currentIndex;
     }
 
     private int getMaxXValue() {
         int currentIndex = 0;
-        for (int i = 0; i < this.plantableTiles.size(); i++) {
-            if (this.plantableTiles.get(i).getXCoordinate() > currentIndex) {
-                currentIndex = this.plantableTiles.get(i).getXCoordinate();
+
+        for (Position position : this.plantableTiles.keySet()) {
+            if (position.getXCoordinate() > currentIndex) {
+                currentIndex = position.getXCoordinate();
             }
         }
+
         return currentIndex;
     }
 
     private int getMaxYValue() {
         int currentIndex = 0;
-        for (int i = 0; i < this.plantableTiles.size(); i++) {
-            if (this.plantableTiles.get(i).getYCoordinate() > currentIndex) {
-                currentIndex = this.plantableTiles.get(i).getYCoordinate();
+
+        for (Position position : this.plantableTiles.keySet()) {
+            if (position.getYCoordinate() > currentIndex) {
+                currentIndex = position.getYCoordinate();
             }
         }
+
         return currentIndex;
     }
 
@@ -188,13 +186,16 @@ public class Board {
         fillIn(boardRepresentation, barnCharArray, calculateXOffset(0), calculateYOffset(0));
 
         // fill in all plantable tiles
-        for (int i = 0; i < this.plantableTiles.size(); i++) {
-            final PlantableTile currentTile = this.plantableTiles.get(i);
+        for (final Map.Entry<Position, PlantableTile> entry : this.plantableTiles.entrySet()) {
+            final Position currentPosition = entry.getKey();
+            final PlantableTile currentTile = entry.getValue();
+
             final char[][] tileCharArray = currentTile.toCharArray();
-            final int xOffset = calculateXOffset(this.plantableTiles.get(i).getXCoordinate());
-            final int yOffset = calculateYOffset(this.plantableTiles.get(i).getYCoordinate());
+            final int xOffset = calculateXOffset(currentPosition.getXCoordinate());
+            final int yOffset = calculateYOffset(currentPosition.getYCoordinate());
 
             fillIn(boardRepresentation, tileCharArray, xOffset, yOffset);
+
         }
 
         // convert 2d char array to string

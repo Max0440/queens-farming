@@ -60,18 +60,18 @@ public class PlayerList {
         }
 
         if (playerThatWon.size() == 1) {
-            return String.format("%s has won! ", playerThatWon.get(0).getName());
+            return String.format("%s has won! ", playerThatWon.get(0).toString());
         }
 
         // TODO? Reigenfolge wichtig? Gleich wie bei playerList.toString() oder egal
         StringBuilder sb = new StringBuilder();
         for (int i = playerThatWon.size() - 1; i > 1; i--) {
-            sb.append(String.format("%s, ", playerThatWon.get(i).getName()));
+            sb.append(String.format("%s, ", playerThatWon.get(i).toString()));
         }
 
         sb.append(String.format("%s and %s have won! ",
-                playerThatWon.get(0).getName(),
-                playerThatWon.get(1).getName()));
+                playerThatWon.get(0).toString(),
+                playerThatWon.get(1).toString()));
 
         return sb.toString();
     }
@@ -81,14 +81,11 @@ public class PlayerList {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < this.players.size(); i++) {
-            sb.append(String.format("Player %d ", i + 1));
-            sb.append(this.players.get(i));
-
-            if (i < this.players.size() - 1) {
-                sb.append(System.lineSeparator());
-            }
+            final Player currentPlayer = this.players.get(i);
+            sb.append(String.format("Player %d (%s): %d", i + 1, currentPlayer.toString(), currentPlayer.getGold()));
+            sb.append(System.lineSeparator());
         }
 
-        return sb.toString();
+        return sb.toString().trim();
     }
 }

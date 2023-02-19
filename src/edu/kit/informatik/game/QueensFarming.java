@@ -93,7 +93,7 @@ public class QueensFarming {
         this.remainingActions = MAX_ACTION_COUNT;
 
         sb.append(System.lineSeparator());
-        sb.append(String.format("It is %s's turn!", this.getCurrentPlayer().getName()));
+        sb.append(String.format("It is %s's turn!", this.getCurrentPlayer().toString()));
 
         String playerInformation = this.getCurrentPlayer().startNextTurn();
         if (playerInformation != null) {
@@ -154,30 +154,39 @@ public class QueensFarming {
      * balance
      * and return a message
      * 
-     * @return a string telling how many vegetables were sold and for how much gold
+     * @return a message telling how many vegetables were sold and for how much gold
      */
     public String sellAll() {
         return null;
     }
 
+    /**
+     * Sells all vegetables in the list and adds the gold to the players balance for
+     * all vegetables that could sold. Skips all vegetables, the player doesn't own
+     * 
+     * @param vegetables list of vegetables to sell
+     * @return a message telling how much vegetable was sold and for what price
+     */
     public String sell(List<VegetableType> vegetables) {
         int totalPrice = 0;
+        int soldCount = 0;
         for (int i = 0; i < vegetables.size(); i++) {
             try {
                 this.getCurrentPlayer().sell(vegetables.get(i));
             } catch (GameException e) {
-                // return null;
-                // TODO? Was machen, wenn ein Gemüse nicht im Besitz ist
+                // skip if player hasn't vegetable he wants to sell
+                continue;
             }
             totalPrice += this.market.sell(vegetables.get(i));
+            soldCount++;
         }
         this.getCurrentPlayer().addGold(totalPrice);
 
         this.remainingActions -= 1;
-        if (vegetables.size() == 1) {
+        if (soldCount == 1) {
             return String.format("You have sold 1 vegetable for %d gold.", totalPrice);
         } else {
-            return String.format("You have sold %d vegetables for %d gold.", vegetables.size(), totalPrice);
+            return String.format("You have sold %d vegetables for %d gold.", soldCount, totalPrice);
         }
 
     }
@@ -231,18 +240,29 @@ public class QueensFarming {
         return String.format("You have bought a %s for %d gold.", tileType.getName(), price);
     }
 
-    public String harvest(int xCoordinate, int yCoordinate, int count) throws GameException {
-        final VegetableType harvestedVegetable = this.getCurrentPlayer().harvest(xCoordinate, yCoordinate, count);
+    /**
+     * Harvests a given vegetable from a given filed
+     * 
+     * @param xCoordinate     x-coordinate of the field
+     * @param yCoordinate     y-coordinate of the field
+     * @param amountToHarvest the amount the player wants to harvest
+     * @return a message containing how many vegetables were harvested and what type
+     *         of vegetable
+     * @throws GameException
+     */
+    public String harvest(int xCoordinate, int yCoordinate, int amountToHarvest) throws GameException {
+        final VegetableType harvestedVegetable = this.getCurrentPlayer().harvest(xCoordinate, yCoordinate,
+                amountToHarvest);
 
         this.remainingActions -= 1;
-        if (count > 1) {
-            return String.format("You have harvested %d %s", count, harvestedVegetable.getPlural());
+        if (amountToHarvest > 1) {
+            return String.format("You have harvested %d %s", amountToHarvest, harvestedVegetable.getPlural());
         }
-        return String.format("You have harvested %d %s", count, harvestedVegetable.getSingular());
+        return String.format("You have harvested %d %s", amountToHarvest, harvestedVegetable.getSingular());
     }
 
     /**
-     * Plants a given vegetable on a field if there is nothing planted yet
+     * Plants a given vegetable on a field
      * 
      * @param xCoordinate x-coordinate of the field
      * @param yCoordinate y-coordinate of the field
@@ -253,11 +273,7 @@ public class QueensFarming {
      *                       field type
      */
     public String plant(int xCoordinate, int yCoordinate, VegetableType vegetable) throws GameException {
-        if (!this.getCurrentPlayer().hasInBarn(vegetable)) {
-            throw new GameException(ErrorMessages.VEGETABLE_NOT_OWNED);
-        }
-        this.getCurrentPlayer().getBoard().plant(xCoordinate, yCoordinate, vegetable);
-        this.getCurrentPlayer().removeVegetable(vegetable);
+        this.getCurrentPlayer().plant(xCoordinate, yCoordinate, vegetable);
 
         this.remainingActions -= 1;
         return null;

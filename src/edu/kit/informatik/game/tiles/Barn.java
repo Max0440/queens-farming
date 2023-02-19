@@ -8,7 +8,7 @@ import edu.kit.informatik.game.Countdown;
 import edu.kit.informatik.game.GameException;
 import edu.kit.informatik.game.VegetableType;
 
-public class Barn extends Tile {
+public class Barn {
 
     private static final int ROUNDS_UNTIL_ROTTEN = 6;
 
@@ -22,9 +22,6 @@ public class Barn extends Tile {
      * @param row    on board
      */
     public Barn() {
-        // TODO remove magic number
-        super(0, 0);
-
         this.countdown = new Countdown(ROUNDS_UNTIL_ROTTEN + 1, 0, true);
         this.vegetables = new EnumMap<>(VegetableType.class);
         setVegetableListToValue(1);
@@ -80,7 +77,11 @@ public class Barn extends Tile {
     public void addVegetable(final VegetableType vegetable) {
         final int currentCount = this.vegetables.get(vegetable);
         this.vegetables.put(vegetable, currentCount + 1);
-        this.startCountdown();
+
+        // start countdown if barn was empty before
+        if (this.getTotalVegetableCount() == 1) {
+            this.stopCountdown();
+        }
     }
 
     /**

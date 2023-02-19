@@ -107,7 +107,6 @@ public class Barn extends Tile {
         return this.vegetables.get(vegetable) > 0;
     }
 
-    @Override
     public char[][] toCharArray() {
         char[][] charArray = new char[3][7];
 

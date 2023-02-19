@@ -7,34 +7,23 @@ import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.tiles.Barn;
 import edu.kit.informatik.game.tiles.PlantableTile;
 import edu.kit.informatik.game.tiles.PlantableTileType;
-import edu.kit.informatik.game.tiles.Tile;
 
 public class Board {
 
-    private final List<Tile> tiles;
+    private final Barn barn;
+    private final List<PlantableTile> plantableTiles;
 
     public Board() {
         // TODO as map
-        this.tiles = new ArrayList<>();
-        this.tiles.add(new Barn());
-        this.tiles.add(new PlantableTile(-1, 0, PlantableTileType.GARDEN));
-        this.tiles.add(new PlantableTile(1, 0, PlantableTileType.GARDEN));
-        this.tiles.add(new PlantableTile(0, 1, PlantableTileType.FIELD));
+        this.barn = new Barn();
+        this.plantableTiles = new ArrayList<>();
+        this.plantableTiles.add(new PlantableTile(-1, 0, PlantableTileType.GARDEN));
+        this.plantableTiles.add(new PlantableTile(1, 0, PlantableTileType.GARDEN));
+        this.plantableTiles.add(new PlantableTile(0, 1, PlantableTileType.FIELD));
     }
 
     public Barn getBarn() {
-        // TODO nicer
-        return (Barn) this.tiles.get(0);
-    }
-
-    private Tile getTile(final int xCoordinate, final int yCoordinate) {
-        for (int i = 0; i < this.tiles.size(); i++) {
-            if (this.tiles.get(i).getXCoordinate() == xCoordinate
-                    && this.tiles.get(i).getYCoordinate() == yCoordinate) {
-                return this.tiles.get(i);
-            }
-        }
-        return null;
+        return this.barn;
     }
 
     public String startNextTurn() {
@@ -42,8 +31,8 @@ public class Board {
 
         // TODO var names & nicer
         int totalGrown = 0;
-        for (int i = 0; i < this.tiles.size(); i++) {
-            totalGrown += this.tiles.get(i).grow();
+        for (int i = 0; i < this.plantableTiles.size(); i++) {
+            totalGrown += this.plantableTiles.get(i).grow();
         }
 
         if (totalGrown == 1) {
@@ -67,13 +56,21 @@ public class Board {
         return sb.toString();
     }
 
+    private PlantableTile getPlantableTile(final int xCoordinate, final int yCoordinate) {
+        for (int i = 0; i < this.plantableTiles.size(); i++) {
+            if (this.plantableTiles.get(i).getXCoordinate() == xCoordinate
+                    && this.plantableTiles.get(i).getYCoordinate() == yCoordinate) {
+                return this.plantableTiles.get(i);
+            }
+        }
+        return null;
+    }
+
     public void plant(final int xCoordinate, final int yCoordinate, final VegetableType vegetable)
             throws GameException {
-        // TODO type cast
-        final PlantableTile tile = (PlantableTile) this.getTile(xCoordinate, yCoordinate);
+        final PlantableTile tile = this.getPlantableTile(xCoordinate, yCoordinate);
 
         if (tile == null) {
-            // Error tile not found
             throw new GameException(ErrorMessages.LAND_NOT_OWNED);
         }
 
@@ -82,30 +79,26 @@ public class Board {
 
     public VegetableType harvest(final int xCoordinate, final int yCoordinate, final int amountToHarvest)
             throws GameException {
-        // TODO tile exists (LAND_NOT_OWNED)
-        final PlantableTile tile = (PlantableTile) this.getTile(xCoordinate, yCoordinate);
+        final PlantableTile tile = this.getPlantableTile(xCoordinate, yCoordinate);
+
+        if (tile == null) {
+            throw new GameException(ErrorMessages.LAND_NOT_OWNED);
+        }
+
         return tile.harvest(amountToHarvest);
     }
 
     private boolean isOccupied(final int xCoordinate, final int yCoordinate) {
-        return this.getTile(xCoordinate, yCoordinate) != null;
-    }
-
-    private boolean hasNeighborBelow(final int xCoordinate, final int yCoordinate) {
-        return this.isOccupied(xCoordinate, yCoordinate - 1);
-    }
-
-    private boolean hasNeighborRight(final int xCoordinate, final int yCoordinate) {
-        return this.isOccupied(xCoordinate + 1, yCoordinate);
-    }
-
-    private boolean hasNeighborLeft(final int xCoordinate, final int yCoordinate) {
-        return this.isOccupied(xCoordinate - 1, yCoordinate);
+        if (xCoordinate == 0 && yCoordinate == 0) {
+            return true;
+        }
+        return this.getPlantableTile(xCoordinate, yCoordinate) != null;
     }
 
     private boolean hasNeighbor(final int xCoordinate, final int yCoordinate) {
-        return hasNeighborBelow(xCoordinate, yCoordinate) || hasNeighborLeft(xCoordinate, yCoordinate)
-                || hasNeighborRight(xCoordinate, yCoordinate);
+        return this.isOccupied(xCoordinate, yCoordinate - 1)
+                || this.isOccupied(xCoordinate - 1, yCoordinate)
+                || this.isOccupied(xCoordinate + 1, yCoordinate);
     }
 
     public boolean isPlacableSpace(final int xCoordinate, final int yCoordinate) {
@@ -117,26 +110,15 @@ public class Board {
     }
 
     public void addTile(final int xCoordinate, final int yCoordinate, final PlantableTileType tileType) {
-        final Tile newTile = new PlantableTile(xCoordinate, yCoordinate, tileType);
-        this.tiles.add(newTile);
+        final PlantableTile newTile = new PlantableTile(xCoordinate, yCoordinate, tileType);
+        this.plantableTiles.add(newTile);
     }
 
     private int getMinXValue() {
         int currentIndex = 0;
-        for (int i = 0; i < this.tiles.size(); i++) {
-            if (this.tiles.get(i).getXCoordinate() < currentIndex) {
-                currentIndex = this.tiles.get(i).getXCoordinate();
-            }
-        }
-        return currentIndex;
-    }
-
-    private int getMinYValue() {
-        // TODO Is always 0
-        int currentIndex = 0;
-        for (int i = 0; i < this.tiles.size(); i++) {
-            if (this.tiles.get(i).getYCoordinate() < currentIndex) {
-                currentIndex = this.tiles.get(i).getYCoordinate();
+        for (int i = 0; i < this.plantableTiles.size(); i++) {
+            if (this.plantableTiles.get(i).getXCoordinate() < currentIndex) {
+                currentIndex = this.plantableTiles.get(i).getXCoordinate();
             }
         }
         return currentIndex;
@@ -144,9 +126,9 @@ public class Board {
 
     private int getMaxXValue() {
         int currentIndex = 0;
-        for (int i = 0; i < this.tiles.size(); i++) {
-            if (this.tiles.get(i).getXCoordinate() > currentIndex) {
-                currentIndex = this.tiles.get(i).getXCoordinate();
+        for (int i = 0; i < this.plantableTiles.size(); i++) {
+            if (this.plantableTiles.get(i).getXCoordinate() > currentIndex) {
+                currentIndex = this.plantableTiles.get(i).getXCoordinate();
             }
         }
         return currentIndex;
@@ -154,9 +136,9 @@ public class Board {
 
     private int getMaxYValue() {
         int currentIndex = 0;
-        for (int i = 0; i < this.tiles.size(); i++) {
-            if (this.tiles.get(i).getYCoordinate() > currentIndex) {
-                currentIndex = this.tiles.get(i).getYCoordinate();
+        for (int i = 0; i < this.plantableTiles.size(); i++) {
+            if (this.plantableTiles.get(i).getYCoordinate() > currentIndex) {
+                currentIndex = this.plantableTiles.get(i).getYCoordinate();
             }
         }
         return currentIndex;
@@ -184,17 +166,16 @@ public class Board {
     }
 
     private int getBoardHeight() {
-        int heightInTiles = Math.abs(getMaxYValue() - getMinYValue()) + 1;
+        int heightInTiles = Math.abs(getMaxYValue()) + 1;
         return heightInTiles * 3;
     }
 
     @Override
     public String toString() {
-        // TODO Rename variables
-        // TODO remove last line
         final int boardWidth = this.getBoardWidth();
         final int boardHeight = this.getBoardHeight();
 
+        // create 2d char array that represents the board
         char[][] boardRepresentation = new char[boardHeight][boardWidth];
         for (int yCoordinate = 0; yCoordinate < boardHeight; yCoordinate++) {
             for (int xCoordinate = 0; xCoordinate < boardWidth; xCoordinate++) {
@@ -202,12 +183,23 @@ public class Board {
             }
         }
 
-        for (int i = 0; i < this.tiles.size(); i++) {
-            char[][] c = this.tiles.get(i).toCharArray();
-            fillIn(boardRepresentation, c, calculateXOffset(this.tiles.get(i).getXCoordinate()),
-                    calculateYOffset(this.tiles.get(i).getYCoordinate()));
+        // fill in the barn
+        final char[][] barnCharArray = this.barn.toCharArray();
+        fillIn(boardRepresentation, barnCharArray, calculateXOffset(0), calculateYOffset(0));
+
+        // fill in all plantable tiles
+        for (int i = 0; i < this.plantableTiles.size(); i++) {
+            final PlantableTile currentTile = this.plantableTiles.get(i);
+            final char[][] tileCharArray = currentTile.toCharArray();
+            final int xOffset = calculateXOffset(this.plantableTiles.get(i).getXCoordinate());
+            final int yOffset = calculateYOffset(this.plantableTiles.get(i).getYCoordinate());
+
+            fillIn(boardRepresentation, tileCharArray, xOffset, yOffset);
         }
 
+        // convert 2d char array to string
+        // TODO last line break?
+        // TODO Rename variables
         StringBuilder sb = new StringBuilder();
         for (char[] cs : boardRepresentation) {
             for (char cs2 : cs) {

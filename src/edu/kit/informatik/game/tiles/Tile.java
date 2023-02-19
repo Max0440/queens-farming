@@ -18,15 +18,11 @@ public class Tile {
         return this.yCoordinate;
     }
 
-    public char[][] toCharArray() {
-        return new char[0][0];
-    }
+    // public String startNextTurn() {
+    // return null;
+    // }
 
-    public String startNextTurn() {
-        return null;
-    }
-
-    public int grow() {
-        return 0;
-    }
+    // public int grow() {
+    // return 0;
+    // }
 }

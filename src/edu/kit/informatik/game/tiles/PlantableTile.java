@@ -30,7 +30,6 @@ public class PlantableTile extends Tile {
         this.growCountdown.setActive(false);
     }
 
-    @Override
     public int grow() {
         if (!this.growCountdown.isActive()) {
             return 0;
@@ -84,7 +83,6 @@ public class PlantableTile extends Tile {
         return plantedVegetable;
     }
 
-    @Override
     public char[][] toCharArray() {
         char[][] c = new char[3][7];
 

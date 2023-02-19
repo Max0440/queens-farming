@@ -67,7 +67,7 @@ public class Board {
         return sb.toString();
     }
 
-    public String plant(final int xCoordinate, final int yCoordinate, final VegetableType vegetable)
+    public void plant(final int xCoordinate, final int yCoordinate, final VegetableType vegetable)
             throws GameException {
         // TODO type cast
         final PlantableTile tile = (PlantableTile) this.getTile(xCoordinate, yCoordinate);
@@ -78,15 +78,13 @@ public class Board {
         }
 
         tile.plant(vegetable);
-
-        return null;
     }
 
-    public VegetableType harvest(final int xCoordinate, final int yCoordinate, final int count)
+    public VegetableType harvest(final int xCoordinate, final int yCoordinate, final int amountToHarvest)
             throws GameException {
         // TODO tile exists (LAND_NOT_OWNED)
         final PlantableTile tile = (PlantableTile) this.getTile(xCoordinate, yCoordinate);
-        return tile.harvest(count);
+        return tile.harvest(amountToHarvest);
     }
 
     private boolean isOccupied(final int xCoordinate, final int yCoordinate) {

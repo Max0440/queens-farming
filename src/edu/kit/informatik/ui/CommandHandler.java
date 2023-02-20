@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.GameException;
 import edu.kit.informatik.game.QueensFarming;
-import edu.kit.informatik.type.VegetableType;
+import edu.kit.informatik.game.type.VegetableType;
 
 public enum CommandHandler {
 

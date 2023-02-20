@@ -3,7 +3,7 @@ package edu.kit.informatik.game;
 import java.util.EnumMap;
 import java.util.Map;
 
-import edu.kit.informatik.type.VegetableType;
+import edu.kit.informatik.game.type.VegetableType;
 
 public class Market {
     private static final int[] MUSHROOM_PRICES = { 12, 15, 16, 17, 20 };

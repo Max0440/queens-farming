@@ -5,8 +5,8 @@ import java.util.Map;
 
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.GameException;
-import edu.kit.informatik.type.PlantableTileType;
-import edu.kit.informatik.type.VegetableType;
+import edu.kit.informatik.game.type.PlantableTileType;
+import edu.kit.informatik.game.type.VegetableType;
 
 public class Board {
 
@@ -210,4 +210,4 @@ public class Board {
 
         return sb.toString();
     }
-}
+}

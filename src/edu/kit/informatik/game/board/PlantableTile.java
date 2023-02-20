@@ -2,8 +2,8 @@ package edu.kit.informatik.game.board;
 
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.GameException;
-import edu.kit.informatik.type.PlantableTileType;
-import edu.kit.informatik.type.VegetableType;
+import edu.kit.informatik.game.type.PlantableTileType;
+import edu.kit.informatik.game.type.VegetableType;
 import edu.kit.informatik.util.Countdown;
 
 public class PlantableTile {
@@ -101,4 +101,4 @@ public class PlantableTile {
         c[2] = String.format("| %d/%d |", this.plantedVegetableCount, this.tileType.getMaxCapacity()).toCharArray();
         return c;
     }
-}
+}

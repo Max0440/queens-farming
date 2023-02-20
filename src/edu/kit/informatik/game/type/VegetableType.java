@@ -1,4 +1,4 @@
-package edu.kit.informatik.type;
+package edu.kit.informatik.game.type;
 
 public enum VegetableType {
 

@@ -7,8 +7,8 @@ import edu.kit.informatik.game.board.Board;
 import edu.kit.informatik.game.board.TileStack;
 import edu.kit.informatik.game.player.Player;
 import edu.kit.informatik.game.player.PlayerList;
-import edu.kit.informatik.type.PlantableTileType;
-import edu.kit.informatik.type.VegetableType;
+import edu.kit.informatik.game.type.PlantableTileType;
+import edu.kit.informatik.game.type.VegetableType;
 
 public class QueensFarming {
 

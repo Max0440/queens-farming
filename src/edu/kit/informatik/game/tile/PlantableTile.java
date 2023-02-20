@@ -1,4 +1,4 @@
-package edu.kit.informatik.game.tiles;
+package edu.kit.informatik.game.tile;
 
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.Countdown;

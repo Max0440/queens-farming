@@ -5,7 +5,8 @@ import java.util.List;
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.player.Player;
 import edu.kit.informatik.game.player.PlayerList;
-import edu.kit.informatik.game.tiles.TileStack;
+import edu.kit.informatik.game.tile.Board;
+import edu.kit.informatik.game.tile.TileStack;
 import edu.kit.informatik.type.PlantableTileType;
 import edu.kit.informatik.type.VegetableType;
 

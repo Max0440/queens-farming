@@ -1,4 +1,4 @@
-package edu.kit.informatik.game.tiles;
+package edu.kit.informatik.game.tile;
 
 import java.util.Objects;
 

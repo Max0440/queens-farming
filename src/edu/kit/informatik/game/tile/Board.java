@@ -1,12 +1,10 @@
-package edu.kit.informatik.game;
+package edu.kit.informatik.game.tile;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import edu.kit.informatik.config.ErrorMessages;
-import edu.kit.informatik.game.tiles.Barn;
-import edu.kit.informatik.game.tiles.PlantableTile;
-import edu.kit.informatik.game.tiles.Position;
+import edu.kit.informatik.game.GameException;
 import edu.kit.informatik.type.PlantableTileType;
 import edu.kit.informatik.type.VegetableType;
 

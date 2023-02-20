@@ -80,14 +80,10 @@ public class QueensFarming {
             this.currentTurn = 0;
 
             // check if someone won
-            String playerThatWon = this.playerList.getPlayerThatWon(this.goldToWin);
-            if (playerThatWon != null) {
+            boolean someoneWon = this.playerList.someoneWon(this.goldToWin);
+            if (someoneWon) {
                 this.isActive = false;
-
-                sb.append(this.playerList.toString());
-                sb.append(System.lineSeparator());
-                sb.append(playerThatWon);
-                return sb.toString();
+                return null;
             }
         }
         this.remainingActions = MAX_ACTION_COUNT;
@@ -100,6 +96,17 @@ public class QueensFarming {
             sb.append(System.lineSeparator());
             sb.append(playerInformation);
         }
+
+        return sb.toString();
+    }
+
+    public String endGame() {
+        StringBuilder sb = new StringBuilder();
+        String playerThatWon = this.playerList.endGame(this.goldToWin);
+
+        sb.append(this.playerList.toString());
+        sb.append(System.lineSeparator());
+        sb.append(playerThatWon);
 
         return sb.toString();
     }

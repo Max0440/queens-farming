@@ -46,7 +46,16 @@ public class PlayerList {
         return players.get(currentTurn);
     }
 
-    public String getPlayerThatWon(int goldToWin) {
+    public boolean someoneWon(int goldToWin) {
+        for (int i = 0; i < this.players.size(); i++) {
+            if (this.players.get(i).getGold() >= goldToWin) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String endGame(int goldToWin) {
         List<Player> playerThatWon = new ArrayList<>();
 
         for (int i = 0; i < this.players.size(); i++) {
@@ -55,23 +64,36 @@ public class PlayerList {
             }
         }
 
+        // TODO nice
         if (playerThatWon.isEmpty()) {
-            return null;
+            int highestGold = 0;
+            for (int i = 0; i < this.players.size(); i++) {
+                if (this.players.get(i).getGold() > highestGold) {
+                    highestGold = this.players.get(i).getGold();
+                }
+            }
+
+            for (int i = 0; i < this.players.size(); i++) {
+                if (this.players.get(i).getGold() == highestGold) {
+                    playerThatWon.add(this.players.get(i));
+                }
+            }
         }
 
         if (playerThatWon.size() == 1) {
-            return String.format("%s has won! ", playerThatWon.get(0).toString());
+            return String.format("%s has won!", playerThatWon.get(0).toString());
         }
 
-        // TODO?(#504) Reigenfolge wichtig? Gleich wie bei playerList.toString() oder egal
+        // TODO?(#504) Reigenfolge wichtig? Gleich wie bei playerList.toString() oder
+        // egal
         StringBuilder sb = new StringBuilder();
-        for (int i = playerThatWon.size() - 1; i > 1; i--) {
+        for (int i = 0; i < playerThatWon.size() - 2; i++) {
             sb.append(String.format("%s, ", playerThatWon.get(i).toString()));
         }
 
-        sb.append(String.format("%s and %s have won! ",
-                playerThatWon.get(0).toString(),
-                playerThatWon.get(1).toString()));
+        sb.append(String.format("%s and %s have won!",
+                playerThatWon.get(playerThatWon.size() - 2).toString(),
+                playerThatWon.get(playerThatWon.size() - 1).toString()));
 
         return sb.toString();
     }

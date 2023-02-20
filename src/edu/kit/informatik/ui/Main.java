@@ -31,17 +31,22 @@ public class Main {
     public static void main(String[] args) {
         if (args.length > 0) {
             System.out.println(ErrorMessages.ILLEGAL_ARGS_COUNT);
+            return;
         }
 
         // initializeSequence();
-        
+
         // String[] players = { "Mira", "Milan", "Vincent" };
         // String[] players = { "Max", "Jean" };
         String[] players = { "Mira" };
         game = new QueensFarming(players, 20, 60, 6);
 
         while (game.isActive()) {
-            System.out.println(game.startNextTurn());
+            // TODO var name
+            String asd = game.startNextTurn();
+            if (asd != null) {
+                System.out.println(asd);
+            }
 
             while (game.isTurnRunning()) {
                 String input = inputScanner.nextLine();
@@ -52,6 +57,8 @@ public class Main {
                 }
             }
         }
+
+        System.out.println(game.endGame());
 
         inputScanner.close();
     }
@@ -142,14 +149,14 @@ public class Main {
 
     private static void printPixelArt() {
         System.out.println(GeneralConfig.PIXEL_ART);
-        // System.out.println("                           _.-^-._    .--.");
-        // System.out.println("                        .-'   _   '-. |__|");
-        // System.out.println("                       /     |_|     \\|  |");
-        // System.out.println("                      /               \\  |");
-        // System.out.println("                     /|     _____     |\\ |");
-        // System.out.println("                      |    |==|==|    |  |");
-        // System.out.println("  |---|---|---|---|---|    |--|--|    |  |");
-        // System.out.println("  |---|---|---|---|---|    |==|==|    |  |");
+        // System.out.println(" _.-^-._ .--.");
+        // System.out.println(" .-' _ '-. |__|");
+        // System.out.println(" / |_| \\| |");
+        // System.out.println(" / \\ |");
+        // System.out.println(" /| _____ |\\ |");
+        // System.out.println(" | |==|==| | |");
+        // System.out.println(" |---|---|---|---|---| |--|--| | |");
+        // System.out.println(" |---|---|---|---|---| |==|==| | |");
         // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
         // System.out.println("^^^^^^^^^^^^^^^ QUEENS FARMING ^^^^^^^^^^^^^^^");
         // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");

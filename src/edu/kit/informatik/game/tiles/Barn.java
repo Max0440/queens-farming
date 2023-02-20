@@ -80,7 +80,7 @@ public class Barn {
 
         // start countdown if barn was empty before
         if (this.getTotalVegetableCount() == 1) {
-            this.stopCountdown();
+            this.startCountdown();
         }
     }
 

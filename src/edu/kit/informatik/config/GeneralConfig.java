@@ -34,6 +34,7 @@ public class GeneralConfig {
             VegetableType.MUSHROOM
     };
 
+    // TODO spaces
     public static final String PIXEL_ART = """
                                        _.-^-._    .--.
                                     .-'   _   '-. |__|

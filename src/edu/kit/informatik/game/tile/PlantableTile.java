@@ -1,10 +1,10 @@
 package edu.kit.informatik.game.tile;
 
 import edu.kit.informatik.config.ErrorMessages;
-import edu.kit.informatik.game.Countdown;
 import edu.kit.informatik.game.GameException;
 import edu.kit.informatik.type.PlantableTileType;
 import edu.kit.informatik.type.VegetableType;
+import edu.kit.informatik.util.Countdown;
 
 public class PlantableTile {
 

@@ -1,4 +1,4 @@
-package edu.kit.informatik.game;
+package edu.kit.informatik.util;
 
 public class Countdown {
 

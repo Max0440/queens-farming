@@ -1,19 +1,26 @@
 package edu.kit.informatik.game.tiles;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
+// TODO Erlaubt?
+import java.util.Map.Entry;
 
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.Countdown;
 import edu.kit.informatik.game.GameException;
-import edu.kit.informatik.game.VegetableType;
+import edu.kit.informatik.type.VegetableType;
 
 public class Barn {
 
     private static final int ROUNDS_UNTIL_ROTTEN = 6;
 
     private Countdown countdown;
-    private final Map<VegetableType, Integer> vegetables;
+    private final SortedMap<VegetableType, Integer> vegetables;
 
     /**
      * Instantiates a new {@link Barn}
@@ -23,7 +30,7 @@ public class Barn {
      */
     public Barn() {
         this.countdown = new Countdown(ROUNDS_UNTIL_ROTTEN + 1, 0, true);
-        this.vegetables = new EnumMap<>(VegetableType.class);
+        this.vegetables = new TreeMap<>();
         setVegetableListToValue(1);
     }
 
@@ -134,26 +141,36 @@ public class Barn {
         sb.append(String.format("Barn (spoils in %d turns)", this.countdown.getValue()));
         sb.append(System.lineSeparator());
 
+        for (Entry<VegetableType, Integer> entry : this.vegetables.entrySet()) {
+            if (entry.getValue() == 0) {
+                continue;
+            }
+
+            sb.append(entry.getKey().getPlural() + ": ");
+            sb.append(entry.getValue());
+            sb.append(System.lineSeparator());
+        }
+
         // sort
         // format
         // nice
         // align
         // dont show values with 0
-        sb.append(VegetableType.CARROT.getPlural() + ": ");
-        sb.append(this.vegetables.get(VegetableType.CARROT));
-        sb.append(System.lineSeparator());
+        // sb.append(VegetableType.CARROT.getPlural() + ": ");
+        // sb.append(this.vegetables.get(VegetableType.CARROT));
+        // sb.append(System.lineSeparator());
 
-        sb.append(VegetableType.MUSHROOM.getPlural() + ": ");
-        sb.append(this.vegetables.get(VegetableType.MUSHROOM));
-        sb.append(System.lineSeparator());
+        // sb.append(VegetableType.MUSHROOM.getPlural() + ": ");
+        // sb.append(this.vegetables.get(VegetableType.MUSHROOM));
+        // sb.append(System.lineSeparator());
 
-        sb.append(VegetableType.SALAD.getPlural() + ": ");
-        sb.append(this.vegetables.get(VegetableType.SALAD));
-        sb.append(System.lineSeparator());
+        // sb.append(VegetableType.SALAD.getPlural() + ": ");
+        // sb.append(this.vegetables.get(VegetableType.SALAD));
+        // sb.append(System.lineSeparator());
 
-        sb.append(VegetableType.TOMATO.getPlural() + ": ");
-        sb.append(this.vegetables.get(VegetableType.TOMATO));
-        sb.append(System.lineSeparator());
+        // sb.append(VegetableType.TOMATO.getPlural() + ": ");
+        // sb.append(this.vegetables.get(VegetableType.TOMATO));
+        // sb.append(System.lineSeparator());
 
         // right length
         sb.append("---------------");

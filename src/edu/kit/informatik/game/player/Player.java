@@ -3,8 +3,8 @@ package edu.kit.informatik.game.player;
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.Board;
 import edu.kit.informatik.game.GameException;
-import edu.kit.informatik.game.VegetableType;
 import edu.kit.informatik.game.tiles.Barn;
+import edu.kit.informatik.type.VegetableType;
 
 /**
  * Represents a player in queens farming.

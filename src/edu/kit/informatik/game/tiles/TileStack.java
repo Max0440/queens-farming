@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import edu.kit.informatik.type.PlantableTileType;
+
 public class TileStack {
     private final List<PlantableTileType> stack;
 

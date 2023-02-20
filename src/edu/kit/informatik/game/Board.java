@@ -6,8 +6,9 @@ import java.util.Map;
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.tiles.Barn;
 import edu.kit.informatik.game.tiles.PlantableTile;
-import edu.kit.informatik.game.tiles.PlantableTileType;
 import edu.kit.informatik.game.tiles.Position;
+import edu.kit.informatik.type.PlantableTileType;
+import edu.kit.informatik.type.VegetableType;
 
 public class Board {
 

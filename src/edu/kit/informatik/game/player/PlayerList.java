@@ -84,8 +84,6 @@ public class PlayerList {
             return String.format("%s has won!", playerThatWon.get(0).toString());
         }
 
-        // TODO?(#504) Reigenfolge wichtig? Gleich wie bei playerList.toString() oder
-        // egal
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < playerThatWon.size() - 2; i++) {
             sb.append(String.format("%s, ", playerThatWon.get(i).toString()));

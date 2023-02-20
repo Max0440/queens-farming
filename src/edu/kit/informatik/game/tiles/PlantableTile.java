@@ -3,7 +3,8 @@ package edu.kit.informatik.game.tiles;
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.Countdown;
 import edu.kit.informatik.game.GameException;
-import edu.kit.informatik.game.VegetableType;
+import edu.kit.informatik.type.PlantableTileType;
+import edu.kit.informatik.type.VegetableType;
 
 public class PlantableTile {
 

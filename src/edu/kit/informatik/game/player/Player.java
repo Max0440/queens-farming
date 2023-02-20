@@ -2,8 +2,8 @@ package edu.kit.informatik.game.player;
 
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.GameException;
-import edu.kit.informatik.game.tile.Barn;
-import edu.kit.informatik.game.tile.Board;
+import edu.kit.informatik.game.board.Barn;
+import edu.kit.informatik.game.board.Board;
 import edu.kit.informatik.type.VegetableType;
 
 /**

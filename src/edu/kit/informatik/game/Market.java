@@ -108,18 +108,31 @@ public class Market {
         }
     }
 
+    private int getHightestPrice() {
+        int highestValue = Math.max(MUSHROOM_PRICES[this.mushroomCarrotIndex], CARROT_PRICES[this.mushroomCarrotIndex]);
+        highestValue = Math.max(highestValue, TOMATO_PRICES[this.mushroomCarrotIndex]);
+        return Math.max(highestValue, SALAD_PRICES[this.mushroomCarrotIndex]);
+    }
+
     @Override
     public String toString() {
+        int highestPrice = this.getHightestPrice();
+        int highestPriceLength = String.valueOf(highestPrice).length();
+
+        String mushroomFormat = "mushrooms: %" + highestPriceLength + "d";
+        String carrotFormat =   "carrots:   %" + highestPriceLength + "d";
+        String tomatoFormat =   "tomatoes:  %" + highestPriceLength + "d";
+        String saladFormat =    "salads:    %" + highestPriceLength + "d";
+
         StringBuilder sb = new StringBuilder();
 
-        // TODO print
-        sb.append(String.format("mushrooms: %d", MUSHROOM_PRICES[this.mushroomCarrotIndex]));
+        sb.append(String.format(mushroomFormat, MUSHROOM_PRICES[this.mushroomCarrotIndex]));
         sb.append(System.lineSeparator());
-        sb.append(String.format("carrots: %d", CARROT_PRICES[this.mushroomCarrotIndex]));
+        sb.append(String.format(carrotFormat, CARROT_PRICES[this.mushroomCarrotIndex]));
         sb.append(System.lineSeparator());
-        sb.append(String.format("tomatoes: %d", TOMATO_PRICES[this.tomatoSaladIndex]));
+        sb.append(String.format(tomatoFormat, TOMATO_PRICES[this.tomatoSaladIndex]));
         sb.append(System.lineSeparator());
-        sb.append(String.format("salads: %d", SALAD_PRICES[this.tomatoSaladIndex]));
+        sb.append(String.format(saladFormat, SALAD_PRICES[this.tomatoSaladIndex]));
 
         return sb.toString();
     }

@@ -258,9 +258,9 @@ public class QueensFarming {
 
         this.remainingActions -= 1;
         if (amountToHarvest > 1) {
-            return String.format("You have harvested %d %s", amountToHarvest, harvestedVegetable.getPlural());
+            return String.format("You have harvested %d %s.", amountToHarvest, harvestedVegetable.getPlural());
         }
-        return String.format("You have harvested %d %s", amountToHarvest, harvestedVegetable.getSingular());
+        return String.format("You have harvested %d %s.", amountToHarvest, harvestedVegetable.getSingular());
     }
 
     /**

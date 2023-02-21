@@ -198,14 +198,15 @@ public class Board {
         }
 
         // convert 2d char array to string
-        // TODO last line break?
-        // TODO Rename variables
         StringBuilder sb = new StringBuilder();
-        for (char[] cs : boardRepresentation) {
-            for (char cs2 : cs) {
-                sb.append(cs2);
+        for (int rowIndex = 0; rowIndex < boardRepresentation.length; rowIndex++) {
+            for (int columnIndex = 0; columnIndex < boardRepresentation[rowIndex].length; columnIndex++) {
+                sb.append(boardRepresentation[rowIndex][columnIndex]);
             }
-            sb.append(System.lineSeparator());
+
+            if (rowIndex != boardRepresentation.length - 1) {
+                sb.append(System.lineSeparator());
+            }
         }
 
         return sb.toString();

@@ -3,9 +3,9 @@ package edu.kit.informatik.game.type;
 public enum VegetableType {
 
     CARROT("carrot", "carrots", "C", 1),
+    MUSHROOM("mushroom", "mushrooms", "M", 4),
     SALAD("salad", "salads", "S", 2),
-    TOMATO("tomato", "tomatoes", "T", 3),
-    MUSHROOM("mushroom", "mushrooms", "M", 4);
+    TOMATO("tomato", "tomatoes", "T", 3);
 
     private final String singular;
     private final String plural;

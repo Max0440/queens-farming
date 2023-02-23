@@ -1,9 +1,11 @@
 package edu.kit.informatik.game;
 
 import java.util.EnumMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import edu.kit.informatik.game.type.VegetableType;
+import edu.kit.informatik.util.MapUtil;
 
 public class Market {
     private static final int[] MUSHROOM_PRICES = { 12, 15, 16, 17, 20 };
@@ -108,32 +110,14 @@ public class Market {
         }
     }
 
-    private int getHightestPrice() {
-        int highestValue = Math.max(MUSHROOM_PRICES[this.mushroomCarrotIndex], CARROT_PRICES[this.mushroomCarrotIndex]);
-        highestValue = Math.max(highestValue, TOMATO_PRICES[this.mushroomCarrotIndex]);
-        return Math.max(highestValue, SALAD_PRICES[this.mushroomCarrotIndex]);
-    }
-
     @Override
     public String toString() {
-        int highestPrice = this.getHightestPrice();
-        int highestPriceLength = String.valueOf(highestPrice).length();
+        Map<VegetableType, Integer> data = new LinkedHashMap<>();
+        data.put(VegetableType.MUSHROOM, MUSHROOM_PRICES[this.mushroomCarrotIndex]);
+        data.put(VegetableType.CARROT, CARROT_PRICES[this.mushroomCarrotIndex]);
+        data.put(VegetableType.TOMATO, TOMATO_PRICES[this.mushroomCarrotIndex]);
+        data.put(VegetableType.SALAD, SALAD_PRICES[this.mushroomCarrotIndex]);
 
-        String mushroomFormat = "mushrooms: %" + highestPriceLength + "d";
-        String carrotFormat =   "carrots:   %" + highestPriceLength + "d";
-        String tomatoFormat =   "tomatoes:  %" + highestPriceLength + "d";
-        String saladFormat =    "salads:    %" + highestPriceLength + "d";
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(String.format(mushroomFormat, MUSHROOM_PRICES[this.mushroomCarrotIndex]));
-        sb.append(System.lineSeparator());
-        sb.append(String.format(carrotFormat, CARROT_PRICES[this.mushroomCarrotIndex]));
-        sb.append(System.lineSeparator());
-        sb.append(String.format(tomatoFormat, TOMATO_PRICES[this.tomatoSaladIndex]));
-        sb.append(System.lineSeparator());
-        sb.append(String.format(saladFormat, SALAD_PRICES[this.tomatoSaladIndex]));
-
-        return sb.toString();
+        return MapUtil.formatToTable(data);
     }
 }

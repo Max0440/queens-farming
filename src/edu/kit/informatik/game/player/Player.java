@@ -142,14 +142,8 @@ public class Player {
     }
 
     public String showBarn() {
-        // TODO print
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(this.getBarn().toString());
-        sb.append(System.lineSeparator());
-        sb.append(this.getGold());
-        // sb.append("TODO");
-        return sb.toString();
+        // TODO name
+        return this.getBarn().toStringTodo(this.gold);
     }
 
     /**

@@ -151,7 +151,6 @@ public class QueensFarming {
         return this.market.toString();
     }
 
-    // TODO implement sellAll
     /**
      * Sells all vegetables of the current player, add the gold to the player
      * balance and return a message
@@ -159,12 +158,13 @@ public class QueensFarming {
      * @return a message telling how many vegetables were sold and for how much gold
      */
     public String sellAll() {
-        Map<VegetableType, Integer> vegetables = this.getCurrentPlayer().getVegetables();
+        Map<VegetableType, Integer> playersVegetables = this.getCurrentPlayer().getVegetables();
         int totalPrice = 0;
         int soldCount = 0;
 
-        for (VegetableType vegetable : vegetables.keySet()) {
-            int vegetableCount = vegetables.get(vegetable);
+        // sell all vegetables from player one by one
+        for (VegetableType vegetable : playersVegetables.keySet()) {
+            int vegetableCount = playersVegetables.get(vegetable);
             for (int i = 0; i < vegetableCount; i++) {
                 this.getCurrentPlayer().sell(vegetable);
                 totalPrice += this.market.sell(vegetable);
@@ -182,6 +182,8 @@ public class QueensFarming {
         }
     }
 
+    // TODO remove exception from player.sell
+    // TODO remove duplicate code
     /**
      * Sells all vegetables in the list and adds the gold to the players balance for
      * all vegetables that could sold. Skips all vegetables, the player doesn't own
@@ -189,18 +191,30 @@ public class QueensFarming {
      * @param vegetables list of vegetables to sell
      * @return a message telling how much vegetable was sold and for what price
      */
-    public String sell(List<VegetableType> vegetables) {
+    public String sell(Map<VegetableType, Integer> vegetablesToSell) {
+        Map<VegetableType, Integer> playersVegetables = this.getCurrentPlayer().getVegetables();
+
+        // check if player owns vegetables he wants to sell
+        for (VegetableType key : vegetablesToSell.keySet()) {
+            int value = vegetablesToSell.get(key);
+
+            // TODO Message
+            if (value > playersVegetables.get(key)) {
+                return "Error: ";
+            }
+        }
+
         int totalPrice = 0;
         int soldCount = 0;
-        for (int i = 0; i < vegetables.size(); i++) {
-            try {
-                this.getCurrentPlayer().sell(vegetables.get(i));
-            } catch (GameException e) {
-                // skip if player hasn't vegetable he wants to sell
-                continue;
+
+        // sell all vegetables from list one by one
+        for (VegetableType vegetable : vegetablesToSell.keySet()) {
+            int vegetableCount = vegetablesToSell.get(vegetable);
+            for (int i = 0; i < vegetableCount; i++) {
+                this.getCurrentPlayer().sell(vegetable);
+                totalPrice += this.market.sell(vegetable);
+                soldCount++;
             }
-            totalPrice += this.market.sell(vegetables.get(i));
-            soldCount++;
         }
         this.getCurrentPlayer().addGold(totalPrice);
 
@@ -211,6 +225,29 @@ public class QueensFarming {
             return String.format("You have sold %d vegetables for %d gold.", soldCount,
                     totalPrice);
         }
+
+        // checks if player has enough vegetables
+        // int totalPrice = 0;
+        // int soldCount = 0;
+        // for (int i = 0; i < vegetables.size(); i++) {
+        // try {
+        // this.getCurrentPlayer().sell(vegetables.get(i));
+        // } catch (GameException e) {
+        // // skip if player hasn't vegetable he wants to sell
+        // continue;
+        // }
+        // totalPrice += this.market.sell(vegetables.get(i));
+        // soldCount++;
+        // }
+        // this.getCurrentPlayer().addGold(totalPrice);
+
+        // this.remainingActions -= 1;
+        // if (soldCount == 1) {
+        // return String.format("You have sold 1 vegetable for %d gold.", totalPrice);
+        // } else {
+        // return String.format("You have sold %d vegetables for %d gold.", soldCount,
+        // totalPrice);
+        // }
     }
 
     /**

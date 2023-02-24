@@ -1,7 +1,7 @@
 package edu.kit.informatik.ui;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,6 +9,7 @@ import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.GameException;
 import edu.kit.informatik.game.QueensFarming;
 import edu.kit.informatik.game.type.VegetableType;
+import edu.kit.informatik.util.MapUtil;
 
 public enum CommandHandler {
 
@@ -47,16 +48,18 @@ public enum CommandHandler {
         }
     },
 
-    // TODO?(#499) auch zulassen, dass man nur "sell" schreiben darf
     SELL("sell( ((carrot)|(mushroom)|(tomato)|(salad)))*") {
         @Override
         public String execute(Matcher input, QueensFarming game) {
             String[] parameters = input.group().split("\s");
-            List<VegetableType> vegetableList = new ArrayList<>();
+            Map<VegetableType, Integer> vegetableList = new EnumMap<>(VegetableType.class);
+            MapUtil.setVegetablesToValue(vegetableList, 0);
 
             for (int i = 1; i < parameters.length; i++) {
-                VegetableType vegetable = VegetableType.fromString(parameters[i]);
-                vegetableList.add(vegetable);
+                VegetableType vegetableType = VegetableType.fromString(parameters[i]);
+
+                final int currentCount = vegetableList.get(vegetableType);
+                vegetableList.put(vegetableType, currentCount + 1);
             }
 
             return game.sell(vegetableList);

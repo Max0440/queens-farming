@@ -1,6 +1,7 @@
 package edu.kit.informatik.game;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.board.Board;
@@ -153,13 +154,32 @@ public class QueensFarming {
     // TODO implement sellAll
     /**
      * Sells all vegetables of the current player, add the gold to the player
-     * balance
-     * and return a message
+     * balance and return a message
      * 
      * @return a message telling how many vegetables were sold and for how much gold
      */
     public String sellAll() {
-        return null;
+        Map<VegetableType, Integer> vegetables = this.getCurrentPlayer().getVegetables();
+        int totalPrice = 0;
+        int soldCount = 0;
+
+        for (VegetableType vegetable : vegetables.keySet()) {
+            int vegetableCount = vegetables.get(vegetable);
+            for (int i = 0; i < vegetableCount; i++) {
+                this.getCurrentPlayer().sell(vegetable);
+                totalPrice += this.market.sell(vegetable);
+                soldCount++;
+            }
+        }
+        this.getCurrentPlayer().addGold(totalPrice);
+
+        this.remainingActions -= 1;
+        if (soldCount == 1) {
+            return String.format("You have sold 1 vegetable for %d gold.", totalPrice);
+        } else {
+            return String.format("You have sold %d vegetables for %d gold.", soldCount,
+                    totalPrice);
+        }
     }
 
     /**
@@ -188,9 +208,9 @@ public class QueensFarming {
         if (soldCount == 1) {
             return String.format("You have sold 1 vegetable for %d gold.", totalPrice);
         } else {
-            return String.format("You have sold %d vegetables for %d gold.", soldCount, totalPrice);
+            return String.format("You have sold %d vegetables for %d gold.", soldCount,
+                    totalPrice);
         }
-
     }
 
     /**

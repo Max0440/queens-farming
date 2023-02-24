@@ -1,5 +1,7 @@
 package edu.kit.informatik.game.player;
 
+import java.util.Map;
+
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.GameException;
 import edu.kit.informatik.game.board.Barn;
@@ -56,6 +58,10 @@ public class Player {
      */
     public Board getBoard() {
         return this.board;
+    }
+
+    public Map<VegetableType, Integer> getVegetables() {
+        return this.getBarn().getVegetables();
     }
 
     /**

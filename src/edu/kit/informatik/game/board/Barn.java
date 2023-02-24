@@ -25,8 +25,13 @@ public class Barn {
      */
     public Barn() {
         this.countdown = new Countdown(ROUNDS_UNTIL_ROTTEN + 1, 0, true);
+        // TODO Tree map?
         this.vegetables = new TreeMap<>();
         setVegetableListToValue(1);
+    }
+
+    public Map<VegetableType, Integer> getVegetables() {
+        return this.vegetables;
     }
 
     private int getTotalVegetableCount() {
@@ -130,12 +135,18 @@ public class Barn {
         return charArray;
     }
 
+    // TODO name
     public String toStringTodo(int gold) {
+        StringBuilder sb = new StringBuilder();
+
         if (this.getTotalVegetableCount() == 0) {
-            return "Barn";
+            sb.append("Barn");
+            sb.append(System.lineSeparator());
+            sb.append("Gold: ");
+            sb.append(gold);
+            return sb.toString();
         }
 
-        StringBuilder sb = new StringBuilder();
         sb.append(String.format("Barn (spoils in %d turns)", this.countdown.getValue()));
         sb.append(System.lineSeparator());
 

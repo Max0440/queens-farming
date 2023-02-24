@@ -139,7 +139,11 @@ public class Barn {
             return sb.toString();
         }
 
-        sb.append(String.format("Barn (spoils in %d turns)", this.countdown.getValue()));
+        if (this.countdown.getValue() == 1) {
+            sb.append(String.format("Barn (spoils in %d turn)", this.countdown.getValue()));
+        } else {
+            sb.append(String.format("Barn (spoils in %d turns)", this.countdown.getValue()));
+        }
         sb.append(System.lineSeparator());
 
         Map<VegetableType, Integer> sortedMap = MapUtil.sortByInt(this.vegetables);

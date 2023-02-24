@@ -14,6 +14,18 @@ public class MapUtil {
         // TODO error
     }
 
+    /**
+     * Sets all vegetables in a map to the given value
+     * 
+     * @param map to set values
+     * @param value to set
+     */
+    public static void setVegetablesToValue(Map<VegetableType, Integer> map, int value) {
+        for (VegetableType vegetable : VegetableType.values()) {
+            map.put(vegetable, value);
+        }
+    }
+
     public static Map<VegetableType, Integer> sortByInt(Map<VegetableType, Integer> map) {
         List<Entry<VegetableType, Integer>> listOfEntries = new ArrayList<>(map.entrySet());
 

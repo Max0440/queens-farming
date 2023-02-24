@@ -27,7 +27,7 @@ public class Barn {
         this.countdown = new Countdown(ROUNDS_UNTIL_ROTTEN + 1, 0, true);
         // TODO Tree map?
         this.vegetables = new TreeMap<>();
-        setVegetableListToValue(1);
+        MapUtil.setVegetablesToValue(this.vegetables, 1);
     }
 
     public Map<VegetableType, Integer> getVegetables() {
@@ -40,13 +40,6 @@ public class Barn {
             count += value;
         }
         return count;
-    }
-
-    private void setVegetableListToValue(final int value) {
-        this.vegetables.put(VegetableType.CARROT, value);
-        this.vegetables.put(VegetableType.MUSHROOM, value);
-        this.vegetables.put(VegetableType.SALAD, value);
-        this.vegetables.put(VegetableType.TOMATO, value);
     }
 
     private void startCountdown() {
@@ -107,7 +100,7 @@ public class Barn {
         }
 
         this.stopCountdown();
-        setVegetableListToValue(0);
+        MapUtil.setVegetablesToValue(this.vegetables, 0);
         return "The vegetables in your barn are spoiled.";
     }
 

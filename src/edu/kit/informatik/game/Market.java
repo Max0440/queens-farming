@@ -28,6 +28,7 @@ public class Market {
         this.mushroomCarrotIndex = DEFAULT_START_INDEX;
         this.tomatoSaladIndex = DEFAULT_START_INDEX;
         this.soldVegetables = new EnumMap<>(VegetableType.class);
+        MapUtil.setVegetablesToValue(this.soldVegetables, 0);
     }
 
     /**
@@ -37,7 +38,6 @@ public class Market {
      * @return current price of vegetable
      */
     public int sell(final VegetableType vegetable) {
-        this.soldVegetables.putIfAbsent(vegetable, 0);
         final int currentCount = this.soldVegetables.get(vegetable);
         this.soldVegetables.put(vegetable, currentCount + 1);
 
@@ -117,8 +117,8 @@ public class Market {
         Map<VegetableType, Integer> data = new LinkedHashMap<>();
         data.put(VegetableType.MUSHROOM, MUSHROOM_PRICES[this.mushroomCarrotIndex]);
         data.put(VegetableType.CARROT, CARROT_PRICES[this.mushroomCarrotIndex]);
-        data.put(VegetableType.TOMATO, TOMATO_PRICES[this.mushroomCarrotIndex]);
-        data.put(VegetableType.SALAD, SALAD_PRICES[this.mushroomCarrotIndex]);
+        data.put(VegetableType.TOMATO, TOMATO_PRICES[this.tomatoSaladIndex]);
+        data.put(VegetableType.SALAD, SALAD_PRICES[this.tomatoSaladIndex]);
 
         return MapUtil.formatToTable(data);
     }

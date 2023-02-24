@@ -50,6 +50,7 @@ public class Market {
      */
     public void startNextTurn() {
         for (final VegetableType vegetable : VegetableType.values()) {
+            // TODO check in needed
             this.soldVegetables.putIfAbsent(vegetable, 0);
         }
 
@@ -83,6 +84,12 @@ public class Market {
         } else if (this.tomatoSaladIndex < MIN_INDEX) {
             this.tomatoSaladIndex = MIN_INDEX;
         }
+
+        // TODO nice
+        for (final VegetableType vegetable : VegetableType.values()) {
+            // TODO check in needed
+            this.soldVegetables.put(vegetable, 0);
+        }
     }
 
     /**
@@ -100,10 +107,10 @@ public class Market {
                 return CARROT_PRICES[this.mushroomCarrotIndex];
 
             case SALAD:
-                return TOMATO_PRICES[this.tomatoSaladIndex];
+                return SALAD_PRICES[this.tomatoSaladIndex];
 
             case TOMATO:
-                return SALAD_PRICES[this.tomatoSaladIndex];
+                return TOMATO_PRICES[this.tomatoSaladIndex];
 
             default:
                 return 0;

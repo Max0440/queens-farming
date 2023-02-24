@@ -1,8 +1,7 @@
 package edu.kit.informatik.game.board;
 
+import java.util.EnumMap;
 import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.GameException;
@@ -15,7 +14,7 @@ public class Barn {
     private static final int ROUNDS_UNTIL_ROTTEN = 6;
 
     private Countdown countdown;
-    private final SortedMap<VegetableType, Integer> vegetables;
+    private final Map<VegetableType, Integer> vegetables;
 
     /**
      * Instantiates a new {@link Barn}
@@ -25,8 +24,8 @@ public class Barn {
      */
     public Barn() {
         this.countdown = new Countdown(ROUNDS_UNTIL_ROTTEN + 1, 0, true);
-        // TODO Tree map?
-        this.vegetables = new TreeMap<>();
+        this.vegetables = new EnumMap<>(VegetableType.class);
+
         MapUtil.setVegetablesToValue(this.vegetables, 1);
     }
 

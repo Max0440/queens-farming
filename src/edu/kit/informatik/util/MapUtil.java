@@ -7,11 +7,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.type.VegetableType;
 
 public class MapUtil {
     private MapUtil() {
-        // TODO error
+        throw new AssertionError(ErrorMessages.UTILITY_CLASS_INSTANTIATION);
     }
 
     /**

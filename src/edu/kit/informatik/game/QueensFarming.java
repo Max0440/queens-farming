@@ -190,8 +190,10 @@ public class QueensFarming {
      * 
      * @param vegetables list of vegetables to sell
      * @return a message telling how much vegetable was sold and for what price
+     * @throws GameException when player doesn't own at least one of the vegetables
+     *                       they wants to sell
      */
-    public String sell(Map<VegetableType, Integer> vegetablesToSell) {
+    public String sell(Map<VegetableType, Integer> vegetablesToSell) throws GameException {
         Map<VegetableType, Integer> playersVegetables = this.getCurrentPlayer().getVegetables();
 
         // check if player owns vegetables he wants to sell
@@ -200,7 +202,7 @@ public class QueensFarming {
 
             // TODO Message
             if (value > playersVegetables.get(key)) {
-                return "Error: ";
+                throw new GameException(ErrorMessages.VEGETABLE_NOT_OWNED);
             }
         }
 

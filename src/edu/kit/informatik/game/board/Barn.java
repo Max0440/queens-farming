@@ -127,8 +127,7 @@ public class Barn {
         return charArray;
     }
 
-    // TODO name
-    public String toStringTodo(int gold) {
+    public String toStringFormatted(int gold) {
         StringBuilder sb = new StringBuilder();
 
         if (this.getTotalVegetableCount() == 0) {

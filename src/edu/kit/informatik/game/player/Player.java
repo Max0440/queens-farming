@@ -148,8 +148,7 @@ public class Player {
     }
 
     public String showBarn() {
-        // TODO name
-        return this.getBarn().toStringTodo(this.gold);
+        return this.getBarn().toStringFormatted(this.gold);
     }
 
     /**

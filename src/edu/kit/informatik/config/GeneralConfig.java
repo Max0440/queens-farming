@@ -34,19 +34,18 @@ public class GeneralConfig {
             VegetableType.MUSHROOM
     };
 
-    // TODO spaces
-    public static final String PIXEL_ART = """
-                                       _.-^-._    .--.
-                                    .-'   _   '-. |__|
-                                   /     |_|     \\|  |
-                                  /               \\  |
-                                 /|     _____     |\\ |
-                                  |    |==|==|    |  |
-              |---|---|---|---|---|    |--|--|    |  |
-              |---|---|---|---|---|    |==|==|    |  |
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            ^^^^^^^^^^^^^^^ QUEENS FARMING ^^^^^^^^^^^^^^^
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^""";
+    public static final String PIXEL_ART = new StringBuilder()
+            .append("                           _.-^-._    .--.    ").append(System.lineSeparator())
+            .append("                        .-'   _   '-. |__|    ").append(System.lineSeparator())
+            .append("                       /     |_|     \\|  |    ").append(System.lineSeparator())
+            .append("                      /               \\  |    ").append(System.lineSeparator())
+            .append("                     /|     _____     |\\ |    ").append(System.lineSeparator())
+            .append("                      |    |==|==|    |  |    ").append(System.lineSeparator())
+            .append("  |---|---|---|---|---|    |--|--|    |  |    ").append(System.lineSeparator())
+            .append("  |---|---|---|---|---|    |==|==|    |  |    ").append(System.lineSeparator())
+            .append("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^").append(System.lineSeparator())
+            .append("^^^^^^^^^^^^^^^ QUEENS FARMING ^^^^^^^^^^^^^^^").append(System.lineSeparator())
+            .append("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^").toString();
 
     private GeneralConfig() {
         throw new AssertionError(ErrorMessages.UTILITY_CLASS_INSTANTIATION);

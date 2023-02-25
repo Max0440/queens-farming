@@ -34,18 +34,12 @@ public class Main {
             return;
         }
 
-        // initializeSequence();
-
-        // String[] players = { "Mira", "Milan", "Vincent" };
-        // String[] players = { "Max", "Jean" };
-        String[] players = { "Mira" };
-        game = new QueensFarming(players, 20, 60, 6);
+        initializeSequence();
 
         while (game.isActive()) {
-            // TODO var name
-            String asd = game.startNextTurn();
-            if (asd != null) {
-                System.out.println(asd);
+            String turnInformation = game.startNextTurn();
+            if (turnInformation != null) {
+                System.out.println(turnInformation);
             }
 
             while (game.isTurnRunning()) {
@@ -64,7 +58,7 @@ public class Main {
     }
 
     private static void initializeSequence() {
-        printPixelArt();
+        System.out.println(GeneralConfig.PIXEL_ART);
 
         System.out.println("How many players?");
         Integer playerCount = null;
@@ -145,20 +139,5 @@ public class Main {
         }
 
         game = new QueensFarming(playerNames, goldAtStart, goldToWin, seed);
-    }
-
-    private static void printPixelArt() {
-        System.out.println(GeneralConfig.PIXEL_ART);
-        // System.out.println(" _.-^-._ .--.");
-        // System.out.println(" .-' _ '-. |__|");
-        // System.out.println(" / |_| \\| |");
-        // System.out.println(" / \\ |");
-        // System.out.println(" /| _____ |\\ |");
-        // System.out.println(" | |==|==| | |");
-        // System.out.println(" |---|---|---|---|---| |--|--| | |");
-        // System.out.println(" |---|---|---|---|---| |==|==| | |");
-        // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-        // System.out.println("^^^^^^^^^^^^^^^ QUEENS FARMING ^^^^^^^^^^^^^^^");
-        // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
     }
 }

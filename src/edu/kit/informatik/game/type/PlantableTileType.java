@@ -1,14 +1,15 @@
 package edu.kit.informatik.game.type;
 
+import edu.kit.informatik.config.BoardConfig;
 import edu.kit.informatik.config.GeneralConfig;
 
 public enum PlantableTileType {
 
-    GARDEN("Garden", "| G %s |", 2, GeneralConfig.GARDEN_PLANTABLE_VEGETABLES),
-    FIELD("Field", "| Fi %s|", 4, GeneralConfig.FIELD_PLANTABLE_VEGETABLES),
-    LARGE_FIELD("Large Field", "|LFi %s|", 8, GeneralConfig.FIELD_PLANTABLE_VEGETABLES),
-    FOREST("Forest", "| Fo %s|", 4, GeneralConfig.FOREST_PLANTABLE_VEGETABLES),
-    LARGE_FOREST("Large Forest", "|LFo %s|", 8, GeneralConfig.FOREST_PLANTABLE_VEGETABLES);
+    GARDEN("Garden", BoardConfig.GARDEN, 2, GeneralConfig.GARDEN_PLANTABLE_VEGETABLES),
+    FIELD("Field", BoardConfig.FIELD, 4, GeneralConfig.FIELD_PLANTABLE_VEGETABLES),
+    LARGE_FIELD("Large Field", BoardConfig.LARGE_FIELD, 8, GeneralConfig.FIELD_PLANTABLE_VEGETABLES),
+    FOREST("Forest", BoardConfig.FOREST, 4, GeneralConfig.FOREST_PLANTABLE_VEGETABLES),
+    LARGE_FOREST("Large Forest", BoardConfig.LARGE_FOREST, 8, GeneralConfig.FOREST_PLANTABLE_VEGETABLES);
 
     private final int maxCapacity;
     private final String boardRepresentation;

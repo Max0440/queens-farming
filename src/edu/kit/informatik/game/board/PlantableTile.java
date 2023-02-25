@@ -1,5 +1,6 @@
 package edu.kit.informatik.game.board;
 
+import edu.kit.informatik.config.BoardConfig;
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.GameException;
 import edu.kit.informatik.game.type.PlantableTileType;
@@ -83,22 +84,29 @@ public class PlantableTile {
     }
 
     public char[][] toCharArray() {
-        char[][] c = new char[3][7];
-
+        String firstRowRepresentation;
         if (this.growCountdown.isActive()) {
-            c[0] = String.format(this.tileType.getBoardRepresentation(), this.growCountdown.getValue()).toCharArray();
+            firstRowRepresentation = String.format(this.tileType.getBoardRepresentation(),
+                    this.growCountdown.getValue());
         } else {
-            // TODO remove magic
-            c[0] = String.format(this.tileType.getBoardRepresentation(), "*").toCharArray();
+            firstRowRepresentation = String.format(this.tileType.getBoardRepresentation(), "*");
         }
 
+        String middleRowRepresentation;
         if (this.plantedVegetableCount > 0) {
-            c[1] = String.format("|  %s  |", this.plantedVegetable.getAbbreviation()).toCharArray();
+            middleRowRepresentation = String.format(BoardConfig.TILE_PLANTED_VEGETABLE,
+                    this.plantedVegetable.getAbbreviation());
         } else {
-            c[1] = "|     |".toCharArray();
+            middleRowRepresentation = BoardConfig.EMPTY_ROW;
         }
 
-        c[2] = String.format("| %d/%d |", this.plantedVegetableCount, this.tileType.getMaxCapacity()).toCharArray();
-        return c;
+        String lastRowRepresentation = String.format(BoardConfig.TILE_CAPACITY, this.plantedVegetableCount,
+                this.tileType.getMaxCapacity());
+
+        return new char[][] {
+                firstRowRepresentation.toCharArray(),
+                middleRowRepresentation.toCharArray(),
+                lastRowRepresentation.toCharArray(),
+        };
     }
 }

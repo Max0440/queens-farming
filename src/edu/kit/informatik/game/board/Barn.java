@@ -3,6 +3,7 @@ package edu.kit.informatik.game.board;
 import java.util.EnumMap;
 import java.util.Map;
 
+import edu.kit.informatik.config.BoardConfig;
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.GameException;
 import edu.kit.informatik.game.type.VegetableType;
@@ -114,17 +115,18 @@ public class Barn {
     }
 
     public char[][] toCharArray() {
-        char[][] charArray = new char[3][7];
-
-        charArray[0] = "|     |".toCharArray();
-        charArray[2] = "|     |".toCharArray();
+        String middleRowRepresentation;
         if (this.getTotalVegetableCount() == 0) {
-            charArray[1] = "| B * |".toCharArray();
+            middleRowRepresentation = BoardConfig.BARN_NO_COUNTDOWN;
         } else {
-            charArray[1] = String.format("| B %d |", this.countdown.getValue()).toCharArray();
+            middleRowRepresentation = String.format(BoardConfig.BARN_COUNTDOWN, this.countdown.getValue());
         }
 
-        return charArray;
+        return new char[][] {
+                BoardConfig.EMPTY_ROW.toCharArray(),
+                middleRowRepresentation.toCharArray(),
+                BoardConfig.EMPTY_ROW.toCharArray(),
+        };
     }
 
     public String toStringFormatted(int gold) {

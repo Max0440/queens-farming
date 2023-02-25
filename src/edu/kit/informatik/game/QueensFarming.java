@@ -200,7 +200,6 @@ public class QueensFarming {
         for (VegetableType key : vegetablesToSell.keySet()) {
             int value = vegetablesToSell.get(key);
 
-            // TODO Message
             if (value > playersVegetables.get(key)) {
                 throw new GameException(ErrorMessages.VEGETABLE_NOT_OWNED);
             }

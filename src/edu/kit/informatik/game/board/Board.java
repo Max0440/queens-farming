@@ -81,7 +81,7 @@ public class Board {
     }
 
     private boolean isOccupied(final int xCoordinate, final int yCoordinate) {
-        if (xCoordinate == 0 && yCoordinate == 0) {
+        if (xCoordinate == 0 && yCoordinate == 0) { // position of barn
             return true;
         }
         return this.getPlantableTile(xCoordinate, yCoordinate) != null;

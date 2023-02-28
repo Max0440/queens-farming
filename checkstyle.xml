@@ -13,11 +13,6 @@
 
     <!-- See http://yle.sf.net/config_sizes.html !-->
     <!-- Checks for long lines. !-->
-    <!-- <module name="LineLength">
-        <property name="ignorePattern" value="^$" />
-        <property name="max" value="120" />
-    </module> -->
-
     <module name="TreeWalker">
 
         <!-- Checks the number of methods declared in each type. This includes the number of each scope !-->
@@ -193,7 +188,6 @@
         <!-- See http://yle.sf.net/config_naming.html !-->
         <module name="LocalVariableName">
             <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-            <!--<property name="tokens" value="VARIABLE_DEF, PARAMETER_DEF"/>-->
         </module>
 
         <!-- Checks for member variable name naming conventions. !-->

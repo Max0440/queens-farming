@@ -4,24 +4,25 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import edu.kit.informatik.config.BoardConfig;
-import edu.kit.informatik.config.ErrorMessages;
-import edu.kit.informatik.game.GameException;
 import edu.kit.informatik.game.type.VegetableType;
 import edu.kit.informatik.util.Countdown;
 import edu.kit.informatik.util.MapUtil;
 
+/**
+ * Represents a barn from a player in queens farming
+ * 
+ * @author uiljo
+ * @version 1.0
+ */
 public class Barn {
 
     private static final int ROUNDS_UNTIL_ROTTEN = 6;
 
-    private Countdown countdown;
+    private final Countdown countdown;
     private final Map<VegetableType, Integer> vegetables;
 
     /**
      * Instantiates a new {@link Barn}
-     * 
-     * @param column on board
-     * @param row    on board
      */
     public Barn() {
         this.countdown = new Countdown(ROUNDS_UNTIL_ROTTEN + 1, 0, true);
@@ -30,6 +31,11 @@ public class Barn {
         MapUtil.setVegetablesToValue(this.vegetables, 1);
     }
 
+    /**
+     * Returns a map with the amount of vegetables the player has
+     * 
+     * @return vegetables
+     */
     public Map<VegetableType, Integer> getVegetables() {
         return this.vegetables;
     }
@@ -54,16 +60,16 @@ public class Barn {
     /**
      * Removes a given vegetable from the barn
      * 
-     * @param vegetable to remove
-     * @throws GameException when vegetable is not in barn
+     * @param vegetable Type of vegetable to be removed from the barn
      */
-    public void removeVegetable(final VegetableType vegetable) throws GameException {
+    public void removeVegetable(final VegetableType vegetable) {
         int currentCount = this.vegetables.get(vegetable);
         if (currentCount == 0) {
-            throw new GameException(ErrorMessages.VEGETABLE_NOT_OWNED);
+            return;
         }
         this.vegetables.put(vegetable, currentCount - 1);
 
+        // stop countdown if barn is empty
         if (this.getTotalVegetableCount() == 0) {
             this.stopCountdown();
         }
@@ -72,7 +78,7 @@ public class Barn {
     /**
      * Adds a given vegetable to the barn
      * 
-     * @param vegetable to add
+     * @param vegetable Type of vegetable to be added to the barn
      */
     public void addVegetable(final VegetableType vegetable) {
         final int currentCount = this.vegetables.get(vegetable);
@@ -85,10 +91,11 @@ public class Barn {
     }
 
     /**
-     * Handles next turn
-     * Checks if vegetables are spoiled and returns a message
+     * Handles a turn in the game and returns a message indicating if the vegetables
+     * are spoiled
      * 
-     * @return a message if vegetables are spoiled or null if not
+     * @return a message indicating if the vegetables are spoiled, or {@code null}
+     *         if the aren't
      */
     public String startNextTurn() {
         if (!this.countdown.isActive()) {
@@ -107,7 +114,7 @@ public class Barn {
     /**
      * Checks if a given vegetable is in the barn
      * 
-     * @param vegetable to check
+     * @param vegetable The type of vegetable to check
      * @return {@code true} if vegetable is in the barn, {@code false} if not
      */
     public boolean hasInBarn(VegetableType vegetable) {

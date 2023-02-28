@@ -1,6 +1,5 @@
 package edu.kit.informatik.game;
 
-import java.util.List;
 import java.util.Map;
 
 import edu.kit.informatik.config.ErrorMessages;
@@ -270,7 +269,7 @@ public class QueensFarming {
     }
 
     /**
-     * Buys a random plantable tile at a given position on the board.
+     * Buys a random plantable tile at a given location on the board.
      * Returns an error message if the player has not enough money to buy the tile.
      * 
      * @param xCoordinate x-coordinate of new land

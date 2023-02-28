@@ -7,16 +7,24 @@ import java.util.Random;
 
 import edu.kit.informatik.game.type.PlantableTileType;
 
+/**
+ * Represents a stack of plantable tiles in queens farming. The stack contains a
+ * number of different tiles determined by the amount of players in the game,
+ * which can be drawn randomly.
+ * 
+ * @author uiljo
+ * @version 1.0
+ */
 public class TileStack {
     private final List<PlantableTileType> stack;
 
     /**
-     * Instantiates a new {@link TileStack}
+     * Instantiates a new {@link TileStack}.
      * 
-     * @param playerCount number of players in the game
-     * @param seed        seed for shuffling tile stack
+     * @param playerCount The number of players in the game.
+     * @param seed        The random seed for shuffling tile stack.
      */
-    public TileStack(int playerCount, long seed) {
+    public TileStack(final int playerCount, final long seed) {
         stack = new ArrayList<>();
 
         // add 2n garden tiles
@@ -49,18 +57,18 @@ public class TileStack {
     }
 
     /**
-     * Returns if the tile stack is empty
+     * Checks if the stack is empty.
      * 
-     * @return if the tile stack is empty
+     * @return {@code true} if the stack is empty, {@code false} otherwise.
      */
     public boolean isEmpty() {
         return this.stack.isEmpty();
     }
 
     /**
-     * Returns the first tile from the stack and deletes it
+     * Draws a random tile from the tile stack and removes it.
      * 
-     * @return first tile from stack
+     * @return the tile type of the drawn tile.
      */
     public PlantableTileType drawTile() {
         final PlantableTileType tile = this.stack.get(0);

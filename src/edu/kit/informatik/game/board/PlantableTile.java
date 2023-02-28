@@ -7,13 +7,24 @@ import edu.kit.informatik.game.type.PlantableTileType;
 import edu.kit.informatik.game.type.VegetableType;
 import edu.kit.informatik.util.Countdown;
 
+/**
+ * Represents a plantable tile in queens farming
+ * 
+ * @author uiljo
+ * @version 1.0
+ */
 public class PlantableTile {
 
     private final PlantableTileType tileType;
     private VegetableType plantedVegetable;
     private int plantedVegetableCount;
-    private Countdown growCountdown;
+    private final Countdown growCountdown;
 
+    /**
+     * Instantiates a new {@link PlantableTile}.
+     * 
+     * @param tileType The type of the plantable tile.
+     */
     public PlantableTile(final PlantableTileType tileType) {
         this.growCountdown = new Countdown();
         this.tileType = tileType;
@@ -30,6 +41,12 @@ public class PlantableTile {
         this.growCountdown.setActive(false);
     }
 
+    /**
+     * Grows a planted vegetable on the tile us the countdown is active and returns
+     * the amount of newly grown vegetables.
+     * 
+     * @return the amount of newly grown vegetables.
+     */
     public int grow() {
         if (!this.growCountdown.isActive()) {
             return 0;
@@ -51,6 +68,14 @@ public class PlantableTile {
         return newlyGrownVegetable;
     }
 
+    /**
+     * Plants a given vegetable on the tile if it isn't already planted and the
+     * vegetable is plantable on the tile
+     * 
+     * @param vegetable The type of vegetable to be planted.
+     * @throws GameException when the tile has already been planted or the vegetable
+     *                       can't be planted on the tile.
+     */
     public void plant(final VegetableType vegetable) throws GameException {
         if (this.plantedVegetableCount > 0) {
             throw new GameException(ErrorMessages.ALREADY_PLANTED);
@@ -65,6 +90,15 @@ public class PlantableTile {
         this.startCountdown();
     }
 
+    /**
+     * Harvests a given amount of vegetables from the tile and returns the type of
+     * vegetable harvested.
+     * 
+     * @param amountToHarvest The amount of vegetable to be harvested.
+     * @return The type of vegetable harvested.
+     * @throws GameException when the amount to harvest is not valid (below 1 or
+     *                       more then planted).
+     */
     public VegetableType harvest(final int amountToHarvest) throws GameException {
         if (amountToHarvest < 1) {
             throw new GameException(ErrorMessages.INPUT_SMALLER_ONE);

@@ -52,7 +52,7 @@ public final class ErrorMessages {
     public static final String NOT_ENOUGH_GOLD = GeneralConfig.ERROR + "You don't have enough gold!";
 
     /**
-     * Error message in case of tying to buy land at a position where it can't be
+     * Error message in case of tying to buy land at a location where it can't be
      * bought
      */
     public static final String LAND_NOT_PLACABLE = GeneralConfig.ERROR

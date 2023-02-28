@@ -17,16 +17,16 @@ import edu.kit.informatik.game.type.VegetableType;
 public class Player {
 
     private int gold;
-    private String name;
-    private Board board;
+    private final String name;
+    private final Board board;
 
     /**
-     * Instantiates a new {@link Player}
+     * Instantiates a new {@link Player}.
      * 
-     * @param name name of the player
-     * @param gold the amount of gold, the player has at the beginning
+     * @param name The name of the player
+     * @param gold The amount of gold, the player has at the beginning.
      */
-    public Player(String name, int gold) {
+    public Player(final String name, final int gold) {
         this.gold = gold;
         this.name = name;
 
@@ -34,16 +34,16 @@ public class Player {
     }
 
     /**
-     * Returns the amount of gold the player has
+     * Returns the current amount of gold the player has.
      * 
-     * @return gold of play
+     * @return gold of player.
      */
     public int getGold() {
         return this.gold;
     }
 
     /**
-     * Returns the object of the barn form player
+     * Returns the object of the barn form player.
      * 
      * @return barn from player
      */
@@ -65,77 +65,83 @@ public class Player {
     }
 
     /**
-     * Adds the given vegetable to the players barn
+     * Adds a given amount of a given vegetable to the player's barn.
      * 
-     * @param vegetable to add to barn
+     * @param vegetable The type of vegetable to be added
+     * @param amount    The amount of vegetables to be added
+     * @see Barn#addVegetable(VegetableType)
      */
-    public void addVegetable(VegetableType vegetable, int amount) {
+    public void addVegetable(final VegetableType vegetable, final int amount) {
         for (int i = 0; i < amount; i++) {
             this.getBarn().addVegetable(vegetable);
         }
     }
 
-    private void removeVegetable(VegetableType vegetable) throws GameException {
+    private void removeVegetable(final VegetableType vegetable) throws GameException {
         this.getBarn().removeVegetable(vegetable);
     }
 
     /**
-     * Adds the given amount of gold to the balance of the player. If the resulting
-     * amount is negative it throws an GameException
+     * Adds a given amount of gold to the player's balance. If the resulting amount
+     * would be negative an GameException is thrown.
      * 
-     * @param amount of gold to add (remove)
-     * @throws GameException when balance is below zero
+     * @param amount The amount of gold to add to the player's balance (negative to
+     *               remove gold).
+     * @throws GameException when balance would be negative.
      */
-    public void addGold(int amount) throws GameException {
+    public void addGold(final int amount) throws GameException {
         if (this.gold + amount < 0) {
             throw new GameException(ErrorMessages.NOT_ENOUGH_GOLD);
         }
         this.gold += amount;
     }
 
-    public boolean hasInBarn(VegetableType vegetable) {
-        return this.getBarn().hasInBarn(vegetable);
-    }
-
     /**
-     * Handle sell action. Reduces the amount of the given vegetable in the barn. If
-     * the player doesn't have the given vegetable it throws an GameException
+     * Removes a given vegetable.
      * 
-     * @param vegetable to sell
-     * @throws GameException when user doesn't have the vegetable in barn
+     * @param vegetable Type of vegetable to sell.
+     * @see Barn#removeVegetable(VegetableType)
      */
-    public void sell(VegetableType vegetable) throws GameException {
+    public void sell(final VegetableType vegetable) {
         this.getBarn().removeVegetable(vegetable);
     }
 
     /**
+     * Harvests a given amount of vegetables from the given tile and adds them to
+     * the player's barn
      * Harvests a given vegetable from a given filed by reducing the number of
      * planted vegetables by the amount, the player wants to harvest
      * 
-     * @param xCoordinate     x-coordinate of the field
-     * @param yCoordinate     y-coordinate of the field
-     * @param amountToHarvest the amount the player wants to harvest
-     * @return the harvested {@link VegetableType}
-     * @throws GameException TODO
+     * @param xCoordinate     The x-coordinate of the tile to be harvested.
+     * @param yCoordinate     The y-coordinate of the tile to be harvested.
+     * @param amountToHarvest The amount of vegetables to be harvested.
+     * @return The type of the harvested vegetable.
+     * @throws GameException when the tile doesn't exists or the amount couldn't be
+     *                       harvested.
+     * @see Board#harvest(int, int, int)
+     * @see #addVegetable(VegetableType, int)
      */
-    public VegetableType harvest(int xCoordinate, int yCoordinate, int amountToHarvest) throws GameException {
+    public VegetableType harvest(final int xCoordinate, final int yCoordinate, final int amountToHarvest)
+            throws GameException {
         final VegetableType harvestedVegetable = this.getBoard().harvest(xCoordinate, yCoordinate, amountToHarvest);
         this.addVegetable(harvestedVegetable, amountToHarvest);
         return harvestedVegetable;
     }
 
     /**
-     * Plants a given vegetable on a field if there is nothing planted yet
+     * Plants a given vegetable on a given tile and removes the vegetable from the
+     * player's barn.
      * 
-     * @param xCoordinate x-coordinate of the field
-     * @param yCoordinate y-coordinate of the field
-     * @param vegetable   vegetable to plant
-     * @throws GameException when the vegetable is not in the barn, the field
+     * @param xCoordinate The x-coordinate of the field to be planted.
+     * @param yCoordinate The y-coordinate of the field to be planted.
+     * @param vegetable   The type of vegetable to be planted
+     * @throws GameException when the player doesn't own the vegetable, the field
      *                       doesn't exists or the vegetable can't be planted on
      *                       the field type
      */
-    public void plant(int xCoordinate, int yCoordinate, VegetableType vegetable) throws GameException {
-        if (!this.hasInBarn(vegetable)) {
+    public void plant(final int xCoordinate, final int yCoordinate, final VegetableType vegetable)
+            throws GameException {
+        if (!this.getBarn().hasInBarn(vegetable)) {
             throw new GameException(ErrorMessages.VEGETABLE_NOT_OWNED);
         }
 
@@ -143,6 +149,12 @@ public class Player {
         this.removeVegetable(vegetable);
     }
 
+    /**
+     * Handles a turn in the game.
+     * 
+     * @return a message from the game board or {@code null}
+     * @see Board#startNextTurn()
+     */
     public String startNextTurn() {
         return this.getBoard().startNextTurn();
     }
@@ -153,9 +165,9 @@ public class Player {
 
     /**
      * Returns the string representation of the player which simply is the name of
-     * the player
+     * the player.
      * 
-     * @return player name
+     * @return The player's name.
      */
     @Override
     public String toString() {

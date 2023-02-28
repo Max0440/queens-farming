@@ -45,14 +45,10 @@ public class Market {
     }
 
     /**
-     * Handles all action needed after one turn
-     * Automatically changes prices depending on sold vegetables
+     * Handles all action needed after one turn.
+     * Automatically changes prices depending on sold vegetables.
      */
     public void startNextTurn() {
-        for (final VegetableType vegetable : VegetableType.values()) {
-            this.soldVegetables.putIfAbsent(vegetable, 0);
-        }
-
         final int mushroomCount = this.soldVegetables.get(VegetableType.MUSHROOM);
         final int carrotCount = this.soldVegetables.get(VegetableType.CARROT);
         final int tomatoCount = this.soldVegetables.get(VegetableType.TOMATO);

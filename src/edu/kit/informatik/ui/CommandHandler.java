@@ -20,6 +20,9 @@ public enum CommandHandler {
         }
     },
 
+    /**
+     * Returns the barn representation
+     */
     SHOW_BARN("show barn") {
         @Override
         public String execute(Matcher input, QueensFarming game) {
@@ -27,6 +30,9 @@ public enum CommandHandler {
         }
     },
 
+    /**
+     * Returns the board representation
+     */
     SHOW_BOARD("show board") {
         @Override
         public String execute(Matcher input, QueensFarming game) {
@@ -34,6 +40,9 @@ public enum CommandHandler {
         }
     },
 
+    /**
+     * Returns the market representation
+     */
     SHOW_MARKET("show market") {
         @Override
         public String execute(Matcher input, QueensFarming game) {
@@ -41,6 +50,9 @@ public enum CommandHandler {
         }
     },
 
+    /**
+     * Sells all vegetables of the current player
+     */
     SELL_ALL("sell all") {
         @Override
         public String execute(Matcher input, QueensFarming game) {
@@ -48,6 +60,9 @@ public enum CommandHandler {
         }
     },
 
+    /**
+     * Sells the given vegetables from the current player if possible
+     */
     SELL("sell( ((carrot)|(mushroom)|(tomato)|(salad)))*") {
         @Override
         public String execute(Matcher input, QueensFarming game) {
@@ -66,6 +81,9 @@ public enum CommandHandler {
         }
     },
 
+    /**
+     * Buys the given vegetable if possible
+     */
     BUY_VEGETABLE("buy vegetable ((carrot)|(mushroom)|(tomato)|(salad))") {
         @Override
         public String execute(Matcher input, QueensFarming game) throws GameException {

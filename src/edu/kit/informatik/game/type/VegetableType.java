@@ -1,10 +1,28 @@
 package edu.kit.informatik.game.type;
 
+/**
+ * Enum of the types of vegetables in the game
+ */
 public enum VegetableType {
 
+    /**
+     * Carrot vegetable
+     */
     CARROT("carrot", "carrots", "C", 1),
+
+    /**
+     * Mushroom vegetable
+     */
     MUSHROOM("mushroom", "mushrooms", "M", 4),
+
+    /**
+     * Salad vegetable
+     */
     SALAD("salad", "salads", "S", 2),
+
+    /**
+     * Tomato vegetable
+     */
     TOMATO("tomato", "tomatoes", "T", 3);
 
     private final String singular;
@@ -12,14 +30,6 @@ public enum VegetableType {
     private final String abbreviation;
     private final int timeToGrow;
 
-    /**
-     * Instantiates a new {@link VegetableType}
-     * 
-     * @param singular     lower case representation of enum
-     * @param plural       plural case representation of enum
-     * @param abbreviation abbreviation of enum
-     * @param timeToGrow   time in rounds the plant needs to grow
-     */
     private VegetableType(final String singular, final String plural, final String abbreviation, final int timeToGrow) {
         this.singular = singular;
         this.plural = plural;
@@ -28,10 +38,10 @@ public enum VegetableType {
     }
 
     /**
-     * Returns the corresponding enum to a string
+     * Returns the corresponding vegetable type by the name.
      * 
-     * @param s string to convert to {@link VegetableType}
-     * @return vegetable type
+     * @param s The string to convert to {@link VegetableType}.
+     * @return The corresponding vegetable type or {@code null} if there is non.
      */
     public static VegetableType fromString(final String s) {
         for (final VegetableType type : VegetableType.values()) {
@@ -44,36 +54,37 @@ public enum VegetableType {
     }
 
     /**
-     * Returns the plural representation of the enum value
+     * Returns the plural representation of the vegetable.
      * 
-     * @return the plural representation
+     * @return The plural representation.
      */
     public String getPlural() {
         return this.plural;
     }
 
     /**
-     * Returns the singular representation of the enum value
+     * Returns the singular representation of the vegetable.
      * 
-     * @return the singular representation
+     * @return The singular representation.
      */
     public String getSingular() {
         return this.singular;
     }
 
     /**
-     * Returns the plural representation of the enum value
+     * Returns the abbreviation of the vegetable.
      * 
-     * @return the plural representation
+     * @return The abbreviation.
      */
     public String getAbbreviation() {
         return this.abbreviation;
     }
 
     /**
-     * Returns the time in round the plant needs to grow till it doubles the amount
+     * Returns the time in rounds the vegetable needs to grow till it duplicates
+     * itself.
      * 
-     * @return time to grow
+     * @return The time needed to grow.
      */
     public int getTimeToGrow() {
         return this.timeToGrow;

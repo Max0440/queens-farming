@@ -102,7 +102,7 @@ public class Barn {
             return null;
         }
 
-        if (!this.countdown.nextStep(-1)) {
+        if (!this.countdown.nextStep()) {
             return null;
         }
 

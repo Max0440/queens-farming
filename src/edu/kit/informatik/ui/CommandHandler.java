@@ -11,8 +11,14 @@ import edu.kit.informatik.game.QueensFarming;
 import edu.kit.informatik.game.type.VegetableType;
 import edu.kit.informatik.util.MapUtil;
 
+/**
+ * Enum of all available commands in queens farming.
+ */
 public enum CommandHandler {
 
+    /**
+     * Ends the turn of the current player.
+     */
     END_TURN("end turn") {
         @Override
         public String execute(Matcher input, QueensFarming game) {
@@ -21,7 +27,7 @@ public enum CommandHandler {
     },
 
     /**
-     * Returns the barn representation
+     * Returns the barn representation.
      */
     SHOW_BARN("show barn") {
         @Override
@@ -31,7 +37,7 @@ public enum CommandHandler {
     },
 
     /**
-     * Returns the board representation
+     * Returns the board representation.
      */
     SHOW_BOARD("show board") {
         @Override
@@ -41,7 +47,7 @@ public enum CommandHandler {
     },
 
     /**
-     * Returns the market representation
+     * Returns the market representation.
      */
     SHOW_MARKET("show market") {
         @Override
@@ -51,7 +57,7 @@ public enum CommandHandler {
     },
 
     /**
-     * Sells all vegetables of the current player
+     * Sells all vegetables of the current player.
      */
     SELL_ALL("sell all") {
         @Override
@@ -61,7 +67,7 @@ public enum CommandHandler {
     },
 
     /**
-     * Sells the given vegetables from the current player if possible
+     * Sells the given vegetables from the current player if possible.
      */
     SELL("sell( ((carrot)|(mushroom)|(tomato)|(salad)))*") {
         @Override
@@ -82,7 +88,7 @@ public enum CommandHandler {
     },
 
     /**
-     * Buys the given vegetable if possible
+     * Buys the given vegetable if possible.
      */
     BUY_VEGETABLE("buy vegetable ((carrot)|(mushroom)|(tomato)|(salad))") {
         @Override
@@ -94,6 +100,9 @@ public enum CommandHandler {
         }
     },
 
+    /**
+     * Buys land at the given location if possible.
+     */
     BUY_LAND("buy land( -?[0-9]+){2}") {
         @Override
         public String execute(Matcher input, QueensFarming game) throws GameException {
@@ -105,6 +114,9 @@ public enum CommandHandler {
         }
     },
 
+    /**
+     * Harvest the given amount of vegetables from the given location if possible.
+     */
     HARVEST("harvest( -?[0-9]+){2}( [0-9]+)") {
         @Override
         public String execute(Matcher input, QueensFarming game) throws GameException {
@@ -117,6 +129,9 @@ public enum CommandHandler {
         }
     },
 
+    /**
+     * Plants a given vegetable at a given location if possible.
+     */
     PLANT("plant( -?[0-9]+){2} ((carrot)|(mushroom)|(tomato)|(salad))") {
         @Override
         public String execute(Matcher input, QueensFarming game) throws GameException {
@@ -129,6 +144,9 @@ public enum CommandHandler {
         }
     },
 
+    /**
+     * Ends the game.
+     */
     QUIT("quit") {
         @Override
         public String execute(Matcher input, QueensFarming game) {
@@ -149,12 +167,22 @@ public enum CommandHandler {
     }
 
     /**
-     * Executes the right command and returns the result of the command or an error
-     * message
+     * Executes the input.
      * 
-     * @param input command string
-     * @param game  {@link QueensFarming} object
-     * @return the response to print to the user or an error message
+     * @param input The user input.
+     * @param game  The queens farming game.
+     * @return The result message, an error message or {@code null}
+     */
+    abstract String execute(Matcher input, QueensFarming game);
+
+    /**
+     * Executes the right command and returns the result of the command or an error
+     * message.
+     * 
+     * @param input The user input.
+     * @param game  {@link QueensFarming} object,
+     * @return The response to print to the user or an error message or
+     *         {@code null}.
      */
     public static String executeCommand(String input, QueensFarming game) {
         for (CommandHandler command : CommandHandler.values()) {
@@ -170,5 +198,4 @@ public enum CommandHandler {
         return ErrorMessages.COMMAND_NOT_FOUND;
     }
 
-    abstract String execute(Matcher input, QueensFarming game);
 }

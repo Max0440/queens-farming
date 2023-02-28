@@ -12,7 +12,7 @@ import edu.kit.informatik.game.QueensFarming;
  * @author uiljo
  * @version 1.0
  */
-public class Main {
+public final class Main {
 
     private static final String VALID_PLAYER_NAME_REGEX = "[A-Za-z]+";
 

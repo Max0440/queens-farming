@@ -60,6 +60,12 @@ public class Player {
         return this.board;
     }
 
+    /**
+     * Returns a map with the amount of all vegetables in the player's barn.
+     * 
+     * @return A map with the amount of all vegetables.
+     * @see Barn#getVegetables()
+     */
     public Map<VegetableType, Integer> getVegetables() {
         return this.getBarn().getVegetables();
     }
@@ -159,6 +165,12 @@ public class Player {
         return this.getBoard().startNextTurn();
     }
 
+    /**
+     * Returns the representation of the player's barn.
+     * 
+     * @return The barn representation.
+     * @see Barn#toStringFormatted(int)
+     */
     public String showBarn() {
         return this.getBarn().toStringFormatted(this.gold);
     }

@@ -52,7 +52,7 @@ public class PlantableTile {
             return 0;
         }
 
-        if (!this.growCountdown.nextStep(-1)) {
+        if (!this.growCountdown.nextStep()) {
             return 0;
         }
         this.growCountdown.setValue(this.plantedVegetable.getTimeToGrow());

@@ -7,11 +7,17 @@ import java.util.Map;
 import edu.kit.informatik.game.type.VegetableType;
 import edu.kit.informatik.util.MapUtil;
 
+/**
+ * Represents the market of the game queens farming.
+ * 
+ * @author uiljo
+ * @version 1.0
+ */
 public class Market {
-    private static final int[] MUSHROOM_PRICES = { 12, 15, 16, 17, 20 };
-    private static final int[] CARROT_PRICES = { 3, 2, 2, 2, 1 };
-    private static final int[] TOMATO_PRICES = { 3, 5, 6, 7, 9 };
-    private static final int[] SALAD_PRICES = { 6, 5, 4, 3, 2 };
+    private static final int[] MUSHROOM_PRICES = {12, 15, 16, 17, 20};
+    private static final int[] CARROT_PRICES = {3, 2, 2, 2, 1};
+    private static final int[] TOMATO_PRICES = {3, 5, 6, 7, 9};
+    private static final int[] SALAD_PRICES = {6, 5, 4, 3, 2};
 
     private static final int MAX_INDEX = 4;
     private static final int MIN_INDEX = 0;
@@ -22,26 +28,28 @@ public class Market {
     private int tomatoSaladIndex;
 
     /**
-     * Instantiates a new {@link Market}
+     * Instantiates a new {@link Market}.
      */
     public Market() {
         this.mushroomCarrotIndex = DEFAULT_START_INDEX;
         this.tomatoSaladIndex = DEFAULT_START_INDEX;
+
         this.soldVegetables = new EnumMap<>(VegetableType.class);
         MapUtil.setVegetablesToValue(this.soldVegetables, 0);
     }
 
     /**
-     * Returns the price of a given vegetable
+     * Sells a given vegetable and adds it to a list of sold vegetables, so that the
+     * price can change after the round.
      * 
-     * @param vegetable to sell
-     * @return current price of vegetable
+     * @param vegetable The type of vegetable to sell.
+     * @return The current price of the sold vegetable.
      */
     public int sell(final VegetableType vegetable) {
         final int currentCount = this.soldVegetables.get(vegetable);
         this.soldVegetables.put(vegetable, currentCount + 1);
 
-        return getPrice(vegetable);
+        return this.getPrice(vegetable);
     }
 
     /**
@@ -84,10 +92,10 @@ public class Market {
     }
 
     /**
-     * Returns the current price of a given vegetable at the market
+     * Returns the current price of a given vegetable at the market.
      * 
-     * @param vegetable to get price from
-     * @return the current price or 0 if price isn't known
+     * @param vegetable The type of vegetable to get the price from.
+     * @return The current price or 0 if price isn't known.
      */
     public int getPrice(final VegetableType vegetable) {
         switch (vegetable) {

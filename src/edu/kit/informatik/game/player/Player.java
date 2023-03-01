@@ -197,6 +197,10 @@ public class Player {
     public String showBarn() {
         return this.barn.toStringFormatted(this.gold);
     }
+    
+    public String showBoard() {
+        return this.board.toStringFormatted(this.barn);
+    }
 
     /**
      * Returns the string representation of the player which simply is the name of

@@ -49,7 +49,6 @@ public class Board {
             sb.append(String.format("%s vegetables have grown since your last turn.", totalGrown));
         }
 
-
         if (sb.length() == 0) {
             return null;
         }
@@ -132,19 +131,6 @@ public class Board {
     }
 
     /**
-     * Calculates the cost to buy land at a given location.
-     * The price is calculated by the following formula:
-     * price = 10 * (|xCoordinate| + |yCoordinate| - 1)
-     * 
-     * @param xCoordinate The x-coordinate of the land to calculate price from.
-     * @param yCoordinate The y-coordinate of the land to calculate price from.
-     * @return The pice to buy the land.
-     */
-    public int calculatePrice(final int xCoordinate, final int yCoordinate) {
-        return 10 * ((Math.abs(xCoordinate) + Math.abs(yCoordinate)) - 1);
-    }
-
-    /**
      * Adds a new plantable tile at a given location the the board.
      * 
      * @param xCoordinate The x-coordinate of the land to add.
@@ -191,48 +177,21 @@ public class Board {
         return currentIndex;
     }
 
-    private void fillIn(final char[][] board, final char[][] content, final int xOffset, final int yOffset) {
-        for (int yCoordinate = 0; yCoordinate < content.length; yCoordinate++) {
-            for (int xCoordinate = 0; xCoordinate < content[yCoordinate].length; xCoordinate++) {
-                board[yCoordinate + yOffset][xCoordinate + xOffset] = content[yCoordinate][xCoordinate];
-            }
-        }
-    }
+    /**
+     * Generates a formatted string representation of the board, including all
+     * plantable tiles and the barn.
+     * 
+     * @param barn The barn object of the player.
+     * @return a formatted string representation of the board.
+     */
+    public String toStringFormatted(Barn barn) {
+        BoardStringBuilder boardBuilder = new BoardStringBuilder(
+                this.getMaxXValue(),
+                this.getMinXValue(),
+                this.getMaxYValue());
 
-    private int calculateXOffset(int index) {
-        return (index - getMinXValue()) * 6;
-    }
-
-    private int calculateYOffset(int index) {
-        return (getMaxYValue() - index) * 3;
-    }
-
-    private int getBoardWidth() {
-        int widthInTiles = Math.abs(getMaxXValue() - getMinXValue()) + 1;
-        return widthInTiles * 6 + 1;
-    }
-
-    private int getBoardHeight() {
-        int heightInTiles = Math.abs(getMaxYValue()) + 1;
-        return heightInTiles * 3;
-    }
-
-    @Override
-    public String toString() {
-        final int boardWidth = this.getBoardWidth();
-        final int boardHeight = this.getBoardHeight();
-
-        // create 2d char array that represents the board
-        char[][] boardRepresentation = new char[boardHeight][boardWidth];
-        for (int yCoordinate = 0; yCoordinate < boardHeight; yCoordinate++) {
-            for (int xCoordinate = 0; xCoordinate < boardWidth; xCoordinate++) {
-                boardRepresentation[yCoordinate][xCoordinate] = ' ';
-            }
-        }
-
-        // TODO fill in the barn
-        // final char[][] barnCharArray = this.barn.toCharArray();
-        // fillIn(boardRepresentation, barnCharArray, calculateXOffset(0), calculateYOffset(0));
+        // fill in the barn
+        boardBuilder.fillIn(barn.toCharArray(), new Location(0, 0));
 
         // fill in all plantable tiles
         for (final Map.Entry<Location, PlantableTile> entry : this.plantableTiles.entrySet()) {
@@ -240,25 +199,10 @@ public class Board {
             final PlantableTile currentTile = entry.getValue();
 
             final char[][] tileCharArray = currentTile.toCharArray();
-            final int xOffset = calculateXOffset(currentLocation.getXCoordinate());
-            final int yOffset = calculateYOffset(currentLocation.getYCoordinate());
-
-            fillIn(boardRepresentation, tileCharArray, xOffset, yOffset);
+            boardBuilder.fillIn(tileCharArray, currentLocation);
 
         }
 
-        // convert 2d char array to string
-        StringBuilder sb = new StringBuilder();
-        for (int rowIndex = 0; rowIndex < boardRepresentation.length; rowIndex++) {
-            for (int columnIndex = 0; columnIndex < boardRepresentation[rowIndex].length; columnIndex++) {
-                sb.append(boardRepresentation[rowIndex][columnIndex]);
-            }
-
-            if (rowIndex != boardRepresentation.length - 1) {
-                sb.append(System.lineSeparator());
-            }
-        }
-
-        return sb.toString();
+        return boardBuilder.toString();
     }
 }

@@ -1,6 +1,7 @@
 package edu.kit.informatik.game;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import edu.kit.informatik.config.ErrorMessages;
 import edu.kit.informatik.game.board.Board;
@@ -191,20 +192,19 @@ public class QueensFarming {
     public String sell(Map<VegetableType, Integer> vegetablesToSell) throws GameException {
         Map<VegetableType, Integer> playersVegetables = this.getCurrentPlayer().getVegetables();
 
-        // check if player owns vegetables he wants to sell
-        for (VegetableType key : vegetablesToSell.keySet()) {
-            int value = vegetablesToSell.get(key);
-
-            if (value > playersVegetables.get(key)) {
+        // check if player owns all the vegetables they want to sell
+        for (Entry<VegetableType, Integer> entry : vegetablesToSell.entrySet()) {
+            if (entry.getValue() > playersVegetables.get(entry.getKey())) {
                 throw new GameException(ErrorMessages.VEGETABLE_NOT_OWNED);
             }
         }
 
+        // sell all vegetables from list one by one
         int totalPrice = 0;
         int soldCount = 0;
+        for (Entry<VegetableType, Integer> entry : vegetablesToSell.entrySet()) {
+            VegetableType vegetable = entry.getKey();
 
-        // sell all vegetables from list one by one
-        for (VegetableType vegetable : vegetablesToSell.keySet()) {
             int vegetableCount = vegetablesToSell.get(vegetable);
             for (int i = 0; i < vegetableCount; i++) {
                 this.getCurrentPlayer().sell(vegetable);
@@ -217,10 +217,8 @@ public class QueensFarming {
         this.remainingActions -= 1;
         if (soldCount == 1) {
             return String.format("You have sold 1 vegetable for %d gold.", totalPrice);
-        } else {
-            return String.format("You have sold %d vegetables for %d gold.", soldCount,
-                    totalPrice);
         }
+        return String.format("You have sold %d vegetables for %d gold.", soldCount, totalPrice);
     }
 
     /**

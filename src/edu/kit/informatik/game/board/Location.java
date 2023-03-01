@@ -44,6 +44,9 @@ public class Location {
 
     @Override
     public boolean equals(final Object object) {
+        if (this == object) {
+            return true;
+        }
         if (object == null || !this.getClass().equals(object.getClass())) {
             return false;
         }

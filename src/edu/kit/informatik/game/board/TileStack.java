@@ -57,6 +57,19 @@ public class TileStack {
     }
 
     /**
+     * Calculates the cost to buy land at a given location.
+     * The price is calculated by the following formula:
+     * price = 10 * (|xCoordinate| + |yCoordinate| - 1)
+     * 
+     * @param xCoordinate The x-coordinate of the land to calculate price from.
+     * @param yCoordinate The y-coordinate of the land to calculate price from.
+     * @return The pice to buy the land.
+     */
+    public int calculatePrice(final int xCoordinate, final int yCoordinate) {
+        return 10 * ((Math.abs(xCoordinate) + Math.abs(yCoordinate)) - 1);
+    }
+
+    /**
      * Checks if the stack is empty.
      * 
      * @return {@code true} if the stack is empty, {@code false} otherwise.

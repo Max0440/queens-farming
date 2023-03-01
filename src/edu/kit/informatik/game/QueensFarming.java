@@ -150,7 +150,7 @@ public class QueensFarming {
      * @return Thr board string representation.
      */
     public String showBoard() {
-        return this.getCurrentPlayer().getBoard().toString();
+        return this.getCurrentPlayer().showBoard();
     }
 
     /**
@@ -254,7 +254,7 @@ public class QueensFarming {
      */
     public String buyLand(int xCoordinate, int yCoordinate) throws GameException {
         final Board playerBoard = this.getCurrentPlayer().getBoard();
-        final int price = playerBoard.calculatePrice(xCoordinate, yCoordinate);
+        final int price = this.tileStack.calculatePrice(xCoordinate, yCoordinate);
 
         if (this.tileStack.isEmpty()) {
             throw new GameException(ErrorMessages.TILE_STACK_EMPTY);

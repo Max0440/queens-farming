@@ -14,10 +14,10 @@ import edu.kit.informatik.util.MapUtil;
  * @version 1.0
  */
 public class Market {
-    private static final int[] MUSHROOM_PRICES = { 12, 15, 16, 17, 20 };
-    private static final int[] CARROT_PRICES = { 3, 2, 2, 2, 1 };
-    private static final int[] TOMATO_PRICES = { 3, 5, 6, 7, 9 };
-    private static final int[] SALAD_PRICES = { 6, 5, 4, 3, 2 };
+    private static final int[] MUSHROOM_PRICES = {12, 15, 16, 17, 20};
+    private static final int[] CARROT_PRICES = {3, 2, 2, 2, 1};
+    private static final int[] TOMATO_PRICES = {3, 5, 6, 7, 9};
+    private static final int[] SALAD_PRICES = {6, 5, 4, 3, 2};
 
     private static final int MAX_INDEX = 4;
     private static final int MIN_INDEX = 0;

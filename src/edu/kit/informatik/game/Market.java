@@ -14,10 +14,10 @@ import edu.kit.informatik.util.MapUtil;
  * @version 1.0
  */
 public class Market {
-    private static final int[] MUSHROOM_PRICES = {12, 15, 16, 17, 20};
-    private static final int[] CARROT_PRICES = {3, 2, 2, 2, 1};
-    private static final int[] TOMATO_PRICES = {3, 5, 6, 7, 9};
-    private static final int[] SALAD_PRICES = {6, 5, 4, 3, 2};
+    private static final int[] MUSHROOM_PRICES = { 12, 15, 16, 17, 20 };
+    private static final int[] CARROT_PRICES = { 3, 2, 2, 2, 1 };
+    private static final int[] TOMATO_PRICES = { 3, 5, 6, 7, 9 };
+    private static final int[] SALAD_PRICES = { 6, 5, 4, 3, 2 };
 
     private static final int MAX_INDEX = 4;
     private static final int MIN_INDEX = 0;
@@ -77,17 +77,13 @@ public class Market {
             this.tomatoSaladIndex += pairs;
         }
 
-        if (this.mushroomCarrotIndex > MAX_INDEX) {
-            this.mushroomCarrotIndex = MAX_INDEX;
-        } else if (this.mushroomCarrotIndex < MIN_INDEX) {
-            this.mushroomCarrotIndex = MIN_INDEX;
-        }
-        if (this.tomatoSaladIndex > MAX_INDEX) {
-            this.tomatoSaladIndex = MAX_INDEX;
-        } else if (this.tomatoSaladIndex < MIN_INDEX) {
-            this.tomatoSaladIndex = MIN_INDEX;
-        }
+        // check that all indices are in the right range
+        this.mushroomCarrotIndex = Math.min(this.mushroomCarrotIndex, MAX_INDEX);
+        this.mushroomCarrotIndex = Math.max(MIN_INDEX, this.mushroomCarrotIndex);
+        this.tomatoSaladIndex = Math.min(this.tomatoSaladIndex, MAX_INDEX);
+        this.tomatoSaladIndex = Math.max(MIN_INDEX, this.tomatoSaladIndex);
 
+        // clear map
         MapUtil.setVegetablesToValue(this.soldVegetables, 0);
     }
 

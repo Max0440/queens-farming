@@ -2,6 +2,9 @@ package edu.kit.informatik.game.type;
 
 /**
  * Enum of the types of vegetables in the game
+ * 
+ * @author uiljo
+ * @version 1.0
  */
 public enum VegetableType {
 

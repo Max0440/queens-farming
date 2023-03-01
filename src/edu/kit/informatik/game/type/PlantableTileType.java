@@ -5,6 +5,9 @@ import edu.kit.informatik.config.GeneralConfig;
 
 /**
  * Enum of the types of plantable tiles in the game
+ * 
+ * @author uiljo
+ * @version 1.0
  */
 public enum PlantableTileType {
 

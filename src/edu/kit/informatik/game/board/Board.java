@@ -16,27 +16,16 @@ import edu.kit.informatik.game.type.VegetableType;
  */
 public class Board {
 
-    private final Barn barn;
     private final Map<Location, PlantableTile> plantableTiles;
 
     /**
      * Instantiates a new {@link Board}
      */
     public Board() {
-        this.barn = new Barn();
         this.plantableTiles = new HashMap<>();
         this.plantableTiles.put(new Location(-1, 0), new PlantableTile(PlantableTileType.GARDEN));
         this.plantableTiles.put(new Location(1, 0), new PlantableTile(PlantableTileType.GARDEN));
         this.plantableTiles.put(new Location(0, 1), new PlantableTile(PlantableTileType.FIELD));
-    }
-
-    /**
-     * Returns the barn from the board.
-     * 
-     * @return the barn
-     */
-    public Barn getBarn() {
-        return this.barn;
     }
 
     /**
@@ -60,13 +49,6 @@ public class Board {
             sb.append(String.format("%s vegetables have grown since your last turn.", totalGrown));
         }
 
-        String spoiledVegetables = this.getBarn().startNextTurn();
-        if (spoiledVegetables != null) {
-            if (sb.length() > 0) {
-                sb.append(System.lineSeparator());
-            }
-            sb.append(spoiledVegetables);
-        }
 
         if (sb.length() == 0) {
             return null;
@@ -248,9 +230,9 @@ public class Board {
             }
         }
 
-        // fill in the barn
-        final char[][] barnCharArray = this.barn.toCharArray();
-        fillIn(boardRepresentation, barnCharArray, calculateXOffset(0), calculateYOffset(0));
+        // TODO fill in the barn
+        // final char[][] barnCharArray = this.barn.toCharArray();
+        // fillIn(boardRepresentation, barnCharArray, calculateXOffset(0), calculateYOffset(0));
 
         // fill in all plantable tiles
         for (final Map.Entry<Location, PlantableTile> entry : this.plantableTiles.entrySet()) {

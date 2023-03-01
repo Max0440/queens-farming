@@ -19,6 +19,7 @@ public class Player {
     private int gold;
     private final String name;
     private final Board board;
+    private final Barn barn;
 
     /**
      * Instantiates a new {@link Player}.
@@ -31,6 +32,7 @@ public class Player {
         this.name = name;
 
         this.board = new Board();
+        this.barn = new Barn();
     }
 
     /**
@@ -48,7 +50,7 @@ public class Player {
      * @return barn from player
      */
     public Barn getBarn() {
-        return this.board.getBarn();
+        return this.barn;
     }
 
     /**
@@ -66,8 +68,9 @@ public class Player {
      * @return A map with the amount of all vegetables.
      * @see Barn#getVegetables()
      */
+    // TODO Directly in ding bums
     public Map<VegetableType, Integer> getVegetables() {
-        return this.getBarn().getVegetables();
+        return this.barn.getVegetables();
     }
 
     /**
@@ -79,12 +82,12 @@ public class Player {
      */
     public void addVegetable(final VegetableType vegetable, final int amount) {
         for (int i = 0; i < amount; i++) {
-            this.getBarn().addVegetable(vegetable);
+            this.barn.addVegetable(vegetable);
         }
     }
 
     private void removeVegetable(final VegetableType vegetable) throws GameException {
-        this.getBarn().removeVegetable(vegetable);
+        this.barn.removeVegetable(vegetable);
     }
 
     /**
@@ -109,7 +112,7 @@ public class Player {
      * @see Barn#removeVegetable(VegetableType)
      */
     public void sell(final VegetableType vegetable) {
-        this.getBarn().removeVegetable(vegetable);
+        this.barn.removeVegetable(vegetable);
     }
 
     /**
@@ -147,7 +150,7 @@ public class Player {
      */
     public void plant(final int xCoordinate, final int yCoordinate, final VegetableType vegetable)
             throws GameException {
-        if (!this.getBarn().hasInBarn(vegetable)) {
+        if (!this.barn.hasInBarn(vegetable)) {
             throw new GameException(ErrorMessages.VEGETABLE_NOT_OWNED);
         }
 
@@ -162,7 +165,27 @@ public class Player {
      * @see Board#startNextTurn()
      */
     public String startNextTurn() {
-        return this.getBoard().startNextTurn();
+        // TODO nice
+        StringBuilder sb = new StringBuilder();
+
+        String asd = this.getBoard().startNextTurn();
+        if (asd != null) {
+            sb.append(asd);
+        }
+
+        String spoiledVegetables = this.getBarn().startNextTurn();
+        if (spoiledVegetables != null) {
+            if (sb.length() > 0) {
+                sb.append(System.lineSeparator());
+            }
+            sb.append(spoiledVegetables);
+        }
+
+        if (sb.length() == 0) {
+            return null;
+        }
+
+        return sb.toString();
     }
 
     /**
@@ -172,7 +195,7 @@ public class Player {
      * @see Barn#toStringFormatted(int)
      */
     public String showBarn() {
-        return this.getBarn().toStringFormatted(this.gold);
+        return this.barn.toStringFormatted(this.gold);
     }
 
     /**

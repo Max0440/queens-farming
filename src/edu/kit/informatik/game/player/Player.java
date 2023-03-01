@@ -68,7 +68,6 @@ public class Player {
      * @return A map with the amount of all vegetables.
      * @see Barn#getVegetables()
      */
-    // TODO Directly in ding bums
     public Map<VegetableType, Integer> getVegetables() {
         return this.barn.getVegetables();
     }
@@ -165,12 +164,11 @@ public class Player {
      * @see Board#startNextTurn()
      */
     public String startNextTurn() {
-        // TODO nice
         StringBuilder sb = new StringBuilder();
 
-        String asd = this.getBoard().startNextTurn();
-        if (asd != null) {
-            sb.append(asd);
+        String grownVegetables = this.getBoard().startNextTurn();
+        if (grownVegetables != null) {
+            sb.append(grownVegetables);
         }
 
         String spoiledVegetables = this.getBarn().startNextTurn();
@@ -198,6 +196,12 @@ public class Player {
         return this.barn.toStringFormatted(this.gold);
     }
     
+    /**
+     * Returns the representation of the player's board.
+     * 
+     * @return The board representation.
+     * @see Board#toStringFormatted(int)
+     */
     public String showBoard() {
         return this.board.toStringFormatted(this.barn);
     }

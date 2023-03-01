@@ -74,21 +74,22 @@ public class PlayerList {
     public String endGame(final int goldToWin) {
         List<Player> playerThatWon = new ArrayList<>();
 
+        // get player(s) that won
         for (int i = 0; i < this.players.size(); i++) {
             if (this.players.get(i).getGold() >= goldToWin) {
                 playerThatWon.add(this.players.get(i));
             }
         }
 
-        // TODO nice
+        // get player(s) with the highest amount of gold if no one won
         if (playerThatWon.isEmpty()) {
+            // get the highest amount of gold
             int highestGold = 0;
             for (int i = 0; i < this.players.size(); i++) {
-                if (this.players.get(i).getGold() > highestGold) {
-                    highestGold = this.players.get(i).getGold();
-                }
+                highestGold = Math.max(highestGold, this.players.get(i).getGold());
             }
 
+            // add all players to list that have the highest amount
             for (int i = 0; i < this.players.size(); i++) {
                 if (this.players.get(i).getGold() == highestGold) {
                     playerThatWon.add(this.players.get(i));

@@ -10,6 +10,12 @@ import edu.kit.informatik.game.player.PlayerList;
 import edu.kit.informatik.game.type.PlantableTileType;
 import edu.kit.informatik.game.type.VegetableType;
 
+/**
+ * Represents the game "queens farming".
+ * 
+ * @author uiljo
+ * @version 1.0
+ */
 public class QueensFarming {
 
     private static final int MAX_ACTION_COUNT = 2;
@@ -46,27 +52,27 @@ public class QueensFarming {
     }
 
     /**
-     * Returns whether or not the game is active
+     * Returns whether or not the game is active.
      * 
-     * @return whether or not the game is active
+     * @return whether or not the game is active.
      */
     public boolean isActive() {
         return this.isActive;
     }
 
     /**
-     * Returns whether or not the current turn is running
+     * Returns whether or not the current turn is running.
      * 
-     * @return whether or not the current turn is running
+     * @return whether or not the current turn is running.
      */
     public boolean isTurnRunning() {
         return this.remainingActions != 0;
     }
 
     /**
-     * Starts a new turn and return all information of the player in a string
+     * Starts a new turn and return all information of the player in a string.
      * 
-     * @return information of current player
+     * @return information of current player.
      */
     public String startNextTurn() {
         StringBuilder sb = new StringBuilder();
@@ -75,7 +81,7 @@ public class QueensFarming {
         this.market.startNextTurn();
 
         // reset values for next turn
-        this.currentTurn += 1;
+        this.currentTurn++;
 
         // new round
         if (this.currentTurn == this.playerList.size()) {
@@ -102,6 +108,11 @@ public class QueensFarming {
         return sb.toString();
     }
 
+    /**
+     * Handles the end of the game.
+     * 
+     * @return a list of all players and those who have won.
+     */
     public String endGame() {
         StringBuilder sb = new StringBuilder();
         String playerThatWon = this.playerList.endGame(this.goldToWin);
@@ -114,9 +125,9 @@ public class QueensFarming {
     }
 
     /**
-     * Ends the turn of the current player
+     * Ends the turn of the current player.
      * 
-     * @return {@code null}
+     * @return {@code null}.
      */
     public String endTurn() {
         this.remainingActions = 0;
@@ -124,27 +135,29 @@ public class QueensFarming {
     }
 
     /**
-     * Returns the {@link Barn} string representation from current player
+     * Returns the {@link Barn} string representation from current player.
      * 
-     * @return barn string representation
+     * @return The barn string representation.
+     * @see Player#showBarn()
      */
     public String showBarn() {
         return this.getCurrentPlayer().showBarn();
     }
 
     /**
-     * Returns the {@link Board} string representation from current player
+     * Returns the {@link Board} string representation from current player.
      * 
-     * @return board string representation
+     * @return Thr board string representation.
      */
     public String showBoard() {
         return this.getCurrentPlayer().getBoard().toString();
     }
 
     /**
-     * Returns the {@link Market} string representation
+     * Returns the {@link Market} string representation.
      * 
-     * @return market string representation
+     * @return The market string representation.
+     * @see Market#toString()
      */
     public String showMarket() {
         return this.market.toString();
@@ -152,45 +165,28 @@ public class QueensFarming {
 
     /**
      * Sells all vegetables of the current player, add the gold to the player
-     * balance and return a message
+     * balance.
      * 
-     * @return a message telling how many vegetables were sold and for how much gold
+     * @return a message telling how many vegetables were sold and for how much
+     *         gold.
+     * @see #sell(Map)
      */
     public String sellAll() {
         Map<VegetableType, Integer> playersVegetables = this.getCurrentPlayer().getVegetables();
-        int totalPrice = 0;
-        int soldCount = 0;
-
-        // sell all vegetables from player one by one
-        for (VegetableType vegetable : playersVegetables.keySet()) {
-            int vegetableCount = playersVegetables.get(vegetable);
-            for (int i = 0; i < vegetableCount; i++) {
-                this.getCurrentPlayer().sell(vegetable);
-                totalPrice += this.market.sell(vegetable);
-                soldCount++;
-            }
-        }
-        this.getCurrentPlayer().addGold(totalPrice);
-
-        this.remainingActions -= 1;
-        if (soldCount == 1) {
-            return String.format("You have sold 1 vegetable for %d gold.", totalPrice);
-        } else {
-            return String.format("You have sold %d vegetables for %d gold.", soldCount,
-                    totalPrice);
-        }
+        return this.sell(playersVegetables);
     }
 
-    // TODO remove exception from player.sell
-    // TODO remove duplicate code
     /**
-     * Sells all vegetables in the list and adds the gold to the players balance for
-     * all vegetables that could sold. Skips all vegetables, the player doesn't own
+     * Checks wether the player owns all vegetables in the list.
+     * If the player owns all vegetables they are trying to sell, the vegetables
+     * will be removed from the player's barn and the sum will be added to the
+     * player's balance.
      * 
-     * @param vegetables list of vegetables to sell
-     * @return a message telling how much vegetable was sold and for what price
+     * @param vegetablesToSell A map containing with the amount of every vegetable
+     *                         to sell.
+     * @return a message telling how many vegetables were sold and for what price.
      * @throws GameException when player doesn't own at least one of the vegetables
-     *                       they wants to sell
+     *                       they wants to sell.
      */
     public String sell(Map<VegetableType, Integer> vegetablesToSell) throws GameException {
         Map<VegetableType, Integer> playersVegetables = this.getCurrentPlayer().getVegetables();
@@ -225,29 +221,6 @@ public class QueensFarming {
             return String.format("You have sold %d vegetables for %d gold.", soldCount,
                     totalPrice);
         }
-
-        // checks if player has enough vegetables
-        // int totalPrice = 0;
-        // int soldCount = 0;
-        // for (int i = 0; i < vegetables.size(); i++) {
-        // try {
-        // this.getCurrentPlayer().sell(vegetables.get(i));
-        // } catch (GameException e) {
-        // // skip if player hasn't vegetable he wants to sell
-        // continue;
-        // }
-        // totalPrice += this.market.sell(vegetables.get(i));
-        // soldCount++;
-        // }
-        // this.getCurrentPlayer().addGold(totalPrice);
-
-        // this.remainingActions -= 1;
-        // if (soldCount == 1) {
-        // return String.format("You have sold 1 vegetable for %d gold.", totalPrice);
-        // } else {
-        // return String.format("You have sold %d vegetables for %d gold.", soldCount,
-        // totalPrice);
-        // }
     }
 
     /**
@@ -256,7 +229,7 @@ public class QueensFarming {
      * 
      * @param vegetable to buy
      * @return a message containing the name of the vegetable and the price
-     * @throws GameException if the player hasn't enough gold
+     * @throws GameException when the player hasn't enough gold
      */
     public String buyVegetable(VegetableType vegetable) throws GameException {
         final int price = this.market.getPrice(vegetable);
@@ -272,9 +245,9 @@ public class QueensFarming {
      * Buys a random plantable tile at a given location on the board.
      * Returns an error message if the player has not enough money to buy the tile.
      * 
-     * @param xCoordinate x-coordinate of new land
-     * @param yCoordinate y-coordinate of new land
-     * @return a message containing the tile type bought and the price
+     * @param xCoordinate The x-coordinate of the new land
+     * @param yCoordinate The y-coordinate of the new land
+     * @return a message containing the tile type bought and the price.
      * @throws GameException if there are no more tiles on the tile stack, if the
      *                       tile is not placable on the given location or if the
      *                       player hasn't enough gold
@@ -300,14 +273,15 @@ public class QueensFarming {
     }
 
     /**
-     * Harvests a given vegetable from a given filed
+     * Harvests a given vegetable from a given plantable tile.
      * 
-     * @param xCoordinate     x-coordinate of the field
-     * @param yCoordinate     y-coordinate of the field
-     * @param amountToHarvest the amount the player wants to harvest
+     * @param xCoordinate     The x-coordinate of the plantable tile.
+     * @param yCoordinate     The y-coordinate of the plantable tile.
+     * @param amountToHarvest The amount of vegetables the player wants to harvest.
      * @return a message containing how many vegetables were harvested and what type
      *         of vegetable
-     * @throws GameException
+     * @throws GameException if the vegetable couldn't be harvested.
+     * @see Player#harvest(int, int, int)
      */
     public String harvest(int xCoordinate, int yCoordinate, int amountToHarvest) throws GameException {
         final VegetableType harvestedVegetable = this.getCurrentPlayer().harvest(xCoordinate, yCoordinate,
@@ -321,11 +295,11 @@ public class QueensFarming {
     }
 
     /**
-     * Plants a given vegetable on a field
+     * Plants a given vegetable at a given location.
      * 
-     * @param xCoordinate x-coordinate of the field
-     * @param yCoordinate y-coordinate of the field
-     * @param vegetable   vegetable to plant
+     * @param xCoordinate The x-coordinate of the plantable tile.
+     * @param yCoordinate The y-coordinate of the plantable tile.
+     * @param vegetable   The type of vegetable to plant.
      * @return {@code null}
      * @throws GameException when the vegetable is not in the barn, the field
      *                       doesn't exists or the vegetable can't be planted on the
@@ -339,7 +313,7 @@ public class QueensFarming {
     }
 
     /**
-     * quits the game
+     * Quits the game.
      */
     public void quit() {
         this.remainingActions = 0;

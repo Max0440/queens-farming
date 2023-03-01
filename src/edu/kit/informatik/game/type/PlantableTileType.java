@@ -7,7 +7,7 @@ import edu.kit.informatik.config.GeneralConfig;
  * Enum of the types of plantable tiles in the game
  */
 public enum PlantableTileType {
-    // TODO check with required checkstyle
+
     /**
      * Garden tile type
      */

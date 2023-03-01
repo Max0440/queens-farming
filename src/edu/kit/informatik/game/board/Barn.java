@@ -124,7 +124,7 @@ public class Barn {
     public char[][] toCharArray() {
         String middleRowRepresentation;
         if (this.getTotalVegetableCount() == 0) {
-            middleRowRepresentation = BoardConfig.BARN_NO_COUNTDOWN;
+            middleRowRepresentation = String.format(BoardConfig.BARN_COUNTDOWN, BoardConfig.STAR);
         } else {
             middleRowRepresentation = String.format(BoardConfig.BARN_COUNTDOWN, this.countdown.getValue());
         }
@@ -136,6 +136,13 @@ public class Barn {
         };
     }
 
+    /**
+     * Returns a formatted string representation of the barn, including the rounds
+     * until the vegetables spoil and all vegetables stored in it.
+     * 
+     * @param gold The current amount of gold the player has.
+     * @return a formatted string representation of the barn.
+     */
     public String toStringFormatted(int gold) {
         StringBuilder sb = new StringBuilder();
 

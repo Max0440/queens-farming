@@ -8,7 +8,7 @@ import edu.kit.informatik.game.type.VegetableType;
 import edu.kit.informatik.util.Countdown;
 
 /**
- * Represents a plantable tile in queens farming
+ * Represents a plantable tile in queens farming.
  * 
  * @author uiljo
  * @version 1.0
@@ -123,7 +123,7 @@ public class PlantableTile {
             firstRowRepresentation = String.format(this.tileType.getBoardRepresentation(),
                     this.growCountdown.getValue());
         } else {
-            firstRowRepresentation = String.format(this.tileType.getBoardRepresentation(), "*");
+            firstRowRepresentation = String.format(this.tileType.getBoardRepresentation(), BoardConfig.STAR);
         }
 
         String middleRowRepresentation;

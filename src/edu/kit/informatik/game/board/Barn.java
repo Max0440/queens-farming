@@ -121,6 +121,12 @@ public class Barn {
         return this.vegetables.get(vegetable) > 0;
     }
 
+    /**
+     * Returns the representation of the barn as an 2d-array which can be formatted
+     * with den BoardStringBuilder.
+     * 
+     * @return board representation of the barn.
+     */
     public char[][] toCharArray() {
         String middleRowRepresentation;
         if (this.getTotalVegetableCount() == 0) {

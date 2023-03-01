@@ -117,6 +117,12 @@ public class PlantableTile {
         return plantedVegetable;
     }
 
+    /**
+     * Returns the representation of a plantable tile as an 2d-array which can be
+     * formatted with den BoardStringBuilder.
+     * 
+     * @return board representation of a plantable tile.
+     */
     public char[][] toCharArray() {
         String firstRowRepresentation;
         if (this.growCountdown.isActive()) {
